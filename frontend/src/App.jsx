@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/layout/Header'
 import CartDrawer from './components/layout/CartDrawer'
 import ChatPage from './pages/ChatPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 export default function App() {
   return (
@@ -18,7 +19,9 @@ export default function App() {
         {/* This is what makes your pages show up */}
         <Routes>
           <Route path="/" element={<ChatPage />} />
-          {/* optional: redirect unknown routes */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout/success" element={<CheckoutPage />} />
+          <Route path="/checkout/cancel" element={<CheckoutPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

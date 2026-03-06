@@ -41,11 +41,18 @@ export async function updateCartQuantity(userId, productId, quantity) {
   return res.json();
 }
 
-export async function createCheckoutSession(userId) {
+export async function createCheckoutSession(userId, shippingInfo = {}) {
   const res = await fetch(`${API_URL}/api/checkout/create-session`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user_id: userId }),
+    body: JSON.stringify({
+      user_id: userId,
+      shipping_name: shippingInfo.name || '',
+      shipping_address: shippingInfo.address || '',
+      shipping_city: shippingInfo.city || '',
+      shipping_state: shippingInfo.state || '',
+      shipping_zip: shippingInfo.zip || '',
+    }),
   });
   return res.json();
 }

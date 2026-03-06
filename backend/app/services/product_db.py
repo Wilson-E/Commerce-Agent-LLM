@@ -1,13 +1,16 @@
 """Product database service (mock implementation)."""
 import json
+from pathlib import Path
 from typing import List, Dict, Any, Optional
 from app.models.schemas import Product
+
+_DEFAULT_DATA_FILE = str(Path(__file__).resolve().parent.parent.parent / "data" / "sample_products.json")
 
 
 class ProductDBService:
     """Mock product database service."""
 
-    def __init__(self, data_file: str = "backend/data/sample_products.json"):
+    def __init__(self, data_file: str = _DEFAULT_DATA_FILE):
         """Initialize product database."""
         self.data_file = data_file
         self.products = {}

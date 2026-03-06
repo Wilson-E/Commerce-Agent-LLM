@@ -5,7 +5,12 @@
     "name": "Clarks Cushion Heel Pump",
     "description": "Elegant women's heel pump with exceptional arch support and memory foam insoles. Perfect for weddings and formal events. Features cushioned footbed and anti-slip sole.",
     "category": "Women's Shoes > Heels",
-    "category_path": ["Women", "Shoes", "Heels", "Pumps"],
+    "category_path": [
+      "Women",
+      "Shoes",
+      "Heels",
+      "Pumps"
+    ],
     "merchant_id": "merch_sole",
     "merchant_name": "Sole Comfort Co.",
     "price": 129.99,
@@ -15,13 +20,32 @@
     "image_url": "/images/clarks-cushion-heel.jpg",
     "attributes": {
       "brand": "Clarks",
-      "sizes": ["6", "7", "8", "9", "10"],
-      "colors": ["Black", "Nude", "Silver"],
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "colors": [
+        "Black",
+        "Nude",
+        "Silver"
+      ],
       "heel_height": "3 inches",
       "material": "Leather",
-      "comfort_features": ["Memory Foam", "Arch Support", "Padded Heel"]
+      "comfort_features": [
+        "Memory Foam",
+        "Arch Support",
+        "Padded Heel"
+      ]
     },
-    "key_features": ["Memory foam insoles", "Arch support", "Wedding appropriate", "Comfortable for all-day wear"]
+    "key_features": [
+      "Memory foam insoles",
+      "Arch support",
+      "Wedding appropriate",
+      "Comfortable for all-day wear"
+    ]
   },
   {
     "id": "prod_002",
@@ -29,23 +53,47 @@
     "name": "Cole Haan Grand Ambition",
     "description": "Premium women's dress shoe featuring Grand.OS technology for lightweight cushioning. Sophisticated design perfect for weddings and special occasions.",
     "category": "Women's Shoes > Dress Shoes",
-    "category_path": ["Women", "Shoes", "Dress Shoes"],
+    "category_path": [
+      "Women",
+      "Shoes",
+      "Dress Shoes"
+    ],
     "merchant_id": "merch_sole",
     "merchant_name": "Sole Comfort Co.",
-    "price": 140.00,
+    "price": 140.0,
     "stock": 18,
     "rating": 4.7,
     "review_count": 89,
     "image_url": "/images/cole-haan-ambition.jpg",
     "attributes": {
       "brand": "Cole Haan",
-      "sizes": ["5.5", "6", "7", "8", "9", "10"],
-      "colors": ["Black", "Blush", "Navy"],
+      "sizes": [
+        "5.5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "colors": [
+        "Black",
+        "Blush",
+        "Navy"
+      ],
       "heel_height": "2.5 inches",
       "material": "Leather",
-      "comfort_features": ["Grand.OS Technology", "Lightweight", "Flexible"]
+      "comfort_features": [
+        "Grand.OS Technology",
+        "Lightweight",
+        "Flexible"
+      ]
     },
-    "key_features": ["Grand.OS technology", "Lightweight cushioning", "Premium leather", "Elegant design"]
+    "key_features": [
+      "Grand.OS technology",
+      "Lightweight cushioning",
+      "Premium leather",
+      "Elegant design"
+    ]
   },
   {
     "id": "prod_003",
@@ -53,7 +101,11 @@
     "name": "Naturalizer Vera Dress Pump",
     "description": "Sophisticated pump with N5 Contour technology and extra cushioning. Designed for all-day comfort at weddings and formal events. Under $90.",
     "category": "Women's Shoes > Pumps",
-    "category_path": ["Women", "Shoes", "Pumps"],
+    "category_path": [
+      "Women",
+      "Shoes",
+      "Pumps"
+    ],
     "merchant_id": "merch_sole",
     "merchant_name": "Sole Comfort Co.",
     "price": 89.99,
@@ -63,13 +115,34 @@
     "image_url": "/images/naturalizer-vera.jpg",
     "attributes": {
       "brand": "Naturalizer",
-      "sizes": ["6", "7", "7.5", "8", "8.5", "9", "10"],
-      "colors": ["Black", "Taupe", "Wine"],
+      "sizes": [
+        "6",
+        "7",
+        "7.5",
+        "8",
+        "8.5",
+        "9",
+        "10"
+      ],
+      "colors": [
+        "Black",
+        "Taupe",
+        "Wine"
+      ],
       "heel_height": "2.75 inches",
       "material": "Synthetic",
-      "comfort_features": ["N5 Contour", "Extra Cushioning", "Flexible Sole"]
+      "comfort_features": [
+        "N5 Contour",
+        "Extra Cushioning",
+        "Flexible Sole"
+      ]
     },
-    "key_features": ["N5 Contour technology", "Extra cushioning", "Budget-friendly", "Versatile styling"]
+    "key_features": [
+      "N5 Contour technology",
+      "Extra cushioning",
+      "Budget-friendly",
+      "Versatile styling"
+    ]
   },
   {
     "id": "prod_004",
@@ -77,10 +150,14 @@
     "name": "MacBook Pro 16-inch M3",
     "description": "Powerful professional laptop with M3 Pro chip, stunning Liquid Retina XDR display, and up to 22 hours of battery life. Perfect for creative professionals.",
     "category": "Electronics > Computers > Laptops",
-    "category_path": ["Electronics", "Computers", "Laptops"],
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 2499.00,
+    "price": 2499.0,
     "stock": 12,
     "rating": 4.9,
     "review_count": 324,
@@ -91,9 +168,17 @@
       "ram": "18GB",
       "storage": "512GB SSD",
       "screen_size": "16 inches",
-      "colors": ["Space Gray", "Silver"]
+      "colors": [
+        "Space Gray",
+        "Silver"
+      ]
     },
-    "key_features": ["M3 Pro chip", "22-hour battery", "Liquid Retina XDR", "Professional-grade"]
+    "key_features": [
+      "M3 Pro chip",
+      "22-hour battery",
+      "Liquid Retina XDR",
+      "Professional-grade"
+    ]
   },
   {
     "id": "prod_005",
@@ -101,22 +186,40 @@
     "name": "iPhone 15 Pro Max",
     "description": "Latest iPhone with titanium design, A17 Pro chip, advanced camera system with 5x optical zoom, and Action button for quick access.",
     "category": "Electronics > Mobile Phones > Smartphones",
-    "category_path": ["Electronics", "Mobile Phones", "Smartphones"],
+    "category_path": [
+      "Electronics",
+      "Mobile Phones",
+      "Smartphones"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 1199.00,
+    "price": 1199.0,
     "stock": 45,
     "rating": 4.8,
     "review_count": 567,
     "image_url": "/images/iphone-15-pro-max.jpg",
     "attributes": {
       "brand": "Apple",
-      "storage": ["256GB", "512GB", "1TB"],
-      "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
+      "storage": [
+        "256GB",
+        "512GB",
+        "1TB"
+      ],
+      "colors": [
+        "Natural Titanium",
+        "Blue Titanium",
+        "White Titanium",
+        "Black Titanium"
+      ],
       "camera": "48MP Main + 12MP Ultra Wide + 12MP Telephoto",
       "display": "6.7-inch Super Retina XDR"
     },
-    "key_features": ["Titanium design", "A17 Pro chip", "5x optical zoom", "Action button"]
+    "key_features": [
+      "Titanium design",
+      "A17 Pro chip",
+      "5x optical zoom",
+      "Action button"
+    ]
   },
   {
     "id": "prod_006",
@@ -124,7 +227,11 @@
     "name": "Sony WH-1000XM5 Noise Cancelling Headphones",
     "description": "Industry-leading noise cancellation with exceptional sound quality. 30-hour battery life, multipoint connection, and premium comfort for travelers.",
     "category": "Electronics > Audio > Headphones",
-    "category_path": ["Electronics", "Audio", "Headphones"],
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Headphones"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
     "price": 399.99,
@@ -135,11 +242,19 @@
     "attributes": {
       "brand": "Sony",
       "type": "Over-ear",
-      "colors": ["Black", "Silver"],
+      "colors": [
+        "Black",
+        "Silver"
+      ],
       "battery_life": "30 hours",
       "connectivity": "Bluetooth 5.2, Wired"
     },
-    "key_features": ["Industry-leading noise cancellation", "30-hour battery", "Multipoint connection", "Premium comfort"]
+    "key_features": [
+      "Industry-leading noise cancellation",
+      "30-hour battery",
+      "Multipoint connection",
+      "Premium comfort"
+    ]
   },
   {
     "id": "prod_007",
@@ -147,21 +262,43 @@
     "name": "Apple Watch Series 9",
     "description": "Advanced health and fitness tracking with bright always-on display, double tap gesture, and carbon neutral options. Track workouts, sleep, and vital signs.",
     "category": "Electronics > Wearables > Smartwatches",
-    "category_path": ["Electronics", "Wearables", "Smartwatches"],
+    "category_path": [
+      "Electronics",
+      "Wearables",
+      "Smartwatches"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 399.00,
+    "price": 399.0,
     "stock": 89,
     "rating": 4.6,
     "review_count": 445,
     "image_url": "/images/apple-watch-s9.jpg",
     "attributes": {
       "brand": "Apple",
-      "sizes": ["41mm", "45mm"],
-      "colors": ["Midnight", "Starlight", "Pink", "Product Red"],
-      "features": ["ECG", "Blood Oxygen", "Sleep Tracking", "Workout Tracking"]
+      "sizes": [
+        "41mm",
+        "45mm"
+      ],
+      "colors": [
+        "Midnight",
+        "Starlight",
+        "Pink",
+        "Product Red"
+      ],
+      "features": [
+        "ECG",
+        "Blood Oxygen",
+        "Sleep Tracking",
+        "Workout Tracking"
+      ]
     },
-    "key_features": ["Double tap gesture", "Bright display", "Advanced health tracking", "Carbon neutral options"]
+    "key_features": [
+      "Double tap gesture",
+      "Bright display",
+      "Advanced health tracking",
+      "Carbon neutral options"
+    ]
   },
   {
     "id": "prod_008",
@@ -169,22 +306,42 @@
     "name": "iPad Pro 12.9-inch M2",
     "description": "Ultimate iPad experience with M2 chip, stunning Liquid Retina XDR display, and support for Apple Pencil hover. Professional creative tool.",
     "category": "Electronics > Tablets",
-    "category_path": ["Electronics", "Tablets"],
+    "category_path": [
+      "Electronics",
+      "Tablets"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 1099.00,
+    "price": 1099.0,
     "stock": 34,
     "rating": 4.8,
     "review_count": 234,
     "image_url": "/images/ipad-pro-129.jpg",
     "attributes": {
       "brand": "Apple",
-      "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
-      "connectivity": ["Wi-Fi", "Wi-Fi + Cellular"],
-      "colors": ["Space Gray", "Silver"],
+      "storage": [
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB",
+        "2TB"
+      ],
+      "connectivity": [
+        "Wi-Fi",
+        "Wi-Fi + Cellular"
+      ],
+      "colors": [
+        "Space Gray",
+        "Silver"
+      ],
       "display": "12.9-inch Liquid Retina XDR"
     },
-    "key_features": ["M2 chip", "Liquid Retina XDR", "Apple Pencil hover", "Professional apps"]
+    "key_features": [
+      "M2 chip",
+      "Liquid Retina XDR",
+      "Apple Pencil hover",
+      "Professional apps"
+    ]
   },
   {
     "id": "prod_009",
@@ -192,7 +349,12 @@
     "name": "Floral Maxi Summer Dress",
     "description": "Lightweight, breathable maxi dress with vibrant floral print. Perfect for beach vacations, garden parties, and summer outings. Adjustable straps and elastic waist.",
     "category": "Women's Clothing > Dresses > Maxi Dresses",
-    "category_path": ["Women", "Clothing", "Dresses", "Maxi"],
+    "category_path": [
+      "Women",
+      "Clothing",
+      "Dresses",
+      "Maxi"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
     "price": 79.99,
@@ -202,12 +364,27 @@
     "image_url": "/images/floral-maxi-dress.jpg",
     "attributes": {
       "brand": "Summer Breeze",
-      "sizes": ["XS", "S", "M", "L", "XL"],
-      "colors": ["Blue Floral", "Pink Floral", "Yellow Floral"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Blue Floral",
+        "Pink Floral",
+        "Yellow Floral"
+      ],
       "material": "100% Cotton",
       "care": "Machine washable"
     },
-    "key_features": ["Breathable cotton", "Adjustable straps", "Elastic waist", "Vibrant prints"]
+    "key_features": [
+      "Breathable cotton",
+      "Adjustable straps",
+      "Elastic waist",
+      "Vibrant prints"
+    ]
   },
   {
     "id": "prod_010",
@@ -215,7 +392,11 @@
     "name": "Nike Air Zoom Pegasus 40",
     "description": "Responsive running shoe with ReactX foam and Zoom Air units. Engineered mesh upper for breathability. Perfect for daily training and long-distance runs.",
     "category": "Shoes > Athletic > Running Shoes",
-    "category_path": ["Shoes", "Athletic", "Running"],
+    "category_path": [
+      "Shoes",
+      "Athletic",
+      "Running"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
     "price": 139.99,
@@ -225,35 +406,68 @@
     "image_url": "/images/nike-pegasus-40.jpg",
     "attributes": {
       "brand": "Nike",
-      "sizes": ["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "12"],
-      "colors": ["Black/White", "Blue/Orange", "Gray/Volt"],
+      "sizes": [
+        "7",
+        "7.5",
+        "8",
+        "8.5",
+        "9",
+        "9.5",
+        "10",
+        "10.5",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Black/White",
+        "Blue/Orange",
+        "Gray/Volt"
+      ],
       "type": "Neutral",
       "weight": "10.1 oz"
     },
-    "key_features": ["ReactX foam", "Zoom Air units", "Engineered mesh", "Responsive cushioning"]
+    "key_features": [
+      "ReactX foam",
+      "Zoom Air units",
+      "Engineered mesh",
+      "Responsive cushioning"
+    ]
   },
   {
     "id": "prod_011",
     "sku": "KITCHEN-EXP-011",
     "name": "Breville Barista Express Espresso Machine",
-    "description": "All-in-one espresso machine with integrated grinder and steam wand for steaming milk. Perfect for home baristas who want café-quality espresso drinks. User-friendly with intuitive controls.",
+    "description": "All-in-one espresso machine with integrated grinder and steam wand for steaming milk. Perfect for home baristas who want caf\u00e9-quality espresso drinks. User-friendly with intuitive controls.",
     "category": "Home & Kitchen > Appliances > Coffee Makers",
-    "category_path": ["Home", "Kitchen", "Appliances", "Coffee"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Appliances",
+      "Coffee"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 699.00,
+    "price": 699.0,
     "stock": 18,
     "rating": 4.8,
     "review_count": 612,
     "image_url": "/images/breville-barista.jpg",
     "attributes": {
       "brand": "Breville",
-      "colors": ["Stainless Steel", "Black"],
+      "colors": [
+        "Stainless Steel",
+        "Black"
+      ],
       "grinder_type": "Conical",
       "capacity": "1L",
       "power": "1600W"
     },
-    "key_features": ["Integrated grinder", "Steam wand", "Precise temperature control", "Compact design"]
+    "key_features": [
+      "Integrated grinder",
+      "Steam wand",
+      "Precise temperature control",
+      "Compact design"
+    ]
   },
   {
     "id": "prod_012",
@@ -261,22 +475,37 @@
     "name": "KitchenAid Artisan Stand Mixer",
     "description": "Professional-quality stand mixer with 10-speed options and multiple attachments. Essential tool for bakers and home cooks preparing doughs, whipped creams, and batters. Available in multiple colors.",
     "category": "Home & Kitchen > Appliances > Mixers",
-    "category_path": ["Home", "Kitchen", "Appliances", "Mixers"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Appliances",
+      "Mixers"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 379.00,
+    "price": 379.0,
     "stock": 42,
     "rating": 4.9,
     "review_count": 845,
     "image_url": "/images/kitchenaid-artisan.jpg",
     "attributes": {
       "brand": "KitchenAid",
-      "colors": ["White", "Red", "Black", "Empire Red"],
+      "colors": [
+        "White",
+        "Red",
+        "Black",
+        "Empire Red"
+      ],
       "capacity": "5 quarts",
       "power": "325 watts",
       "speeds": 10
     },
-    "key_features": ["10-speed options", "Stainless steel bowl", "Multiple attachments", "Durable construction"]
+    "key_features": [
+      "10-speed options",
+      "Stainless steel bowl",
+      "Multiple attachments",
+      "Durable construction"
+    ]
   },
   {
     "id": "prod_013",
@@ -284,10 +513,15 @@
     "name": "Instant Pot Duo Plus Pressure Cooker",
     "description": "Versatile 7-in-1 pressure cooker and multi-cooker for fast meal preparation. Includes slow cooker, rice cooker, and steamer functions. Safe and reliable with dual pressure settings.",
     "category": "Home & Kitchen > Cookware > Pressure Cookers",
-    "category_path": ["Home", "Kitchen", "Cookware", "Pressure Cookers"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Cookware",
+      "Pressure Cookers"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 89.00,
+    "price": 89.0,
     "stock": 78,
     "rating": 4.7,
     "review_count": 923,
@@ -299,7 +533,12 @@
       "power": "1000W",
       "pressure_settings": 2
     },
-    "key_features": ["7-in-1 functionality", "Dual pressure settings", "Fast cooking", "Easy cleaning"]
+    "key_features": [
+      "7-in-1 functionality",
+      "Dual pressure settings",
+      "Fast cooking",
+      "Easy cleaning"
+    ]
   },
   {
     "id": "prod_014",
@@ -307,22 +546,35 @@
     "name": "Dyson V15 Cordless Vacuum",
     "description": "Powerful cordless vacuum with advanced filtration and laser dust detection technology. Perfect for homes with pets and allergies. Lightweight yet highly effective for all floor types.",
     "category": "Home & Kitchen > Cleaning > Vacuums",
-    "category_path": ["Home", "Kitchen", "Cleaning", "Vacuums"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Cleaning",
+      "Vacuums"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 749.00,
+    "price": 749.0,
     "stock": 25,
     "rating": 4.8,
     "review_count": 734,
     "image_url": "/images/dyson-v15.jpg",
     "attributes": {
       "brand": "Dyson",
-      "colors": ["Blue/Nickel", "Gold/Nickel"],
+      "colors": [
+        "Blue/Nickel",
+        "Gold/Nickel"
+      ],
       "battery_life": "60 minutes",
       "weight": "6.5 lbs",
       "filtration": "HEPA"
     },
-    "key_features": ["Laser dust detection", "HEPA filtration", "60-minute runtime", "Lightweight cordless design"]
+    "key_features": [
+      "Laser dust detection",
+      "HEPA filtration",
+      "60-minute runtime",
+      "Lightweight cordless design"
+    ]
   },
   {
     "id": "prod_015",
@@ -330,10 +582,15 @@
     "name": "Le Creuset Dutch Oven 5.5qt",
     "description": "Premium enameled cast iron Dutch oven for versatile cooking applications. Suitable for stovetop, oven, and slow cooking. Classic design with superior heat retention and durability.",
     "category": "Home & Kitchen > Cookware > Dutch Ovens",
-    "category_path": ["Home", "Kitchen", "Cookware", "Dutch Ovens"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Cookware",
+      "Dutch Ovens"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 369.00,
+    "price": 369.0,
     "stock": 34,
     "rating": 4.9,
     "review_count": 567,
@@ -341,11 +598,21 @@
     "attributes": {
       "brand": "Le Creuset",
       "capacity": "5.5 quarts",
-      "colors": ["Flame Orange", "Cherry Red", "Caribbean Blue", "Marseille Blue"],
+      "colors": [
+        "Flame Orange",
+        "Cherry Red",
+        "Caribbean Blue",
+        "Marseille Blue"
+      ],
       "material": "Enameled Cast Iron",
-      "oven_safe": "500°F"
+      "oven_safe": "500\u00b0F"
     },
-    "key_features": ["Enameled cast iron", "Superior heat retention", "Lifetime durability", "Iconic design"]
+    "key_features": [
+      "Enameled cast iron",
+      "Superior heat retention",
+      "Lifetime durability",
+      "Iconic design"
+    ]
   },
   {
     "id": "prod_016",
@@ -353,10 +620,15 @@
     "name": "Cuisinart 14-Cup Food Processor",
     "description": "Powerful food processor with multiple blade attachments for chopping, slicing, and kneading. Ideal for meal prep, baking, and sauce making. Large 14-cup capacity for family-sized portions.",
     "category": "Home & Kitchen > Appliances > Food Processors",
-    "category_path": ["Home", "Kitchen", "Appliances", "Food Processors"],
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Appliances",
+      "Food Processors"
+    ],
     "merchant_id": "merch_home",
     "merchant_name": "HomeStyle Essentials",
-    "price": 199.00,
+    "price": 199.0,
     "stock": 48,
     "rating": 4.6,
     "review_count": 456,
@@ -364,11 +636,19 @@
     "attributes": {
       "brand": "Cuisinart",
       "capacity": "14 cups",
-      "colors": ["White", "Stainless Steel"],
+      "colors": [
+        "White",
+        "Stainless Steel"
+      ],
       "power": "720 watts",
       "speeds": 2
     },
-    "key_features": ["14-cup capacity", "Multiple blade attachments", "Durable construction", "Easy cleanup"]
+    "key_features": [
+      "14-cup capacity",
+      "Multiple blade attachments",
+      "Durable construction",
+      "Easy cleanup"
+    ]
   },
   {
     "id": "prod_017",
@@ -376,10 +656,15 @@
     "name": "Levi's 501 Original Jeans",
     "description": "Iconic straight-fit jeans with timeless appeal and durability. Premium denim construction featuring a button fly and classic five-pocket styling. Perfect for casual and dressed-up occasions.",
     "category": "Men's Clothing > Pants > Jeans",
-    "category_path": ["Men", "Clothing", "Pants", "Jeans"],
+    "category_path": [
+      "Men",
+      "Clothing",
+      "Pants",
+      "Jeans"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 69.00,
+    "price": 69.0,
     "stock": 125,
     "rating": 4.7,
     "review_count": 789,
@@ -387,11 +672,28 @@
     "attributes": {
       "brand": "Levi's",
       "fit": "Straight",
-      "sizes": ["28", "30", "32", "34", "36", "38", "40"],
-      "colors": ["Dark Blue", "Medium Blue", "Black"],
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36",
+        "38",
+        "40"
+      ],
+      "colors": [
+        "Dark Blue",
+        "Medium Blue",
+        "Black"
+      ],
       "material": "100% Cotton Denim"
     },
-    "key_features": ["Iconic straight fit", "Premium denim", "Button fly", "Timeless style"]
+    "key_features": [
+      "Iconic straight fit",
+      "Premium denim",
+      "Button fly",
+      "Timeless style"
+    ]
   },
   {
     "id": "prod_018",
@@ -399,22 +701,44 @@
     "name": "Patagonia Better Sweater Fleece Jacket",
     "description": "Eco-friendly fleece jacket made from recycled polyester with soft comfort and durability. Ideal for layering in cooler weather and outdoor activities. High collar design provides extra warmth.",
     "category": "Men's Clothing > Jackets > Fleece",
-    "category_path": ["Men", "Clothing", "Jackets", "Fleece"],
+    "category_path": [
+      "Men",
+      "Clothing",
+      "Jackets",
+      "Fleece"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 139.00,
+    "price": 139.0,
     "stock": 56,
     "rating": 4.8,
     "review_count": 654,
     "image_url": "/images/patagonia-fleece.jpg",
     "attributes": {
       "brand": "Patagonia",
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-      "colors": ["Black", "Gray", "Navy", "Forest Green"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "Gray",
+        "Navy",
+        "Forest Green"
+      ],
       "material": "Recycled Polyester",
       "care": "Machine washable"
     },
-    "key_features": ["Recycled polyester", "Soft and durable", "High collar", "Sustainable design"]
+    "key_features": [
+      "Recycled polyester",
+      "Soft and durable",
+      "High collar",
+      "Sustainable design"
+    ]
   },
   {
     "id": "prod_019",
@@ -422,10 +746,15 @@
     "name": "Brooks Brothers Non-Iron Dress Shirt",
     "description": "Classic dress shirt with non-iron treatment for easy care and professional appearance. Perfect for business meetings and formal occasions. Available in multiple colors and a tailored fit.",
     "category": "Men's Clothing > Shirts > Dress Shirts",
-    "category_path": ["Men", "Clothing", "Shirts", "Dress"],
+    "category_path": [
+      "Men",
+      "Clothing",
+      "Shirts",
+      "Dress"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 89.00,
+    "price": 89.0,
     "stock": 92,
     "rating": 4.5,
     "review_count": 432,
@@ -433,11 +762,29 @@
     "attributes": {
       "brand": "Brooks Brothers",
       "fit": "Tailored",
-      "sizes": ["14", "14.5", "15", "15.5", "16", "16.5", "17"],
-      "colors": ["White", "Light Blue", "Pink", "Yellow"],
+      "sizes": [
+        "14",
+        "14.5",
+        "15",
+        "15.5",
+        "16",
+        "16.5",
+        "17"
+      ],
+      "colors": [
+        "White",
+        "Light Blue",
+        "Pink",
+        "Yellow"
+      ],
       "material": "100% Cotton"
     },
-    "key_features": ["Non-iron treatment", "Tailored fit", "Professional appearance", "High-quality cotton"]
+    "key_features": [
+      "Non-iron treatment",
+      "Tailored fit",
+      "Professional appearance",
+      "High-quality cotton"
+    ]
   },
   {
     "id": "prod_020",
@@ -445,22 +792,44 @@
     "name": "Timberland 6-inch Premium Boot",
     "description": "Rugged 6-inch waterproof boot with premium leather construction. Ideal for outdoor work and casual wear. Features Timberland's signature comfort technology for all-day wearability.",
     "category": "Men's Clothing > Footwear > Work Boots",
-    "category_path": ["Men", "Clothing", "Footwear", "Work Boots"],
+    "category_path": [
+      "Men",
+      "Clothing",
+      "Footwear",
+      "Work Boots"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 198.00,
+    "price": 198.0,
     "stock": 67,
     "rating": 4.8,
     "review_count": 723,
     "image_url": "/images/timberland-boot.jpg",
     "attributes": {
       "brand": "Timberland",
-      "sizes": ["7", "8", "9", "10", "11", "12", "13"],
-      "colors": ["Wheat", "Black", "Brown"],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "colors": [
+        "Wheat",
+        "Black",
+        "Brown"
+      ],
       "material": "Premium Leather",
       "waterproof": true
     },
-    "key_features": ["Waterproof leather", "6-inch height", "Premium comfort", "Durable construction"]
+    "key_features": [
+      "Waterproof leather",
+      "6-inch height",
+      "Premium comfort",
+      "Durable construction"
+    ]
   },
   {
     "id": "prod_021",
@@ -468,21 +837,45 @@
     "name": "Under Armour Tech Polo",
     "description": "Lightweight polo shirt with moisture-wicking technology designed for active lifestyles. Perfect for golf, casual wear, or training. Soft fabric with anti-odor properties keeps you fresh.",
     "category": "Men's Clothing > Shirts > Polos",
-    "category_path": ["Men", "Clothing", "Shirts", "Polos"],
+    "category_path": [
+      "Men",
+      "Clothing",
+      "Shirts",
+      "Polos"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 34.00,
+    "price": 34.0,
     "stock": 186,
     "rating": 4.4,
     "review_count": 328,
     "image_url": "/images/ua-tech-polo.jpg",
     "attributes": {
       "brand": "Under Armour",
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
-      "colors": ["Black", "White", "Gray", "Navy", "Red"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+      ],
+      "colors": [
+        "Black",
+        "White",
+        "Gray",
+        "Navy",
+        "Red"
+      ],
       "material": "Polyester Blend"
     },
-    "key_features": ["Moisture-wicking", "Anti-odor", "Lightweight", "Comfortable fit"]
+    "key_features": [
+      "Moisture-wicking",
+      "Anti-odor",
+      "Lightweight",
+      "Comfortable fit"
+    ]
   },
   {
     "id": "prod_022",
@@ -490,22 +883,38 @@
     "name": "Ray-Ban Aviator Classic Sunglasses",
     "description": "Iconic aviator sunglasses with timeless appeal and superior UV protection. Features teardrop-shaped lenses and comfortable fit for all-day wear. A classic accessory for any style.",
     "category": "Accessories > Eyewear > Sunglasses",
-    "category_path": ["Accessories", "Eyewear", "Sunglasses"],
+    "category_path": [
+      "Accessories",
+      "Eyewear",
+      "Sunglasses"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 163.00,
+    "price": 163.0,
     "stock": 89,
     "rating": 4.7,
     "review_count": 612,
     "image_url": "/images/rayban-aviator.jpg",
     "attributes": {
       "brand": "Ray-Ban",
-      "lens_color": ["Green", "Brown", "Gray"],
-      "frame_color": ["Gold", "Silver"],
+      "lens_color": [
+        "Green",
+        "Brown",
+        "Gray"
+      ],
+      "frame_color": [
+        "Gold",
+        "Silver"
+      ],
       "size": "58mm",
       "uv_protection": "100%"
     },
-    "key_features": ["Iconic aviator style", "100% UV protection", "Comfortable fit", "Timeless design"]
+    "key_features": [
+      "Iconic aviator style",
+      "100% UV protection",
+      "Comfortable fit",
+      "Timeless design"
+    ]
   },
   {
     "id": "prod_023",
@@ -513,10 +922,14 @@
     "name": "Herschel Retreat Backpack",
     "description": "Versatile daypack with spacious compartments and comfortable padded straps. Perfect for school, work, or travel. Made from durable materials with smart organization pockets.",
     "category": "Accessories > Bags > Backpacks",
-    "category_path": ["Accessories", "Bags", "Backpacks"],
+    "category_path": [
+      "Accessories",
+      "Bags",
+      "Backpacks"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 89.00,
+    "price": 89.0,
     "stock": 74,
     "rating": 4.6,
     "review_count": 523,
@@ -524,11 +937,21 @@
     "attributes": {
       "brand": "Herschel",
       "capacity": "19.5 liters",
-      "colors": ["Black", "Navy", "Gray", "Rust"],
+      "colors": [
+        "Black",
+        "Navy",
+        "Gray",
+        "Rust"
+      ],
       "material": "Polyester",
       "laptop_compartment": true
     },
-    "key_features": ["19.5L capacity", "Laptop compartment", "Padded straps", "Durable polyester"]
+    "key_features": [
+      "19.5L capacity",
+      "Laptop compartment",
+      "Padded straps",
+      "Durable polyester"
+    ]
   },
   {
     "id": "prod_024",
@@ -536,10 +959,13 @@
     "name": "Fossil Leather Wallet",
     "description": "Classic leather wallet with RFID blocking technology for secure card storage. Features multiple card slots and a cash compartment. Stylish design that works for any occasion.",
     "category": "Accessories > Wallets",
-    "category_path": ["Accessories", "Wallets"],
+    "category_path": [
+      "Accessories",
+      "Wallets"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 48.00,
+    "price": 48.0,
     "stock": 156,
     "rating": 4.5,
     "review_count": 289,
@@ -548,10 +974,19 @@
       "brand": "Fossil",
       "material": "Leather",
       "rfid_blocking": true,
-      "colors": ["Brown", "Black", "Cognac"],
+      "colors": [
+        "Brown",
+        "Black",
+        "Cognac"
+      ],
       "card_slots": 8
     },
-    "key_features": ["RFID blocking", "Premium leather", "Multiple card slots", "Compact design"]
+    "key_features": [
+      "RFID blocking",
+      "Premium leather",
+      "Multiple card slots",
+      "Compact design"
+    ]
   },
   {
     "id": "prod_025",
@@ -559,10 +994,14 @@
     "name": "Pandora Moments Bracelet",
     "description": "Charm bracelet featuring Pandora's elegant Moments design with smooth sterling silver base. Perfect for adding personalized charms and creating a unique piece. Timeless gift option.",
     "category": "Accessories > Jewelry > Bracelets",
-    "category_path": ["Accessories", "Jewelry", "Bracelets"],
+    "category_path": [
+      "Accessories",
+      "Jewelry",
+      "Bracelets"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 65.00,
+    "price": 65.0,
     "stock": 108,
     "rating": 4.8,
     "review_count": 445,
@@ -570,11 +1009,22 @@
     "attributes": {
       "brand": "Pandora",
       "material": "Sterling Silver",
-      "sizes": ["16cm", "17cm", "18cm", "19cm", "20cm"],
+      "sizes": [
+        "16cm",
+        "17cm",
+        "18cm",
+        "19cm",
+        "20cm"
+      ],
       "color": "Silver",
       "charm_compatible": true
     },
-    "key_features": ["Sterling silver", "Charm compatible", "Elegant design", "Personalized gift option"]
+    "key_features": [
+      "Sterling silver",
+      "Charm compatible",
+      "Elegant design",
+      "Personalized gift option"
+    ]
   },
   {
     "id": "prod_026",
@@ -582,10 +1032,14 @@
     "name": "Samsonite Freeform Carry-On Luggage",
     "description": "Lightweight carry-on luggage with durable polycarbonate shell and smooth rolling wheels. Features TSA-compliant lock and multiple organizational pockets. Ideal for frequent travelers.",
     "category": "Accessories > Travel > Luggage",
-    "category_path": ["Accessories", "Travel", "Luggage"],
+    "category_path": [
+      "Accessories",
+      "Travel",
+      "Luggage"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 199.00,
+    "price": 199.0,
     "stock": 54,
     "rating": 4.7,
     "review_count": 378,
@@ -594,10 +1048,20 @@
       "brand": "Samsonite",
       "capacity": "22 inches",
       "weight": "6.1 lbs",
-      "colors": ["Black", "Navy", "Silver", "Burgundy"],
+      "colors": [
+        "Black",
+        "Navy",
+        "Silver",
+        "Burgundy"
+      ],
       "tsa_lock": true
     },
-    "key_features": ["Lightweight polycarbonate", "TSA-compliant lock", "Smooth rolling wheels", "Multiple pockets"]
+    "key_features": [
+      "Lightweight polycarbonate",
+      "TSA-compliant lock",
+      "Smooth rolling wheels",
+      "Multiple pockets"
+    ]
   },
   {
     "id": "prod_027",
@@ -605,10 +1069,15 @@
     "name": "Dyson Airwrap Complete",
     "description": "Revolutionary hair styling tool using intelligent heat control for beautiful waves and curls without extreme heat. Includes multiple attachments for various styling needs. Professional salon results at home.",
     "category": "Beauty & Personal Care > Hair Styling > Tools",
-    "category_path": ["Beauty", "Personal Care", "Hair Styling", "Tools"],
+    "category_path": [
+      "Beauty",
+      "Personal Care",
+      "Hair Styling",
+      "Tools"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 599.00,
+    "price": 599.0,
     "stock": 31,
     "rating": 4.8,
     "review_count": 621,
@@ -617,10 +1086,18 @@
       "brand": "Dyson",
       "heat_control": "Intelligent",
       "attachments": 6,
-      "colors": ["Nickel/Fuchsia", "Copper"],
+      "colors": [
+        "Nickel/Fuchsia",
+        "Copper"
+      ],
       "power": "1600W"
     },
-    "key_features": ["Intelligent heat control", "Multiple attachments", "Professional results", "No extreme heat damage"]
+    "key_features": [
+      "Intelligent heat control",
+      "Multiple attachments",
+      "Professional results",
+      "No extreme heat damage"
+    ]
   },
   {
     "id": "prod_028",
@@ -628,22 +1105,37 @@
     "name": "CeraVe Moisturizing Cream Set",
     "description": "Dermatologist-recommended moisturizing cream set with ceramides and hyaluronic acid. Fragrance-free formula suitable for sensitive skin types. Complete skincare routine in one set.",
     "category": "Beauty & Personal Care > Skincare > Moisturizers",
-    "category_path": ["Beauty", "Personal Care", "Skincare", "Moisturizers"],
+    "category_path": [
+      "Beauty",
+      "Personal Care",
+      "Skincare",
+      "Moisturizers"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 29.00,
+    "price": 29.0,
     "stock": 212,
     "rating": 4.7,
     "review_count": 834,
     "image_url": "/images/cerave-moisturizer.jpg",
     "attributes": {
       "brand": "CeraVe",
-      "sizes": ["30ml + 50ml"],
-      "ingredients": ["Ceramides", "Hyaluronic Acid"],
+      "sizes": [
+        "30ml + 50ml"
+      ],
+      "ingredients": [
+        "Ceramides",
+        "Hyaluronic Acid"
+      ],
       "fragrance_free": true,
       "dermatologist_tested": true
     },
-    "key_features": ["Ceramides formula", "Hyaluronic acid", "Fragrance-free", "Dermatologist-recommended"]
+    "key_features": [
+      "Ceramides formula",
+      "Hyaluronic acid",
+      "Fragrance-free",
+      "Dermatologist-recommended"
+    ]
   },
   {
     "id": "prod_029",
@@ -651,10 +1143,15 @@
     "name": "Jo Malone Wood Sage & Sea Salt Cologne",
     "description": "Fresh and sophisticated unisex cologne with natural notes of ambrette seed and driftwood. Perfect for everyday wear or special occasions. Versatile scent that layers well with other fragrances.",
     "category": "Beauty & Personal Care > Fragrance > Colognes",
-    "category_path": ["Beauty", "Personal Care", "Fragrance", "Colognes"],
+    "category_path": [
+      "Beauty",
+      "Personal Care",
+      "Fragrance",
+      "Colognes"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 145.00,
+    "price": 145.0,
     "stock": 78,
     "rating": 4.9,
     "review_count": 512,
@@ -663,10 +1160,19 @@
       "brand": "Jo Malone",
       "size": "100ml",
       "fragrance_type": "Unisex",
-      "top_notes": ["Ambrette Seed"],
-      "base_notes": ["Driftwood"]
+      "top_notes": [
+        "Ambrette Seed"
+      ],
+      "base_notes": [
+        "Driftwood"
+      ]
     },
-    "key_features": ["Fresh and sophisticated", "Unisex scent", "Layerable formula", "Natural ingredients"]
+    "key_features": [
+      "Fresh and sophisticated",
+      "Unisex scent",
+      "Layerable formula",
+      "Natural ingredients"
+    ]
   },
   {
     "id": "prod_030",
@@ -674,10 +1180,15 @@
     "name": "Oral-B iO Series 9 Electric Toothbrush",
     "description": "Advanced electric toothbrush with AI-powered technology for personalized cleaning. Features 7 smart modes and pressure sensor for optimal oral care. Professional dentist results at home.",
     "category": "Beauty & Personal Care > Oral Care > Toothbrushes",
-    "category_path": ["Beauty", "Personal Care", "Oral Care", "Toothbrushes"],
+    "category_path": [
+      "Beauty",
+      "Personal Care",
+      "Oral Care",
+      "Toothbrushes"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 249.00,
+    "price": 249.0,
     "stock": 43,
     "rating": 4.8,
     "review_count": 567,
@@ -686,10 +1197,19 @@
       "brand": "Oral-B",
       "smart_modes": 7,
       "battery_life": "14 days",
-      "colors": ["Black", "Rose", "White"],
+      "colors": [
+        "Black",
+        "Rose",
+        "White"
+      ],
       "ai_powered": true
     },
-    "key_features": ["AI-powered cleaning", "7 smart modes", "Pressure sensor", "14-day battery life"]
+    "key_features": [
+      "AI-powered cleaning",
+      "7 smart modes",
+      "Pressure sensor",
+      "14-day battery life"
+    ]
   },
   {
     "id": "prod_031",
@@ -697,10 +1217,15 @@
     "name": "Olaplex Hair Repair Treatment Set",
     "description": "Professional-grade hair repair system designed to restore and strengthen damaged hair. Includes bond-building technology to repair chemical damage from coloring and styling. Visible results in 3 treatments.",
     "category": "Beauty & Personal Care > Hair Care > Treatments",
-    "category_path": ["Beauty", "Personal Care", "Hair Care", "Treatments"],
+    "category_path": [
+      "Beauty",
+      "Personal Care",
+      "Hair Care",
+      "Treatments"
+    ],
     "merchant_id": "merch_luxe",
     "merchant_name": "Luxe Beauty",
-    "price": 90.00,
+    "price": 90.0,
     "stock": 102,
     "rating": 4.7,
     "review_count": 478,
@@ -712,7 +1237,12 @@
       "cruelty_free": true,
       "color_safe": true
     },
-    "key_features": ["Bond-building technology", "Repairs chemical damage", "Professional-grade", "Visible results quickly"]
+    "key_features": [
+      "Bond-building technology",
+      "Repairs chemical damage",
+      "Professional-grade",
+      "Visible results quickly"
+    ]
   },
   {
     "id": "prod_032",
@@ -720,10 +1250,15 @@
     "name": "Manduka PRO Yoga Mat",
     "description": "Premium yoga mat with superior grip and cushioning for all yoga styles and meditation. Made from natural rubber with eco-friendly materials. Non-slip surface provides stability during practice.",
     "category": "Outdoor & Fitness > Yoga > Mats",
-    "category_path": ["Outdoor", "Fitness", "Yoga", "Mats"],
+    "category_path": [
+      "Outdoor",
+      "Fitness",
+      "Yoga",
+      "Mats"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 120.00,
+    "price": 120.0,
     "stock": 65,
     "rating": 4.8,
     "review_count": 534,
@@ -732,10 +1267,20 @@
       "brand": "Manduka",
       "material": "Natural Rubber",
       "thickness": "6mm",
-      "colors": ["Purple", "Black", "Blue", "Sage"],
+      "colors": [
+        "Purple",
+        "Black",
+        "Blue",
+        "Sage"
+      ],
       "eco_friendly": true
     },
-    "key_features": ["Natural rubber", "Superior grip", "6mm cushioning", "Eco-friendly materials"]
+    "key_features": [
+      "Natural rubber",
+      "Superior grip",
+      "6mm cushioning",
+      "Eco-friendly materials"
+    ]
   },
   {
     "id": "prod_033",
@@ -743,10 +1288,15 @@
     "name": "Yeti Rambler 26oz Bottle",
     "description": "Insulated stainless steel water bottle keeping drinks cold for 24 hours or hot for 12 hours. Durable and lightweight design suitable for outdoor adventures and daily use. No sweat exterior.",
     "category": "Outdoor & Fitness > Hydration > Water Bottles",
-    "category_path": ["Outdoor", "Fitness", "Hydration", "Water Bottles"],
+    "category_path": [
+      "Outdoor",
+      "Fitness",
+      "Hydration",
+      "Water Bottles"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 35.00,
+    "price": 35.0,
     "stock": 189,
     "rating": 4.7,
     "review_count": 723,
@@ -755,10 +1305,20 @@
       "brand": "Yeti",
       "capacity": "26oz",
       "material": "Stainless Steel",
-      "colors": ["Black", "Navy", "Silver", "Tan"],
+      "colors": [
+        "Black",
+        "Navy",
+        "Silver",
+        "Tan"
+      ],
       "insulation": "Double-wall vacuum"
     },
-    "key_features": ["24-hour cold retention", "12-hour hot retention", "No sweat exterior", "Durable design"]
+    "key_features": [
+      "24-hour cold retention",
+      "12-hour hot retention",
+      "No sweat exterior",
+      "Durable design"
+    ]
   },
   {
     "id": "prod_034",
@@ -766,22 +1326,44 @@
     "name": "The North Face Thermoball Jacket",
     "description": "Lightweight insulated jacket using ThermoBall technology for exceptional warmth without bulk. Water-resistant shell protects against light rain. Perfect for layering in cool weather.",
     "category": "Outdoor & Fitness > Outerwear > Insulated Jackets",
-    "category_path": ["Outdoor", "Fitness", "Outerwear", "Insulated Jackets"],
+    "category_path": [
+      "Outdoor",
+      "Fitness",
+      "Outerwear",
+      "Insulated Jackets"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 199.00,
+    "price": 199.0,
     "stock": 78,
     "rating": 4.6,
     "review_count": 456,
     "image_url": "/images/tnf-thermoball.jpg",
     "attributes": {
       "brand": "The North Face",
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-      "colors": ["Black", "Navy", "Gray", "Red"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "Navy",
+        "Gray",
+        "Red"
+      ],
       "material": "Nylon/Polyester",
       "water_resistant": true
     },
-    "key_features": ["ThermoBall technology", "Lightweight insulation", "Water-resistant", "Layerable design"]
+    "key_features": [
+      "ThermoBall technology",
+      "Lightweight insulation",
+      "Water-resistant",
+      "Layerable design"
+    ]
   },
   {
     "id": "prod_035",
@@ -789,10 +1371,15 @@
     "name": "Coleman Sundome Camping Tent",
     "description": "Spacious 4-person camping tent with easy setup and sturdy frame. Features weatherproof design with ventilation to reduce condensation. Ideal for family camping trips and outdoor adventures.",
     "category": "Outdoor & Fitness > Camping > Tents",
-    "category_path": ["Outdoor", "Fitness", "Camping", "Tents"],
+    "category_path": [
+      "Outdoor",
+      "Fitness",
+      "Camping",
+      "Tents"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 79.00,
+    "price": 79.0,
     "stock": 94,
     "rating": 4.5,
     "review_count": 389,
@@ -801,10 +1388,17 @@
       "brand": "Coleman",
       "capacity": "4 person",
       "weight": "8.5 lbs",
-      "colors": ["Blue/Gray"],
+      "colors": [
+        "Blue/Gray"
+      ],
       "setup_time": "Less than 10 minutes"
     },
-    "key_features": ["4-person capacity", "Easy setup", "Weatherproof design", "Ventilation system"]
+    "key_features": [
+      "4-person capacity",
+      "Easy setup",
+      "Weatherproof design",
+      "Ventilation system"
+    ]
   },
   {
     "id": "prod_036",
@@ -812,10 +1406,15 @@
     "name": "Garmin Forerunner 265 Running Watch",
     "description": "Advanced running watch with AMOLED display and comprehensive training metrics. Tracks pace, distance, heart rate, and recovery. Perfect for runners of all levels seeking data-driven training.",
     "category": "Outdoor & Fitness > Wearables > Running Watches",
-    "category_path": ["Outdoor", "Fitness", "Wearables", "Running Watches"],
+    "category_path": [
+      "Outdoor",
+      "Fitness",
+      "Wearables",
+      "Running Watches"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 449.00,
+    "price": 449.0,
     "stock": 52,
     "rating": 4.9,
     "review_count": 687,
@@ -824,10 +1423,19 @@
       "brand": "Garmin",
       "display": "AMOLED",
       "battery_life": "11 days",
-      "colors": ["Black", "Titanium", "Silver"],
+      "colors": [
+        "Black",
+        "Titanium",
+        "Silver"
+      ],
       "gps": true
     },
-    "key_features": ["AMOLED display", "Advanced training metrics", "11-day battery", "GPS tracking"]
+    "key_features": [
+      "AMOLED display",
+      "Advanced training metrics",
+      "11-day battery",
+      "GPS tracking"
+    ]
   },
   {
     "id": "prod_037",
@@ -835,10 +1443,14 @@
     "name": "Samsung Galaxy Buds2 Pro",
     "description": "Premium true wireless earbuds with active noise cancellation and high-quality audio. IPX7 water resistance makes them suitable for workouts and outdoor use. Seamless Galaxy device integration.",
     "category": "Electronics > Audio > Earbuds",
-    "category_path": ["Electronics", "Audio", "Earbuds"],
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Earbuds"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 169.00,
+    "price": 169.0,
     "stock": 98,
     "rating": 4.7,
     "review_count": 612,
@@ -847,10 +1459,19 @@
       "brand": "Samsung",
       "active_noise_cancellation": true,
       "water_resistance": "IPX7",
-      "colors": ["Black", "White", "Graphite"],
+      "colors": [
+        "Black",
+        "White",
+        "Graphite"
+      ],
       "battery_life": "5 hours"
     },
-    "key_features": ["Active noise cancellation", "IPX7 water resistance", "Premium sound quality", "Galaxy integration"]
+    "key_features": [
+      "Active noise cancellation",
+      "IPX7 water resistance",
+      "Premium sound quality",
+      "Galaxy integration"
+    ]
   },
   {
     "id": "prod_038",
@@ -858,10 +1479,14 @@
     "name": "Anker 737 Power Bank",
     "description": "Massive 24000mAh power bank with multiple ports and fast charging technology. Suitable for charging multiple devices simultaneously. Compact design despite large capacity.",
     "category": "Electronics > Mobile Accessories > Power Banks",
-    "category_path": ["Electronics", "Mobile Accessories", "Power Banks"],
+    "category_path": [
+      "Electronics",
+      "Mobile Accessories",
+      "Power Banks"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 109.00,
+    "price": 109.0,
     "stock": 134,
     "rating": 4.6,
     "review_count": 523,
@@ -869,11 +1494,22 @@
     "attributes": {
       "brand": "Anker",
       "capacity": "24000mAh",
-      "ports": ["USB-C", "USB-A"],
-      "colors": ["Black", "White"],
+      "ports": [
+        "USB-C",
+        "USB-A"
+      ],
+      "colors": [
+        "Black",
+        "White"
+      ],
       "fast_charging": true
     },
-    "key_features": ["24000mAh capacity", "Multiple ports", "Fast charging", "Compact design"]
+    "key_features": [
+      "24000mAh capacity",
+      "Multiple ports",
+      "Fast charging",
+      "Compact design"
+    ]
   },
   {
     "id": "prod_039",
@@ -881,10 +1517,14 @@
     "name": "Logitech MX Master 3S Mouse",
     "description": "Premium wireless mouse designed for productivity with customizable buttons and precision scrolling. Ergonomic design reduces hand fatigue during long work sessions. Multi-device connectivity.",
     "category": "Electronics > Computer Accessories > Mice",
-    "category_path": ["Electronics", "Computer Accessories", "Mice"],
+    "category_path": [
+      "Electronics",
+      "Computer Accessories",
+      "Mice"
+    ],
     "merchant_id": "merch_tech",
     "merchant_name": "TechHub Direct",
-    "price": 99.00,
+    "price": 99.0,
     "stock": 87,
     "rating": 4.8,
     "review_count": 445,
@@ -892,11 +1532,19 @@
     "attributes": {
       "brand": "Logitech",
       "type": "Wireless",
-      "colors": ["Graphite", "Pale Gray"],
+      "colors": [
+        "Graphite",
+        "Pale Gray"
+      ],
       "customizable_buttons": 8,
       "battery_life": "70 days"
     },
-    "key_features": ["8 customizable buttons", "Precision scrolling", "Ergonomic design", "Multi-device connectivity"]
+    "key_features": [
+      "8 customizable buttons",
+      "Precision scrolling",
+      "Ergonomic design",
+      "Multi-device connectivity"
+    ]
   },
   {
     "id": "prod_040",
@@ -904,45 +1552,88 @@
     "name": "Adidas Ultraboost Light Running Shoe",
     "description": "Lightweight running shoe with responsive Boost cushioning and Primeknit upper. Designed for speed and comfort during distance running. Modern aesthetic suitable for training and casual wear.",
     "category": "Fashion > Footwear > Running Shoes",
-    "category_path": ["Fashion", "Footwear", "Running Shoes"],
+    "category_path": [
+      "Fashion",
+      "Footwear",
+      "Running Shoes"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 189.00,
+    "price": 189.0,
     "stock": 76,
     "rating": 4.7,
     "review_count": 589,
     "image_url": "/images/adidas-ultraboost-light.jpg",
     "attributes": {
       "brand": "Adidas",
-      "sizes": ["5", "6", "7", "8", "9", "10", "11", "12", "13"],
-      "colors": ["Black/White", "White/Blue", "Gray"],
+      "sizes": [
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "colors": [
+        "Black/White",
+        "White/Blue",
+        "Gray"
+      ],
       "material": "Primeknit",
       "weight": "7.1 oz"
     },
-    "key_features": ["Boost cushioning", "Lightweight Primeknit", "Responsive support", "Modern design"]
+    "key_features": [
+      "Boost cushioning",
+      "Lightweight Primeknit",
+      "Responsive support",
+      "Modern design"
+    ]
   },
   {
     "id": "prod_041",
     "sku": "FASHION-PARKA-041",
     "name": "Canada Goose Expedition Parka",
-    "description": "Premium insulated parka with Canada Goose's signature down fill technology. Extreme weather protection rated for temperatures below -30°C. Water-resistant shell with knit ribbed trim.",
+    "description": "Premium insulated parka with Canada Goose's signature down fill technology. Extreme weather protection rated for temperatures below -30\u00b0C. Water-resistant shell with knit ribbed trim.",
     "category": "Fashion > Outerwear > Winter Coats",
-    "category_path": ["Fashion", "Outerwear", "Winter Coats"],
+    "category_path": [
+      "Fashion",
+      "Outerwear",
+      "Winter Coats"
+    ],
     "merchant_id": "merch_fashion",
     "merchant_name": "Urban Thread Co.",
-    "price": 1295.00,
+    "price": 1295.0,
     "stock": 21,
     "rating": 4.9,
     "review_count": 356,
     "image_url": "/images/canada-goose-parka.jpg",
     "attributes": {
       "brand": "Canada Goose",
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-      "colors": ["Black", "Navy", "Red"],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "Navy",
+        "Red"
+      ],
       "material": "Polyester/Down",
-      "temperature_rating": "-30°C"
+      "temperature_rating": "-30\u00b0C"
     },
-    "key_features": ["Premium down insulation", "Extreme cold protection", "Water-resistant", "Iconic design"]
+    "key_features": [
+      "Premium down insulation",
+      "Extreme cold protection",
+      "Water-resistant",
+      "Iconic design"
+    ]
   },
   {
     "id": "prod_042",
@@ -950,21 +1641,2133 @@
     "name": "Lululemon Align Leggings",
     "description": "Signature yoga leggings with buttery-soft Nulux fabric. Four-way stretch design provides complete freedom of movement. High-waisted design with secure pocket for everyday wear.",
     "category": "Fashion > Activewear > Leggings",
-    "category_path": ["Fashion", "Activewear", "Leggings"],
+    "category_path": [
+      "Fashion",
+      "Activewear",
+      "Leggings"
+    ],
     "merchant_id": "merch_active",
     "merchant_name": "ActiveWear Pro",
-    "price": 98.00,
+    "price": 98.0,
     "stock": 143,
     "rating": 4.8,
     "review_count": 834,
     "image_url": "/images/lululemon-align.jpg",
     "attributes": {
       "brand": "Lululemon",
-      "sizes": ["0", "2", "4", "6", "8", "10", "12"],
-      "colors": ["Black", "Navy", "Align Blue", "Lavender"],
+      "sizes": [
+        "0",
+        "2",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "colors": [
+        "Black",
+        "Navy",
+        "Align Blue",
+        "Lavender"
+      ],
       "material": "Nulux",
       "rise": "High-waisted"
     },
-    "key_features": ["Nulux fabric", "Four-way stretch", "High-waisted design", "Secure pocket"]
+    "key_features": [
+      "Nulux fabric",
+      "Four-way stretch",
+      "High-waisted design",
+      "Secure pocket"
+    ]
+  },
+  {
+    "id": "prod_101",
+    "sku": "SHOE-NK-AM270",
+    "name": "Nike Air Max 270",
+    "description": "Nike's first lifestyle shoe with Max Air unit in the heel. Lightweight mesh upper and foam midsole deliver all-day comfort with bold, modern style.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Athletic",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 150.0,
+    "stock": 45,
+    "rating": 4.7,
+    "review_count": 3820,
+    "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    "attributes": {
+      "brand": "Nike",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Black/White",
+        "White/Blue",
+        "Triple Black"
+      ]
+    },
+    "key_features": [
+      "Air Max 270 heel unit",
+      "Mesh upper",
+      "Foam midsole",
+      "Lifestyle running"
+    ]
+  },
+  {
+    "id": "prod_102",
+    "sku": "SHOE-NK-PEG40",
+    "name": "Nike Pegasus 40 Running Shoe",
+    "description": "The workhorse of Nike running. React foam cushioning with Zoom Air unit at the forefoot. Breathable mesh upper with secure fit system.",
+    "category": "Fashion > Footwear > Running Shoes",
+    "category_path": [
+      "Shoes",
+      "Running"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 130.0,
+    "stock": 60,
+    "rating": 4.8,
+    "review_count": 5210,
+    "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+    "attributes": {
+      "brand": "Nike",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "White/Black",
+        "Blue/Orange",
+        "Green"
+      ]
+    },
+    "key_features": [
+      "Zoom Air forefoot unit",
+      "React foam",
+      "Breathable mesh",
+      "Daily trainer"
+    ]
+  },
+  {
+    "id": "prod_103",
+    "sku": "SHOE-NK-DUNK-LOW",
+    "name": "Nike Dunk Low",
+    "description": "Originally a basketball shoe, the Nike Dunk is now a cultural staple. Clean leather overlays, padded collar, and iconic color-blocking make it a must-have.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 110.0,
+    "stock": 35,
+    "rating": 4.9,
+    "review_count": 9870,
+    "image_url": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400",
+    "attributes": {
+      "brand": "Nike",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Panda (White/Black)",
+        "Reverse Panda",
+        "Green/White"
+      ]
+    },
+    "key_features": [
+      "Leather upper",
+      "Padded collar",
+      "Rubber cupsole",
+      "Iconic colorways"
+    ]
+  },
+  {
+    "id": "prod_104",
+    "sku": "SHOE-NK-JORDAN1",
+    "name": "Nike Air Jordan 1 Retro High OG",
+    "description": "The shoe that started it all. The Air Jordan 1 Retro High OG features premium leather and iconic Wings logo. A timeless silhouette loved by sneakerheads worldwide.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers",
+      "Basketball"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 180.0,
+    "stock": 20,
+    "rating": 4.9,
+    "review_count": 15200,
+    "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    "attributes": {
+      "brand": "Nike",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Chicago Red/Black/White",
+        "Royal Blue/Black/White",
+        "Bred"
+      ]
+    },
+    "key_features": [
+      "Premium leather upper",
+      "Air cushioning",
+      "Rubber outsole",
+      "Wings logo"
+    ]
+  },
+  {
+    "id": "prod_105",
+    "sku": "SHOE-ADI-UB23",
+    "name": "Adidas Ultraboost 23",
+    "description": "The ultimate running shoe made with 100% natural and renewable Primeknit+ upper. BOOST midsole returns energy with every step. Responsive and sustainable.",
+    "category": "Fashion > Footwear > Running Shoes",
+    "category_path": [
+      "Shoes",
+      "Running"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 190.0,
+    "stock": 40,
+    "rating": 4.8,
+    "review_count": 4120,
+    "image_url": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400",
+    "attributes": {
+      "brand": "Adidas",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "White/Core Black",
+        "Grey/Orange",
+        "Triple White"
+      ]
+    },
+    "key_features": [
+      "BOOST midsole",
+      "Primeknit+ upper",
+      "Linear Energy Push system",
+      "Sustainable materials"
+    ]
+  },
+  {
+    "id": "prod_106",
+    "sku": "SHOE-ADI-SAMBA",
+    "name": "Adidas Samba OG",
+    "description": "A timeless classic born on the indoor football pitch. Soft leather upper with suede toe box and distinctive 3-Stripes. The Samba OG is everywhere right now.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 100.0,
+    "stock": 55,
+    "rating": 4.8,
+    "review_count": 8900,
+    "image_url": "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?w=400",
+    "attributes": {
+      "brand": "Adidas",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "White/Black/Gum",
+        "Black/White/Gum",
+        "White/Green"
+      ]
+    },
+    "key_features": [
+      "Leather upper",
+      "Suede toe box",
+      "Rubber outsole",
+      "Classic football heritage"
+    ]
+  },
+  {
+    "id": "prod_107",
+    "sku": "SHOE-ADI-STAN",
+    "name": "Adidas Stan Smith",
+    "description": "The most iconic tennis shoe ever. Clean perforated 3-Stripes, smooth leather, and minimal branding. A wardrobe staple for 50+ years.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 85.0,
+    "stock": 70,
+    "rating": 4.7,
+    "review_count": 11300,
+    "image_url": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=400",
+    "attributes": {
+      "brand": "Adidas",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "White/Green",
+        "White/Navy",
+        "White/White"
+      ]
+    },
+    "key_features": [
+      "Leather upper",
+      "Perforated 3-Stripes",
+      "OrthoLite sockliner",
+      "Timeless design"
+    ]
+  },
+  {
+    "id": "prod_108",
+    "sku": "SHOE-NB-990V6",
+    "name": "New Balance 990v6",
+    "description": "Made in USA. The 990v6 carries forward 40 years of craftsmanship with premium pigskin suede, ENCAP midsole technology, and Ortholite sockliner.",
+    "category": "Fashion > Footwear > Running Shoes",
+    "category_path": [
+      "Shoes",
+      "Running"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 185.0,
+    "stock": 30,
+    "rating": 4.9,
+    "review_count": 2870,
+    "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    "attributes": {
+      "brand": "New Balance",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Grey/White",
+        "Navy/Grey",
+        "Black"
+      ]
+    },
+    "key_features": [
+      "Made in USA",
+      "ENCAP midsole",
+      "Pigskin suede upper",
+      "Ortholite sockliner"
+    ]
+  },
+  {
+    "id": "prod_109",
+    "sku": "SHOE-NB-574",
+    "name": "New Balance 574 Core",
+    "description": "The 574 is one of New Balance's most iconic silhouettes. ENCAP midsole, suede/mesh upper, and versatile styling make it perfect for everyday wear.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 89.99,
+    "stock": 65,
+    "rating": 4.6,
+    "review_count": 6540,
+    "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+    "attributes": {
+      "brand": "New Balance",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Grey/White",
+        "Navy",
+        "Black/White"
+      ]
+    },
+    "key_features": [
+      "ENCAP midsole",
+      "Suede/mesh upper",
+      "Cushioned collar",
+      "Everyday comfort"
+    ]
+  },
+  {
+    "id": "prod_110",
+    "sku": "SHOE-HOKA-CLIF9",
+    "name": "Hoka Clifton 9 Running Shoe",
+    "description": "Maximum cushioning with a feather-light feel. The Hoka Clifton 9 features an early-stage Meta-Rocker for smooth transitions and a breathable engineered mesh upper.",
+    "category": "Fashion > Footwear > Running Shoes",
+    "category_path": [
+      "Shoes",
+      "Running"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 145.0,
+    "stock": 50,
+    "rating": 4.8,
+    "review_count": 3290,
+    "image_url": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400",
+    "attributes": {
+      "brand": "Hoka",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "White/Black",
+        "Blue/Orange",
+        "Coral"
+      ]
+    },
+    "key_features": [
+      "Max cushion EVA foam",
+      "Meta-Rocker geometry",
+      "Engineered mesh upper",
+      "Lightweight design"
+    ]
+  },
+  {
+    "id": "prod_111",
+    "sku": "SHOE-VN-OLDSKOOL",
+    "name": "Vans Old Skool",
+    "description": "Vans' first skate shoe with the iconic side stripe. Durable suede and canvas upper with waffle rubber outsole. A skateboarding legend turned streetwear staple.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 70.0,
+    "stock": 80,
+    "rating": 4.7,
+    "review_count": 12400,
+    "image_url": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400",
+    "attributes": {
+      "brand": "Vans",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Black/White",
+        "White/White",
+        "Checkerboard"
+      ]
+    },
+    "key_features": [
+      "Suede and canvas upper",
+      "Waffle rubber outsole",
+      "Padded collar",
+      "Iconic jazz stripe"
+    ]
+  },
+  {
+    "id": "prod_112",
+    "sku": "SHOE-CVS-CHUCK",
+    "name": "Converse Chuck Taylor All Star High Top",
+    "description": "The original basketball shoe turned cultural icon. Canvas upper, iconic star ankle patch, and rubber cupsole. Worn by everyone from athletes to rock stars.",
+    "category": "Shoes > Athletic > Sneakers",
+    "category_path": [
+      "Shoes",
+      "Sneakers"
+    ],
+    "merchant_id": "merch_kicks",
+    "merchant_name": "Kicks & Co.",
+    "price": 65.0,
+    "stock": 90,
+    "rating": 4.6,
+    "review_count": 18700,
+    "image_url": "https://images.unsplash.com/photo-1494496195158-c3becb4f2475?w=400",
+    "attributes": {
+      "brand": "Converse",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colors": [
+        "Black",
+        "White",
+        "Red",
+        "Navy",
+        "Optical White"
+      ]
+    },
+    "key_features": [
+      "Canvas upper",
+      "Star ankle patch",
+      "Rubber cupsole",
+      "Ortholite cushioning"
+    ]
+  },
+  {
+    "id": "prod_201",
+    "sku": "ELEC-APPLE-MBP14",
+    "name": "Apple MacBook Pro 14\" M3 Pro",
+    "description": "Built for pros who demand the most. The M3 Pro chip with 11-core CPU and 14-core GPU. Liquid Retina XDR display, up to 22 hours battery, MagSafe charging, and a full suite of ports.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1999.0,
+    "stock": 25,
+    "rating": 4.9,
+    "review_count": 4820,
+    "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",
+    "attributes": {
+      "brand": "Apple",
+      "colors": [
+        "Space Black",
+        "Silver"
+      ],
+      "storage": [
+        "512GB SSD",
+        "1TB SSD"
+      ],
+      "ram": [
+        "18GB",
+        "36GB"
+      ],
+      "display": "14.2-inch Liquid Retina XDR"
+    },
+    "key_features": [
+      "M3 Pro chip",
+      "Liquid Retina XDR display",
+      "Up to 22hr battery",
+      "MagSafe 3 charging",
+      "HDMI + SD card + Thunderbolt 4"
+    ]
+  },
+  {
+    "id": "prod_202",
+    "sku": "ELEC-DELL-XPS15",
+    "name": "Dell XPS 15 (2024)",
+    "description": "Premium Windows laptop with 15.6-inch OLED display, Intel Core Ultra 9 processor, and NVIDIA RTX 4060 GPU. Perfect for creative professionals and power users.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1799.0,
+    "stock": 18,
+    "rating": 4.7,
+    "review_count": 2340,
+    "image_url": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400",
+    "attributes": {
+      "brand": "Dell",
+      "colors": [
+        "Platinum Silver"
+      ],
+      "storage": [
+        "512GB SSD",
+        "1TB SSD"
+      ],
+      "ram": [
+        "16GB",
+        "32GB"
+      ],
+      "display": "15.6-inch OLED 3.5K"
+    },
+    "key_features": [
+      "Intel Core Ultra 9",
+      "NVIDIA RTX 4060",
+      "OLED 3.5K display",
+      "100Wh battery",
+      "Thunderbolt 4 x2"
+    ]
+  },
+  {
+    "id": "prod_203",
+    "sku": "ELEC-HP-SPEC360",
+    "name": "HP Spectre x360 14\"",
+    "description": "Ultra-premium 2-in-1 convertible with Intel Evo certification. OLED touch display, 360-degree hinge, and stylus support. Thin, light, and powerful.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1649.0,
+    "stock": 22,
+    "rating": 4.7,
+    "review_count": 1870,
+    "image_url": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400",
+    "attributes": {
+      "brand": "HP",
+      "colors": [
+        "Nightfall Black",
+        "Nocturne Blue"
+      ],
+      "storage": [
+        "512GB SSD",
+        "2TB SSD"
+      ],
+      "ram": [
+        "16GB",
+        "32GB"
+      ],
+      "display": "14-inch 2.8K OLED Touch"
+    },
+    "key_features": [
+      "Intel Core Ultra 7",
+      "360-degree hinge",
+      "OLED touch display",
+      "HP Tilt Pen included",
+      "Intel Evo certified"
+    ]
+  },
+  {
+    "id": "prod_204",
+    "sku": "ELEC-LEN-THINKX1",
+    "name": "Lenovo ThinkPad X1 Carbon Gen 12",
+    "description": "The business laptop benchmark. Military-grade durability (MIL-SPEC), 14-inch IPS display, Intel Core Ultra, and legendary ThinkPad keyboard. Under 2.48 lbs.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1549.0,
+    "stock": 20,
+    "rating": 4.8,
+    "review_count": 3120,
+    "image_url": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400",
+    "attributes": {
+      "brand": "Lenovo",
+      "colors": [
+        "Deep Black"
+      ],
+      "storage": [
+        "512GB SSD",
+        "1TB SSD"
+      ],
+      "ram": [
+        "16GB",
+        "32GB"
+      ],
+      "display": "14-inch 2.8K IPS"
+    },
+    "key_features": [
+      "Intel Core Ultra 7",
+      "MIL-SPEC durability",
+      "Under 2.48 lbs",
+      "ThinkPad keyboard",
+      "Up to 15hr battery"
+    ]
+  },
+  {
+    "id": "prod_205",
+    "sku": "ELEC-ASUS-ZEN14",
+    "name": "ASUS ZenBook 14 OLED",
+    "description": "Slim and stylish with a stunning 14-inch 2.8K OLED display. AMD Ryzen 7 processor, lightweight aluminum chassis, and ErgoSense keyboard. Great value premium laptop.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1099.0,
+    "stock": 35,
+    "rating": 4.6,
+    "review_count": 1540,
+    "image_url": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400",
+    "attributes": {
+      "brand": "ASUS",
+      "colors": [
+        "Jasper Grey",
+        "Ponder Blue"
+      ],
+      "storage": [
+        "512GB SSD",
+        "1TB SSD"
+      ],
+      "ram": [
+        "16GB"
+      ],
+      "display": "14-inch 2.8K OLED"
+    },
+    "key_features": [
+      "AMD Ryzen 7 8700H",
+      "2.8K OLED display",
+      "1.17kg weight",
+      "NumberPad 2.0",
+      "WiFi 6E"
+    ]
+  },
+  {
+    "id": "prod_206",
+    "sku": "ELEC-MS-SURFACE5",
+    "name": "Microsoft Surface Laptop 5",
+    "description": "Polished aluminum design with a vibrant PixelSense touch display. Intel Core i7, fast SSD, and Dolby Atmos audio. A refined everyday laptop with pen support.",
+    "category": "Electronics > Computers > Laptops",
+    "category_path": [
+      "Electronics",
+      "Computers",
+      "Laptops"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1299.0,
+    "stock": 28,
+    "rating": 4.6,
+    "review_count": 1290,
+    "image_url": "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=400",
+    "attributes": {
+      "brand": "Microsoft",
+      "colors": [
+        "Platinum",
+        "Sandstone",
+        "Sage",
+        "Black"
+      ],
+      "storage": [
+        "256GB SSD",
+        "512GB SSD"
+      ],
+      "ram": [
+        "8GB",
+        "16GB"
+      ],
+      "display": "13.5-inch PixelSense Touch"
+    },
+    "key_features": [
+      "Intel Core i7",
+      "PixelSense touch display",
+      "Dolby Atmos audio",
+      "Surface Pen compatible",
+      "Fast charging"
+    ]
+  },
+  {
+    "id": "prod_301",
+    "sku": "ELEC-APPLE-IP15PRO",
+    "name": "Apple iPhone 15 Pro",
+    "description": "Titanium design. A17 Pro chip. 48MP main camera with 3x optical zoom. Dynamic Island, Action button, and USB-C with USB 3 speeds. The most advanced iPhone ever.",
+    "category": "Electronics > Mobile Phones > Smartphones",
+    "category_path": [
+      "Electronics",
+      "Mobile",
+      "Smartphones"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 999.0,
+    "stock": 50,
+    "rating": 4.9,
+    "review_count": 22300,
+    "image_url": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
+    "attributes": {
+      "brand": "Apple",
+      "colors": [
+        "Natural Titanium",
+        "Blue Titanium",
+        "White Titanium",
+        "Black Titanium"
+      ],
+      "storage": [
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB"
+      ]
+    },
+    "key_features": [
+      "A17 Pro chip",
+      "48MP main camera + 3x telephoto",
+      "Titanium body",
+      "Dynamic Island",
+      "USB 3 speeds via USB-C"
+    ]
+  },
+  {
+    "id": "prod_302",
+    "sku": "ELEC-SAM-S24U",
+    "name": "Samsung Galaxy S24 Ultra",
+    "description": "The most powerful Galaxy yet. Snapdragon 8 Gen 3, 200MP camera, built-in S Pen, 6.8-inch Dynamic AMOLED 2X display with 120Hz. AI-powered Galaxy AI features.",
+    "category": "Electronics > Mobile Phones > Smartphones",
+    "category_path": [
+      "Electronics",
+      "Mobile",
+      "Smartphones"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1299.0,
+    "stock": 40,
+    "rating": 4.8,
+    "review_count": 14200,
+    "image_url": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400",
+    "attributes": {
+      "brand": "Samsung",
+      "colors": [
+        "Titanium Black",
+        "Titanium Gray",
+        "Titanium Violet",
+        "Titanium Yellow"
+      ],
+      "storage": [
+        "256GB",
+        "512GB",
+        "1TB"
+      ]
+    },
+    "key_features": [
+      "Snapdragon 8 Gen 3",
+      "200MP main camera",
+      "Built-in S Pen",
+      "5000mAh battery",
+      "Galaxy AI features"
+    ]
+  },
+  {
+    "id": "prod_303",
+    "sku": "ELEC-GOOG-PIX8P",
+    "name": "Google Pixel 8 Pro",
+    "description": "Google's smartest phone. Tensor G3 chip, 50MP triple camera system with pro video, 6.7-inch LTPO display, and 7 years of OS/security updates. Best Android camera.",
+    "category": "Electronics > Mobile Phones > Smartphones",
+    "category_path": [
+      "Electronics",
+      "Mobile",
+      "Smartphones"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 999.0,
+    "stock": 35,
+    "rating": 4.7,
+    "review_count": 8700,
+    "image_url": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400",
+    "attributes": {
+      "brand": "Google",
+      "colors": [
+        "Obsidian",
+        "Porcelain",
+        "Bay"
+      ],
+      "storage": [
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB"
+      ]
+    },
+    "key_features": [
+      "Google Tensor G3",
+      "50MP triple camera",
+      "7 years of updates",
+      "Temperature sensor",
+      "Magic Eraser & AI tools"
+    ]
+  },
+  {
+    "id": "prod_401",
+    "sku": "ELEC-BOSE-QC45",
+    "name": "Bose QuietComfort 45",
+    "description": "Industry-leading noise cancellation with high-fidelity audio. Soft ear cushions, adjustable headband, and 24 hours of battery life. Triport acoustic architecture.",
+    "category": "Electronics > Audio > Headphones",
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Headphones"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 279.0,
+    "stock": 45,
+    "rating": 4.8,
+    "review_count": 12400,
+    "image_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+    "attributes": {
+      "brand": "Bose",
+      "colors": [
+        "White Smoke",
+        "Triple Black"
+      ],
+      "connectivity": "Bluetooth 5.1",
+      "battery": "24 hours"
+    },
+    "key_features": [
+      "World-class noise cancellation",
+      "24hr battery",
+      "Aware Mode",
+      "Multipoint connection",
+      "Lightweight design"
+    ]
+  },
+  {
+    "id": "prod_402",
+    "sku": "ELEC-BOSE-QCULT",
+    "name": "Bose QuietComfort Ultra Headphones",
+    "description": "Bose's best-ever headphones. Immersive Audio with head tracking brings music to life around you. CustomTune personalizes sound and noise cancellation to your ears.",
+    "category": "Electronics > Audio > Headphones",
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Headphones"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 429.0,
+    "stock": 30,
+    "rating": 4.9,
+    "review_count": 5870,
+    "image_url": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400",
+    "attributes": {
+      "brand": "Bose",
+      "colors": [
+        "White Smoke",
+        "Black",
+        "Sandstone"
+      ],
+      "connectivity": "Bluetooth 5.3",
+      "battery": "24 hours"
+    },
+    "key_features": [
+      "Immersive Audio with head tracking",
+      "CustomTune personalization",
+      "Quietest Bose headphones",
+      "24hr battery",
+      "Carry case included"
+    ]
+  },
+  {
+    "id": "prod_403",
+    "sku": "ELEC-APPLE-AIRPODSPRO",
+    "name": "Apple AirPods Pro (2nd Gen)",
+    "description": "Next-level active noise cancellation with Transparency mode. Adaptive Audio adjusts to your environment. MagSafe charging case with built-in speaker. H2 chip.",
+    "category": "Electronics > Audio > Earbuds",
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Earbuds"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 249.0,
+    "stock": 55,
+    "rating": 4.8,
+    "review_count": 31200,
+    "image_url": "https://images.unsplash.com/photo-1588423771073-b8903febb85d?w=400",
+    "attributes": {
+      "brand": "Apple",
+      "colors": [
+        "White"
+      ],
+      "connectivity": "Bluetooth 5.3",
+      "battery": "6hrs (30hrs with case)"
+    },
+    "key_features": [
+      "H2 chip",
+      "Adaptive Noise Cancellation",
+      "Adaptive Transparency",
+      "MagSafe case with speaker",
+      "Personalized Spatial Audio"
+    ]
+  },
+  {
+    "id": "prod_404",
+    "sku": "ELEC-SAM-BUDS2P",
+    "name": "Samsung Galaxy Buds2 Pro",
+    "description": "24-bit Hi-Fi audio with intelligent ANC that adapts to your environment. Ergonomic comfort fit, 360 Audio, and seamless Galaxy ecosystem integration.",
+    "category": "Electronics > Audio > Earbuds",
+    "category_path": [
+      "Electronics",
+      "Audio",
+      "Earbuds"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 229.0,
+    "stock": 40,
+    "rating": 4.6,
+    "review_count": 8700,
+    "image_url": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
+    "attributes": {
+      "brand": "Samsung",
+      "colors": [
+        "Graphite",
+        "White",
+        "Bora Purple"
+      ],
+      "connectivity": "Bluetooth 5.3",
+      "battery": "5hrs (18hrs with case)"
+    },
+    "key_features": [
+      "24-bit Hi-Fi audio",
+      "Intelligent ANC",
+      "360 Audio with Dolby Atmos",
+      "Ergonomic fit",
+      "IPX7 water resistant"
+    ]
+  },
+  {
+    "id": "prod_501",
+    "sku": "ELEC-APPLE-WATCH9",
+    "name": "Apple Watch Series 9",
+    "description": "The most powerful Apple Watch yet. S9 chip with Double Tap gesture. Always-On Retina display, advanced health sensors, crash detection, and carbon neutral.",
+    "category": "Electronics > Wearables > Smartwatches",
+    "category_path": [
+      "Electronics",
+      "Wearables",
+      "Smartwatches"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 399.0,
+    "stock": 45,
+    "rating": 4.8,
+    "review_count": 19800,
+    "image_url": "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=400",
+    "attributes": {
+      "brand": "Apple",
+      "colors": [
+        "Midnight",
+        "Starlight",
+        "Silver",
+        "Pink",
+        "Red"
+      ],
+      "sizes": [
+        "41mm",
+        "45mm"
+      ]
+    },
+    "key_features": [
+      "S9 chip with Double Tap",
+      "Always-On Retina display",
+      "Blood oxygen & ECG",
+      "Crash Detection",
+      "18hr battery"
+    ]
+  },
+  {
+    "id": "prod_502",
+    "sku": "ELEC-SAM-GW6",
+    "name": "Samsung Galaxy Watch 6 Classic",
+    "description": "Premium stainless steel with iconic rotating bezel. Comprehensive health tracking, BioActive Sensor, sleep coaching, and 2-day battery life. Google Wear OS.",
+    "category": "Electronics > Wearables > Smartwatches",
+    "category_path": [
+      "Electronics",
+      "Wearables",
+      "Smartwatches"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 329.0,
+    "stock": 35,
+    "rating": 4.7,
+    "review_count": 7600,
+    "image_url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+    "attributes": {
+      "brand": "Samsung",
+      "colors": [
+        "Black",
+        "Silver"
+      ],
+      "sizes": [
+        "43mm",
+        "47mm"
+      ]
+    },
+    "key_features": [
+      "Rotating bezel",
+      "BioActive Sensor",
+      "Sleep coaching",
+      "Wear OS 4",
+      "47hr battery (typical use)"
+    ]
+  },
+  {
+    "id": "prod_503",
+    "sku": "ELEC-FITBIT-CHG6",
+    "name": "Fitbit Charge 6",
+    "description": "Advanced fitness tracker with built-in GPS, Google apps (Maps, Wallet), stress tracking, and 7-day battery. Heart rate, SpO2, skin temp, and EDA sensors.",
+    "category": "Electronics > Wearables > Smartwatches",
+    "category_path": [
+      "Electronics",
+      "Wearables",
+      "Fitness"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 159.99,
+    "stock": 60,
+    "rating": 4.5,
+    "review_count": 5430,
+    "image_url": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400",
+    "attributes": {
+      "brand": "Fitbit",
+      "colors": [
+        "Black/Graphite",
+        "Coral/Champagne Gold",
+        "Obsidian/Black"
+      ]
+    },
+    "key_features": [
+      "Built-in GPS",
+      "Google Maps & Wallet",
+      "7-day battery",
+      "40+ exercise modes",
+      "Sleep profiling"
+    ]
+  },
+  {
+    "id": "prod_601",
+    "sku": "ELEC-APPLE-IPADPRO13",
+    "name": "Apple iPad Pro 13\" (M4)",
+    "description": "Unbelievably thin and light with the M4 chip. Ultra Retina XDR OLED display, Apple Pencil Pro support, and Magic Keyboard compatibility. The ultimate iPad.",
+    "category": "Electronics > Tablets",
+    "category_path": [
+      "Electronics",
+      "Tablets"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1299.0,
+    "stock": 20,
+    "rating": 4.9,
+    "review_count": 3100,
+    "image_url": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400",
+    "attributes": {
+      "brand": "Apple",
+      "colors": [
+        "Space Black",
+        "Silver"
+      ],
+      "storage": [
+        "256GB",
+        "512GB",
+        "1TB",
+        "2TB"
+      ],
+      "connectivity": [
+        "WiFi",
+        "WiFi + Cellular"
+      ]
+    },
+    "key_features": [
+      "M4 chip",
+      "Ultra Retina XDR OLED",
+      "Thinnest Apple product ever",
+      "Apple Pencil Pro support",
+      "Landscape TrueDepth camera"
+    ]
+  },
+  {
+    "id": "prod_602",
+    "sku": "ELEC-SAM-TABS9U",
+    "name": "Samsung Galaxy Tab S9 Ultra",
+    "description": "The largest and most powerful Galaxy tablet. 14.6-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 2, S Pen included, and dual front cameras in a notch cutout.",
+    "category": "Electronics > Tablets",
+    "category_path": [
+      "Electronics",
+      "Tablets"
+    ],
+    "merchant_id": "merch_tech",
+    "merchant_name": "TechZone Electronics",
+    "price": 1199.0,
+    "stock": 15,
+    "rating": 4.7,
+    "review_count": 2480,
+    "image_url": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=400",
+    "attributes": {
+      "brand": "Samsung",
+      "colors": [
+        "Graphite",
+        "Beige"
+      ],
+      "storage": [
+        "256GB",
+        "512GB",
+        "1TB"
+      ]
+    },
+    "key_features": [
+      "Snapdragon 8 Gen 2",
+      "14.6-inch AMOLED 2X",
+      "S Pen included",
+      "IP68 water resistant",
+      "DeX desktop mode"
+    ]
+  },
+  {
+    "id": "prod_701",
+    "sku": "FASH-RL-POLO",
+    "name": "Ralph Lauren Classic Fit Polo Shirt",
+    "description": "The iconic polo. Soft cotton piqu\u00e9 with a classic fit and signature pony embroidery. A timeless wardrobe essential for any occasion from casual to smart-casual.",
+    "category": "Men's Clothing > Shirts > Polos",
+    "category_path": [
+      "Men",
+      "Shirts",
+      "Polo"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 98.5,
+    "stock": 80,
+    "rating": 4.8,
+    "review_count": 14500,
+    "image_url": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400",
+    "attributes": {
+      "brand": "Ralph Lauren",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "White",
+        "Navy",
+        "Red",
+        "Light Blue",
+        "Black",
+        "Hunter Green"
+      ]
+    },
+    "key_features": [
+      "100% cotton piqu\u00e9",
+      "Classic fit",
+      "Signature Polo pony",
+      "Ribbed collar/cuffs",
+      "2-button placket"
+    ]
+  },
+  {
+    "id": "prod_702",
+    "sku": "FASH-TH-OXFORD",
+    "name": "Tommy Hilfiger Oxford Shirt",
+    "description": "Classic American style oxford shirt. Soft, breathable cotton fabric with button-down collar and Tommy flag embroidery at the chest.",
+    "category": "Men's Clothing > Shirts > Dress Shirts",
+    "category_path": [
+      "Men",
+      "Shirts",
+      "Oxford"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 79.99,
+    "stock": 65,
+    "rating": 4.6,
+    "review_count": 7200,
+    "image_url": "https://images.unsplash.com/photo-1602810319250-a663f0af2f75?w=400",
+    "attributes": {
+      "brand": "Tommy Hilfiger",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Classic White",
+        "Sky Blue",
+        "Navy Stripe",
+        "Light Pink"
+      ]
+    },
+    "key_features": [
+      "100% cotton oxford",
+      "Button-down collar",
+      "Regular fit",
+      "Tommy flag embroidery",
+      "Chest pocket"
+    ]
+  },
+  {
+    "id": "prod_703",
+    "sku": "FASH-CK-JEANS",
+    "name": "Calvin Klein Slim Fit Jeans",
+    "description": "Sleek slim fit jeans in premium stretch denim. CK logo on the back waistband. Sits at waist with slim fit through hip, thigh, and leg.",
+    "category": "Men's Clothing > Pants > Jeans",
+    "category_path": [
+      "Men",
+      "Pants",
+      "Jeans"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 89.5,
+    "stock": 55,
+    "rating": 4.6,
+    "review_count": 5600,
+    "image_url": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400",
+    "attributes": {
+      "brand": "Calvin Klein",
+      "sizes": [
+        "28x30",
+        "30x30",
+        "30x32",
+        "32x30",
+        "32x32",
+        "34x30",
+        "34x32",
+        "36x32"
+      ],
+      "colors": [
+        "Dark Blue",
+        "Medium Blue",
+        "Black"
+      ]
+    },
+    "key_features": [
+      "Premium stretch denim",
+      "Slim fit",
+      "5-pocket styling",
+      "CK logo waistband",
+      "Machine washable"
+    ]
+  },
+  {
+    "id": "prod_704",
+    "sku": "FASH-GAP-HOODIE",
+    "name": "Gap Logo Pullover Hoodie",
+    "description": "The essential hoodie. Soft fleece with brushed interior, iconic GAP arch logo, kangaroo pocket, and ribbed cuffs. Relaxed fit, perfect for layering.",
+    "category": "Men's Clothing > Jackets > Fleece",
+    "category_path": [
+      "Men",
+      "Tops",
+      "Hoodie"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 59.99,
+    "stock": 100,
+    "rating": 4.5,
+    "review_count": 9800,
+    "image_url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400",
+    "attributes": {
+      "brand": "Gap",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Navy",
+        "Grey Heather",
+        "Black",
+        "Off White",
+        "Burgundy"
+      ]
+    },
+    "key_features": [
+      "Soft fleece with brushed interior",
+      "Relaxed fit",
+      "Kangaroo pocket",
+      "Ribbed waistband & cuffs",
+      "Arch logo print"
+    ]
+  },
+  {
+    "id": "prod_801",
+    "sku": "FASH-ZARA-BLAZER",
+    "name": "Zara Oversized Blazer",
+    "description": "Structured oversized blazer in premium fabric. Notched lapels, flap pockets, and a single-button front. Pairs perfectly with wide-leg pants or miniskirts.",
+    "category": "Women's Clothing > Blazers",
+    "category_path": [
+      "Women",
+      "Outerwear",
+      "Blazer"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 89.99,
+    "stock": 45,
+    "rating": 4.5,
+    "review_count": 3200,
+    "image_url": "https://images.unsplash.com/photo-1594938298603-c8148c4b4fc4?w=400",
+    "attributes": {
+      "brand": "Zara",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Ecru",
+        "Black",
+        "Camel",
+        "Sage Green"
+      ]
+    },
+    "key_features": [
+      "Oversized silhouette",
+      "Notched lapels",
+      "Flap pockets",
+      "Padded shoulders",
+      "Lined interior"
+    ]
+  },
+  {
+    "id": "prod_802",
+    "sku": "FASH-FP-DRESS",
+    "name": "Free People Sundrenched Midi Dress",
+    "description": "Flowy midi dress in lightweight cotton blend with floral print. V-neckline, adjustable spaghetti straps, and tiered skirt for effortless boho style.",
+    "category": "Women's Clothing > Dresses > Maxi Dresses",
+    "category_path": [
+      "Women",
+      "Dresses",
+      "Midi"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 148.0,
+    "stock": 30,
+    "rating": 4.7,
+    "review_count": 4100,
+    "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400",
+    "attributes": {
+      "brand": "Free People",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Ivory Combo",
+        "Blue Combo",
+        "Black Combo"
+      ]
+    },
+    "key_features": [
+      "Lightweight cotton blend",
+      "Floral print",
+      "V-neckline",
+      "Adjustable straps",
+      "Tiered skirt"
+    ]
+  },
+  {
+    "id": "prod_901",
+    "sku": "FASH-NK-JOGGER",
+    "name": "Nike Tech Fleece Joggers",
+    "description": "Nike's innovative Tech Fleece fabric is engineered to be lightweight yet warm. Tapered fit with bonded seams and ribbed cuffs for a sleek, modern look.",
+    "category": "Fashion > Activewear > Leggings",
+    "category_path": [
+      "Men",
+      "Activewear",
+      "Joggers"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 110.0,
+    "stock": 55,
+    "rating": 4.8,
+    "review_count": 12300,
+    "image_url": "https://images.unsplash.com/photo-1594938374182-a57f30448d64?w=400",
+    "attributes": {
+      "brand": "Nike",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "Dark Grey",
+        "Navy",
+        "Khaki"
+      ]
+    },
+    "key_features": [
+      "Tech Fleece material",
+      "Tapered fit",
+      "Bonded seams",
+      "Side pockets + back pocket",
+      "Elastic waistband with drawcord"
+    ]
+  },
+  {
+    "id": "prod_902",
+    "sku": "FASH-ADI-TIRO",
+    "name": "Adidas Tiro 23 Track Pants",
+    "description": "Classic football-inspired track pants. Moisture-absorbing AEROREADY fabric, slim fit through the leg, and ankle zip for easy on/off. Available in bold colorways.",
+    "category": "Fashion > Activewear > Leggings",
+    "category_path": [
+      "Men",
+      "Activewear",
+      "Track Pants"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 55.0,
+    "stock": 70,
+    "rating": 4.6,
+    "review_count": 8900,
+    "image_url": "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?w=400",
+    "attributes": {
+      "brand": "Adidas",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "3XL"
+      ],
+      "colors": [
+        "Black/White",
+        "Navy/White",
+        "Red/White"
+      ]
+    },
+    "key_features": [
+      "AEROREADY moisture management",
+      "Slim fit",
+      "Ankle zip",
+      "Side pockets",
+      "Elastic waistband with drawcord"
+    ]
+  },
+  {
+    "id": "prod_1001",
+    "sku": "BEAUTY-LOR-REVITA",
+    "name": "L'Oreal Paris Revitalift Moisturizer",
+    "description": "Pro-Retinol and Centella Asiatica anti-aging moisturizer. Reduces wrinkles and firms skin in 4 weeks. Lightweight, non-greasy formula suitable for all skin types.",
+    "category": "Beauty & Personal Care > Skincare > Moisturizers",
+    "category_path": [
+      "Beauty",
+      "Skincare",
+      "Moisturizer"
+    ],
+    "merchant_id": "merch_beauty",
+    "merchant_name": "Beauty Luxe",
+    "price": 29.99,
+    "stock": 120,
+    "rating": 4.6,
+    "review_count": 23400,
+    "image_url": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400",
+    "attributes": {
+      "brand": "L'Oreal",
+      "skin_type": "All skin types",
+      "size": "1.7 oz"
+    },
+    "key_features": [
+      "Pro-Retinol formula",
+      "Centella Asiatica",
+      "Anti-wrinkle",
+      "Firms and tightens",
+      "Dermatologist tested"
+    ]
+  },
+  {
+    "id": "prod_1002",
+    "sku": "BEAUTY-NEUT-HYDRO",
+    "name": "Neutrogena Hydro Boost Gel Cream",
+    "description": "Dermatologist recommended. Hyaluronic acid gel-cream locks in moisture for 48 hours. Oil-free, non-comedogenic, and lightweight. Leaves skin plump and supple.",
+    "category": "Beauty & Personal Care > Skincare > Moisturizers",
+    "category_path": [
+      "Beauty",
+      "Skincare",
+      "Moisturizer"
+    ],
+    "merchant_id": "merch_beauty",
+    "merchant_name": "Beauty Luxe",
+    "price": 22.99,
+    "stock": 150,
+    "rating": 4.7,
+    "review_count": 45600,
+    "image_url": "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400",
+    "attributes": {
+      "brand": "Neutrogena",
+      "skin_type": "Normal to Dry, Combination",
+      "size": "1.7 oz"
+    },
+    "key_features": [
+      "Hyaluronic acid",
+      "48hr hydration",
+      "Oil-free & non-comedogenic",
+      "Lightweight gel-cream",
+      "Fragrance-free"
+    ]
+  },
+  {
+    "id": "prod_1003",
+    "sku": "BEAUTY-ESTEE-ANR",
+    "name": "Est\u00e9e Lauder Advanced Night Repair Serum",
+    "description": "The iconic little brown bottle. Chronolux Power Signal Technology repairs skin overnight. Reduces fine lines, wrinkles, dark spots, and dullness. 40+ years of innovation.",
+    "category": "Beauty & Personal Care > Skincare > Moisturizers",
+    "category_path": [
+      "Beauty",
+      "Skincare",
+      "Serum"
+    ],
+    "merchant_id": "merch_beauty",
+    "merchant_name": "Beauty Luxe",
+    "price": 115.0,
+    "stock": 40,
+    "rating": 4.8,
+    "review_count": 18700,
+    "image_url": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400",
+    "attributes": {
+      "brand": "Est\u00e9e Lauder",
+      "skin_type": "All skin types",
+      "size": "1 oz / 30ml"
+    },
+    "key_features": [
+      "Chronolux Power Signal Technology",
+      "Overnight repair",
+      "Reduces fine lines & dark spots",
+      "Hyaluronic acid",
+      "Suitable for all skin types"
+    ]
+  },
+  {
+    "id": "prod_1004",
+    "sku": "BEAUTY-MBL-MASCARA",
+    "name": "Maybelline Lash Sensational Sky High Mascara",
+    "description": "Lengthens lashes to sky high heights. Flex Tower Brush with increasing rows of bristles reaches even the tiniest lashes. Buildable, flake-free formula.",
+    "category": "Beauty & Personal Care > Makeup",
+    "category_path": [
+      "Beauty",
+      "Makeup",
+      "Mascara"
+    ],
+    "merchant_id": "merch_beauty",
+    "merchant_name": "Beauty Luxe",
+    "price": 9.99,
+    "stock": 200,
+    "rating": 4.7,
+    "review_count": 67800,
+    "image_url": "https://images.unsplash.com/photo-1631214500004-dc2ddf4c2b24?w=400",
+    "attributes": {
+      "brand": "Maybelline",
+      "colors": [
+        "Blackest Black",
+        "Black",
+        "Very Black",
+        "Brownish Black"
+      ]
+    },
+    "key_features": [
+      "Flex Tower Brush",
+      "Lengthening formula",
+      "Buildable coverage",
+      "Flake-free",
+      "Ophthalmologist tested"
+    ]
+  },
+  {
+    "id": "prod_1101",
+    "sku": "HOME-VITA-E310",
+    "name": "Vitamix E310 Explorian Blender",
+    "description": "Professional-grade blending in a compact size. 10 variable speeds, pulse feature, and hardened stainless-steel blades that blend whole foods. 5-year warranty.",
+    "category": "Home & Kitchen > Appliances > Mixers",
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Blender"
+    ],
+    "merchant_id": "merch_home",
+    "merchant_name": "HomeStyle Essentials",
+    "price": 349.95,
+    "stock": 25,
+    "rating": 4.8,
+    "review_count": 8900,
+    "image_url": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400",
+    "attributes": {
+      "brand": "Vitamix",
+      "colors": [
+        "Black",
+        "Red",
+        "White"
+      ],
+      "capacity": "48 oz",
+      "power": "2.0 HP"
+    },
+    "key_features": [
+      "10 variable speeds",
+      "Hardened stainless blades",
+      "Self-cleaning in 60 seconds",
+      "Compact design",
+      "5-year warranty"
+    ]
+  },
+  {
+    "id": "prod_1102",
+    "sku": "HOME-NINJA-FOODI",
+    "name": "Ninja Foodi 9-in-1 Pressure Cooker & Air Fryer",
+    "description": "TenderCrisp technology combines pressure cooking and air frying. 9 cooking functions: pressure cook, air fry/crisp, steam, slow cook, sear/saut\u00e9, bake/roast, broil, yogurt, dehydrate.",
+    "category": "Home & Kitchen > Appliances > Pressure Cookers",
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Multi-Cooker"
+    ],
+    "merchant_id": "merch_home",
+    "merchant_name": "HomeStyle Essentials",
+    "price": 249.99,
+    "stock": 30,
+    "rating": 4.7,
+    "review_count": 14200,
+    "image_url": "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400",
+    "attributes": {
+      "brand": "Ninja",
+      "colors": [
+        "Stainless/Black"
+      ],
+      "capacity": "6.5 qt"
+    },
+    "key_features": [
+      "TenderCrisp technology",
+      "9-in-1 cooking functions",
+      "Pressure cook + air fry",
+      "6.5 qt capacity",
+      "Dishwasher-safe parts"
+    ]
+  },
+  {
+    "id": "prod_1103",
+    "sku": "HOME-KEURIG-ELITE",
+    "name": "Keurig K-Elite Coffee Maker",
+    "description": "Single-serve coffee maker with a strong brew setting and iced coffee mode. Hot water on demand, 5 brew sizes, and 75 oz removable reservoir. Compatible with My K-Cup.",
+    "category": "Home & Kitchen > Appliances > Coffee Makers",
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Coffee"
+    ],
+    "merchant_id": "merch_home",
+    "merchant_name": "HomeStyle Essentials",
+    "price": 189.99,
+    "stock": 40,
+    "rating": 4.5,
+    "review_count": 21300,
+    "image_url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400",
+    "attributes": {
+      "brand": "Keurig",
+      "colors": [
+        "Brushed Slate",
+        "Brushed Gold",
+        "Black"
+      ],
+      "reservoir": "75 oz removable"
+    },
+    "key_features": [
+      "Strong brew setting",
+      "Iced coffee mode",
+      "5 brew sizes (4-12oz)",
+      "Hot water on demand",
+      "My K-Cup compatible"
+    ]
+  },
+  {
+    "id": "prod_1104",
+    "sku": "HOME-NINJA-AF",
+    "name": "Ninja Air Fryer Max XL",
+    "description": "Max Crisp Technology at 450\u00b0F for crispier results with up to 75% less fat. 5.5 qt capacity feeds a family. Wide temperature range for air fry, roast, reheat, and dehydrate.",
+    "category": "Home & Kitchen > Appliances > Food Processors",
+    "category_path": [
+      "Home",
+      "Kitchen",
+      "Air Fryer"
+    ],
+    "merchant_id": "merch_home",
+    "merchant_name": "HomeStyle Essentials",
+    "price": 169.99,
+    "stock": 50,
+    "rating": 4.7,
+    "review_count": 32100,
+    "image_url": "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400",
+    "attributes": {
+      "brand": "Ninja",
+      "colors": [
+        "Grey",
+        "Black"
+      ],
+      "capacity": "5.5 qt"
+    },
+    "key_features": [
+      "Max Crisp Technology 450\u00b0F",
+      "75% less fat",
+      "5.5 qt XL capacity",
+      "4 cooking programs",
+      "Dishwasher-safe basket"
+    ]
+  },
+  {
+    "id": "prod_1201",
+    "sku": "SPORT-HYDRO-32",
+    "name": "Hydro Flask 32oz Wide Mouth Bottle",
+    "description": "TempShield double-wall vacuum insulation keeps drinks cold 24 hours and hot 12 hours. Wide mouth design, pro-grade stainless steel, and powder coat finish. BPA-free.",
+    "category": "Outdoor & Fitness > Hydration > Water Bottles",
+    "category_path": [
+      "Outdoor",
+      "Hydration",
+      "Water Bottle"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 49.95,
+    "stock": 90,
+    "rating": 4.8,
+    "review_count": 28700,
+    "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400",
+    "attributes": {
+      "brand": "Hydro Flask",
+      "colors": [
+        "Black",
+        "White",
+        "Pacific",
+        "Flamingo",
+        "Olive",
+        "Stone"
+      ],
+      "capacity": "32 oz"
+    },
+    "key_features": [
+      "TempShield insulation",
+      "Cold 24hrs / Hot 12hrs",
+      "Powder coat finish",
+      "BPA-free",
+      "Wide mouth for ice cubes"
+    ]
+  },
+  {
+    "id": "prod_1202",
+    "sku": "SPORT-THERA-PRIME",
+    "name": "Theragun Prime Massage Gun",
+    "description": "Percussive therapy device with QuietForce Technology. 5 built-in speeds, 4 attachments, 120-minute battery, and Bluetooth connectivity with app. Professional recovery at home.",
+    "category": "Outdoor & Fitness > Yoga > Mats",
+    "category_path": [
+      "Fitness",
+      "Recovery",
+      "Massage"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 299.0,
+    "stock": 25,
+    "rating": 4.7,
+    "review_count": 9800,
+    "image_url": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400",
+    "attributes": {
+      "brand": "Theragun",
+      "colors": [
+        "Black"
+      ],
+      "battery": "120 minutes"
+    },
+    "key_features": [
+      "QuietForce Technology",
+      "5 speeds (1750-2400 PPM)",
+      "4 attachments",
+      "120-min battery",
+      "Bluetooth + Therabody app"
+    ]
+  },
+  {
+    "id": "prod_1203",
+    "sku": "SPORT-BOWFLEX-552",
+    "name": "Bowflex SelectTech 552 Adjustable Dumbbells",
+    "description": "Replace 15 sets of weights. Dial selector adjusts from 5 to 52.5 lbs. Smooth handle, molded seats, and the ability to change weight in seconds. Home gym essential.",
+    "category": "Outdoor & Fitness > Yoga > Mats",
+    "category_path": [
+      "Fitness",
+      "Weights",
+      "Dumbbells"
+    ],
+    "merchant_id": "merch_sports",
+    "merchant_name": "SportsPro Shop",
+    "price": 549.0,
+    "stock": 15,
+    "rating": 4.8,
+    "review_count": 16400,
+    "image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400",
+    "attributes": {
+      "brand": "Bowflex",
+      "colors": [
+        "Black/Grey"
+      ],
+      "weight_range": "5-52.5 lbs",
+      "increments": "2.5 lbs up to 25 lbs"
+    },
+    "key_features": [
+      "Replaces 15 sets of weights",
+      "5 to 52.5 lbs range",
+      "Dial-select system",
+      "Change weight in seconds",
+      "Storage trays included"
+    ]
+  },
+  {
+    "id": "prod_1301",
+    "sku": "ACC-COACH-TABBY",
+    "name": "Coach Tabby 26 Shoulder Bag",
+    "description": "A modern classic. Refined pebble leather with Coach's iconic Horse and Carriage hardware. Adjustable strap wears crossbody or on shoulder. Magnetic pillow closure.",
+    "category": "Accessories > Bags > Backpacks",
+    "category_path": [
+      "Accessories",
+      "Bags",
+      "Shoulder"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 450.0,
+    "stock": 20,
+    "rating": 4.8,
+    "review_count": 4200,
+    "image_url": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
+    "attributes": {
+      "brand": "Coach",
+      "colors": [
+        "Black",
+        "Chalk",
+        "Fern",
+        "Khaki Saddle"
+      ],
+      "material": "Pebble Leather"
+    },
+    "key_features": [
+      "Pebble leather",
+      "Horse & Carriage hardware",
+      "Adjustable strap",
+      "Magnetic closure",
+      "Interior zip pocket"
+    ]
+  },
+  {
+    "id": "prod_1302",
+    "sku": "ACC-MK-JETSETTOTE",
+    "name": "Michael Kors Jet Set Large Tote",
+    "description": "The bag that started it all. Signature logo jacquard exterior with gold-tone hardware and top zip closure. Spacious interior fits a laptop. Detachable card holder.",
+    "category": "Accessories > Bags > Backpacks",
+    "category_path": [
+      "Accessories",
+      "Bags",
+      "Tote"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 298.0,
+    "stock": 25,
+    "rating": 4.6,
+    "review_count": 7800,
+    "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400",
+    "attributes": {
+      "brand": "Michael Kors",
+      "colors": [
+        "Black",
+        "Brown/Acorn",
+        "Navy"
+      ],
+      "material": "Signature Logo Jacquard"
+    },
+    "key_features": [
+      "Logo jacquard exterior",
+      "Laptop compartment",
+      "Gold-tone hardware",
+      "Top zip closure",
+      "Detachable card holder"
+    ]
+  },
+  {
+    "id": "prod_1303",
+    "sku": "ACC-TUMI-ALPHA3",
+    "name": "Tumi Alpha 3 Backpack",
+    "description": "The ultimate travel and work backpack. Ballistic nylon construction with TSA-friendly laptop compartment, removable pouches, and signature T-Pass pocket. Lifetime guarantee.",
+    "category": "Accessories > Bags > Backpacks",
+    "category_path": [
+      "Accessories",
+      "Bags",
+      "Backpack"
+    ],
+    "merchant_id": "merch_fashion",
+    "merchant_name": "Fashion Forward",
+    "price": 575.0,
+    "stock": 15,
+    "rating": 4.8,
+    "review_count": 3100,
+    "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
+    "attributes": {
+      "brand": "Tumi",
+      "colors": [
+        "Black",
+        "Navy"
+      ],
+      "material": "Ballistic Nylon"
+    },
+    "key_features": [
+      "Ballistic nylon",
+      "TSA-friendly laptop compartment",
+      "T-Pass TSA pocket",
+      "Removable pouches",
+      "Lifetime guarantee"
+    ]
+  },
+  {
+    "id": "prod_1401",
+    "sku": "OUT-COLEMAN-TENT4",
+    "name": "Coleman Sundome 4-Person Tent",
+    "description": "Easy setup in about 15 minutes with ColorSync poles. WeatherTec system with welded floors and inverted seams keeps water out. Large door and windows for ventilation.",
+    "category": "Outdoor & Fitness > Camping > Tents",
+    "category_path": [
+      "Outdoor",
+      "Camping",
+      "Tent"
+    ],
+    "merchant_id": "merch_outdoor",
+    "merchant_name": "Outdoor Masters",
+    "price": 89.99,
+    "stock": 35,
+    "rating": 4.5,
+    "review_count": 12300,
+    "image_url": "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=400",
+    "attributes": {
+      "brand": "Coleman",
+      "colors": [
+        "Green",
+        "Blue"
+      ],
+      "capacity": "4 Person",
+      "seasons": "3-season"
+    },
+    "key_features": [
+      "15-minute setup",
+      "WeatherTec waterproofing",
+      "ColorSync poles",
+      "E-port for power cord",
+      "Includes carry bag"
+    ]
+  },
+  {
+    "id": "prod_1402",
+    "sku": "OUT-TNF-JKTINS",
+    "name": "The North Face ThermoBall Eco Jacket",
+    "description": "Warm when wet with PrimaLoft ThermoBall Eco insulation from 100% recycled materials. Compresses into its own pocket. Windproof, water-resistant DWR finish.",
+    "category": "Outdoor & Fitness > Outerwear > Insulated Jackets",
+    "category_path": [
+      "Outdoor",
+      "Outerwear",
+      "Insulated"
+    ],
+    "merchant_id": "merch_outdoor",
+    "merchant_name": "Outdoor Masters",
+    "price": 230.0,
+    "stock": 40,
+    "rating": 4.7,
+    "review_count": 8700,
+    "image_url": "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=400",
+    "attributes": {
+      "brand": "The North Face",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "TNF Black",
+        "Brilliant Coral",
+        "Goblin Blue"
+      ]
+    },
+    "key_features": [
+      "PrimaLoft ThermoBall Eco insulation",
+      "Warm when wet",
+      "Compresses into pocket",
+      "DWR water-resistant",
+      "Recycled materials"
+    ]
   }
 ]

@@ -286,13 +286,36 @@ async def create_checkout_session(req: CheckoutRequest):
                 "quantity": 1,
             })
 
+        # Build per-merchant order payload (to be dispatched after payment)
+        merchant_orders = {}
+        for item in summary.items:
+            mid = item.merchant_id
+            if mid not in merchant_orders:
+                merchant_orders[mid] = {"merchant": item.merchant_name, "items": []}
+            merchant_orders[mid]["items"].append({
+                "product_id": item.product_id,
+                "name": item.name,
+                "quantity": item.quantity,
+                "price": item.price,
+                "size": item.selected_size,
+                "color": item.selected_color,
+            })
+
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=line_items,
             mode="payment",
-            success_url="http://localhost:3000/checkout/success?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url="http://localhost:3000/checkout/cancel",
-            metadata={"user_id": req.user_id},
+            success_url="http://localhost:3001/checkout/success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url="http://localhost:3001/checkout/cancel",
+            metadata={
+                "user_id": req.user_id,
+                "shipping_name": req.shipping_name,
+                "shipping_address": req.shipping_address,
+                "shipping_city": req.shipping_city,
+                "shipping_state": req.shipping_state,
+                "shipping_zip": req.shipping_zip,
+                "merchants": ",".join(merchant_orders.keys()),
+            },
         )
 
         return CheckoutResponse(
@@ -329,10 +352,51 @@ async def stripe_webhook(request: Request):
 
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
-        uid = session.get("metadata", {}).get("user_id")
+        meta = session.get("metadata", {})
+        uid = meta.get("user_id")
         if uid:
+            # Capture full order with merchant breakdown
+            cart_summary = await executor.get_cart_summary(uid)
+            merchant_dispatch = {}
+            for item in cart_summary.items:
+                mid = item.merchant_id
+                if mid not in merchant_dispatch:
+                    merchant_dispatch[mid] = {
+                        "merchant_name": item.merchant_name,
+                        "shipping": {
+                            "name": meta.get("shipping_name", ""),
+                            "address": meta.get("shipping_address", ""),
+                            "city": meta.get("shipping_city", ""),
+                            "state": meta.get("shipping_state", ""),
+                            "zip": meta.get("shipping_zip", ""),
+                        },
+                        "items": [],
+                        "subtotal": 0.0,
+                    }
+                merchant_dispatch[mid]["items"].append({
+                    "product_id": item.product_id,
+                    "name": item.name,
+                    "quantity": item.quantity,
+                    "price": item.price,
+                    "size": item.selected_size,
+                    "color": item.selected_color,
+                    "line_total": item.line_total,
+                })
+                merchant_dispatch[mid]["subtotal"] += item.line_total
+
+            # Log each merchant's order (in production, POST to merchant webhook/API)
+            for mid, order in merchant_dispatch.items():
+                log.info(
+                    "ORDER DISPATCH → merchant=%s customer=%s items=%d subtotal=$%.2f",
+                    order["merchant_name"],
+                    order["shipping"].get("name", "unknown"),
+                    len(order["items"]),
+                    order["subtotal"],
+                )
+
             await user_db.clear_cart(uid)
-            log.info("Payment completed for user %s, cart cleared", uid)
+            log.info("Payment complete for user %s — %d merchant order(s) dispatched, cart cleared",
+                     uid, len(merchant_dispatch))
 
     return {"received": True}
 

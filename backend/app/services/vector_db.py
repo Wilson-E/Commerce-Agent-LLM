@@ -124,9 +124,13 @@ class VectorDBService:
             similarities = None
             ranked = list(range(len(self._ids)))
 
+        MIN_SCORE = 0.20  # drop results below this cosine similarity
         results = []
         for idx in ranked:
             idx = int(idx)
+            score = float(similarities[idx]) if similarities is not None else 0.0
+            if similarities is not None and score < MIN_SCORE:
+                break  # ranked by descending score, so all remaining are worse
             meta = self._metadata[idx]
             if filters:
                 if "category" in filters and filters["category"].lower() not in meta.get("category", "").lower():
@@ -139,7 +143,6 @@ class VectorDBService:
                     continue
                 if filters.get("in_stock_only", True) and meta["stock"] <= 0:
                     continue
-            score = float(similarities[idx]) if similarities is not None else 0.0
             results.append({**meta, "score": score})
             if len(results) >= top_k:
                 break

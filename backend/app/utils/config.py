@@ -1,5 +1,13 @@
 """Configuration management."""
+from pathlib import Path
 from pydantic_settings import BaseSettings
+
+# Walk up from this file to find the .env at project root
+_HERE = Path(__file__).resolve()
+_ENV_FILE = next(
+    (p / ".env" for p in [_HERE.parent, *_HERE.parents] if (p / ".env").exists()),
+    ".env",
+)
 
 
 class Settings(BaseSettings):
@@ -22,7 +30,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
 
     class Config:
-        env_file = ".env"
+        env_file = str(_ENV_FILE)
         case_sensitive = True
 
 

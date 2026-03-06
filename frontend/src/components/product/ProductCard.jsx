@@ -1,6 +1,89 @@
 import { useState } from 'react'
 import useCartStore from '../../stores/cartStore'
 
+const BRAND_URLS = {
+  'nike':           q => `https://www.nike.com/search?q=${q}`,
+  'adidas':         q => `https://www.adidas.com/us/search?q=${q}`,
+  'new balance':    q => `https://www.newbalance.com/search?q=${q}`,
+  'hoka':           q => `https://www.hoka.com/en/us/search?q=${q}`,
+  'vans':           q => `https://www.vans.com/en-us/search?q=${q}`,
+  'converse':       q => `https://www.converse.com/shop/searchresults?q=${q}`,
+  'puma':           q => `https://us.puma.com/en_US/search?q=${q}`,
+  'reebok':         q => `https://www.reebok.com/us/search?q=${q}`,
+  'timberland':     q => `https://www.timberland.com/en-us/c/search?q=${q}`,
+  'clarks':         q => `https://www.clarks.com/en-us/search?q=${q}`,
+  'cole haan':      q => `https://www.colehaan.com/search?q=${q}`,
+  'naturalizer':    q => `https://www.naturalizer.com/search?q=${q}`,
+  'apple':          q => `https://www.apple.com/shop/product/search?q=${q}`,
+  'samsung':        q => `https://www.samsung.com/us/search/searchMain/N?searchword=${q}`,
+  'google':         q => `https://store.google.com/us/search?q=${q}`,
+  'dell':           q => `https://www.dell.com/en-us/search/${encodeURIComponent(q)}/N`,
+  'hp':             q => `https://www.hp.com/us-en/shop/searchresult/search-result.aspx?q=${q}`,
+  'lenovo':         q => `https://www.lenovo.com/us/en/search/?q=${q}`,
+  'asus':           q => `https://www.asus.com/us/search/?q=${q}`,
+  'microsoft':      q => `https://www.microsoft.com/en-us/search/shop/results?q=${q}`,
+  'sony':           q => `https://electronics.sony.com/search?q=${q}`,
+  'bose':           q => `https://www.bose.com/en_us/search.html?q=${q}`,
+  'logitech':       q => `https://www.logitech.com/search/results?q=${q}`,
+  'anker':          q => `https://www.anker.com/pages/search-results?q=${q}`,
+  'fitbit':         q => `https://www.fitbit.com/global/us/products`,
+  'garmin':         q => `https://www.garmin.com/en-US/search/#q=${q}`,
+  'fossil':         q => `https://www.fossil.com/en-us/search?q=${q}`,
+  'ralph lauren':   q => `https://www.ralphlauren.com/search?q=${q}`,
+  'tommy hilfiger': q => `https://usa.tommy.com/en/search?q=${q}`,
+  'calvin klein':   q => `https://www.calvinklein.com/en/search?q=${q}`,
+  'gap':            q => `https://www.gap.com/browse/search.do?searchText=${q}`,
+  'levi\'s':        q => `https://www.levi.com/US/en_US/search?q=${q}`,
+  'zara':           q => `https://www.zara.com/us/en/search?q=${q}`,
+  'free people':    q => `https://www.freepeople.com/search/?search_query=${q}`,
+  'lululemon':      q => `https://shop.lululemon.com/search?Ntt=${q}`,
+  'patagonia':      q => `https://www.patagonia.com/search/?q=${q}`,
+  'the north face': q => `https://www.thenorthface.com/en-us/search?q=${q}`,
+  'canada goose':   q => `https://www.canadagoose.com/us/en/search?q=${q}`,
+  'under armour':   q => `https://www.underarmour.com/en-us/search?q=${q}`,
+  'brooks brothers':q => `https://www.brooksbrothers.com/search?q=${q}`,
+  'coach':          q => `https://www.coach.com/search?q=${q}`,
+  'michael kors':   q => `https://www.michaelkors.com/search?q=${q}`,
+  'tumi':           q => `https://www.tumi.com/search?q=${q}`,
+  'herschel':       q => `https://www.herschel.com/search?q=${q}`,
+  'samsonite':      q => `https://shop.samsonite.com/search?q=${q}`,
+  'ray-ban':        q => `https://www.ray-ban.com/usa/search?q=${q}`,
+  'pandora':        q => `https://us.pandora.net/en/search/?search_string=${q}`,
+  'l\'oreal':       q => `https://www.lorealparisusa.com/search?q=${q}`,
+  'neutrogena':     q => `https://www.neutrogena.com/search?q=${q}`,
+  'estée lauder':   q => `https://www.esteelauder.com/search/?q=${q}`,
+  'maybelline':     q => `https://www.maybelline.com/search?q=${q}`,
+  'cerave':         q => `https://www.cerave.com/search?q=${q}`,
+  'olaplex':        q => `https://olaplex.com/search?q=${q}`,
+  'jo malone':      q => `https://www.jomalone.com/search?q=${q}`,
+  'oral-b':         q => `https://oralb.com/en-us/search?q=${q}`,
+  'vitamix':        q => `https://www.vitamix.com/us/en_us/search?q=${q}`,
+  'ninja':          q => `https://www.ninjakitchen.com/search?q=${q}`,
+  'keurig':         q => `https://www.keurig.com/search?q=${q}`,
+  'breville':       q => `https://www.breville.com/us/en/search?q=${q}`,
+  'kitchenaid':     q => `https://www.kitchenaid.com/search?q=${q}`,
+  'le creuset':     q => `https://www.lecreuset.com/search?q=${q}`,
+  'instant pot':    q => `https://www.instantpot.com/search?q=${q}`,
+  'dyson':          q => `https://www.dyson.com/search#q=${q}`,
+  'cuisinart':      q => `https://www.cuisinart.com/search?q=${q}`,
+  'hydro flask':    q => `https://www.hydroflask.com/search?q=${q}`,
+  'theragun':       q => `https://www.therabody.com/search?q=${q}`,
+  'bowflex':        q => `https://www.bowflex.com/search?q=${q}`,
+  'coleman':        q => `https://www.coleman.com/catalogsearch/result/?q=${q}`,
+  'manduka':        q => `https://www.manduka.com/search?q=${q}`,
+  'yeti':           q => `https://www.yeti.com/search?q=${q}`,
+}
+
+function getMerchantUrl(product) {
+  if (product.product_url) return product.product_url
+  const brand = (product.attributes?.brand || '').toLowerCase()
+  const query = encodeURIComponent(product.name)
+  const fn = BRAND_URLS[brand]
+  if (fn) return fn(query)
+  // Fallback: Google Shopping search
+  return `https://www.google.com/search?tbm=shop&q=${query}`
+}
+
 const CATEGORY_ICONS = {
   electronics: '📱',
   clothing: '👕',
@@ -142,8 +225,8 @@ export default function ProductCard({ product, variant = 'carousel' }) {
         )}
       </div>
 
-      {/* Add to Cart Button */}
-      <div className="px-4 pb-4">
+      {/* Buttons */}
+      <div className="px-4 pb-4 flex flex-col gap-2">
         <button
           onClick={handleAddToCart}
           disabled={!inStock}
@@ -155,6 +238,14 @@ export default function ProductCard({ product, variant = 'carousel' }) {
         >
           {inStock ? 'Add to Cart' : 'Out of Stock'}
         </button>
+        <a
+          href={getMerchantUrl(product)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-2 rounded-lg font-medium text-sm text-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+        >
+          View on {product.attributes?.brand || product.merchant_name} ↗
+        </a>
       </div>
     </div>
   )

@@ -58,7 +58,7 @@ class ToolExecutor:
 
         # Semantic search
         semantic_results = await self.vector_db.search(
-            query=query, top_k=10, filters=filters if filters else None
+            query=query, top_k=12, filters=filters if filters else None
         )
 
         # Keyword search
@@ -71,7 +71,7 @@ class ToolExecutor:
 
         # Enrich top results with full product data
         enriched = []
-        for item in fused[:6]:
+        for item in fused[:8]:
             product = await self.product_db.get_product(item["id"])
             if product:
                 enriched.append(product.dict())

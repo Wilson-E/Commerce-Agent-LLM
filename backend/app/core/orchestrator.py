@@ -172,9 +172,16 @@ class OrchestrationEngine:
                 )
             yield {"type": "text", "content": full_response}
 
-        # --- Send product cards if we found any ---
+        # --- Send product cards if we found any (deduplicated) ---
         if products_collected:
-            yield {"type": "products", "products": products_collected}
+            seen_ids = set()
+            unique_products = []
+            for p in products_collected:
+                pid = p.get("id")
+                if pid and pid not in seen_ids:
+                    seen_ids.add(pid)
+                    unique_products.append(p)
+            yield {"type": "products", "products": unique_products}
 
         # --- Post-process guardrails ---
         full_response = self.guardrails.check_output(full_response)
