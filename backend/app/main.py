@@ -12,7 +12,9 @@ from app.tools.executor import ToolExecutor
 from app.services.vector_db import VectorDBService
 from app.services.product_db import ProductDBService
 from app.services.user_db import UserDBService
+from app.services.auth_db import AuthDBService
 from app.services.memory import MemoryService
+from app.routers.auth import router as auth_router, set_auth_db
 from app.models.schemas import (
     ChatRequest, ChatResponse, AddToCartRequest,
     UpdateCartRequest, CheckoutRequest, CheckoutResponse, CartSummary,
@@ -28,6 +30,7 @@ log = logging.getLogger(__name__)
 
 product_db: ProductDBService = None
 user_db: UserDBService = None
+auth_db: AuthDBService = None
 vector_db: VectorDBService = None
 executor: ToolExecutor = None
 orchestrator: OrchestrationEngine = None
@@ -35,12 +38,14 @@ orchestrator: OrchestrationEngine = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global product_db, user_db, vector_db, executor, orchestrator
+    global product_db, user_db, auth_db, vector_db, executor, orchestrator
 
     log.info("Starting up")
 
     product_db = ProductDBService()
     user_db = UserDBService()
+    auth_db = AuthDBService()
+    set_auth_db(auth_db)
     vector_db = VectorDBService()
 
     products = product_db.get_all_products()
@@ -69,6 +74,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth_router)
 
 
 # ──────────────────────────── Health ────────────────────────────
