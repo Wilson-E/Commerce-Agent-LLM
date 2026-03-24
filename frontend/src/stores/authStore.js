@@ -3,8 +3,10 @@ import { persist } from 'zustand/middleware'
 
 // ── API helpers ───────────────────────────────────────────────────
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 async function apiPost(path, body) {
-  const res = await fetch(path, {
+  const res = await fetch(`${BACKEND_URL}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -19,7 +21,7 @@ async function apiLoginForm(email, password) {
   const form = new URLSearchParams()
   form.set('username', email)
   form.set('password', password)
-  const res = await fetch('/auth/login/email', {
+  const res = await fetch(`${BACKEND_URL}/auth/login/email`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: form.toString(),
