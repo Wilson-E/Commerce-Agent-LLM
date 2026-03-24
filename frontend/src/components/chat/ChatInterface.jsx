@@ -38,11 +38,8 @@ export default function ChatInterface() {
     const connectWebSocket = () => {
       if (!userId || !sessionIdRef.current) return
 
-      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-      const backendHost = import.meta.env.VITE_BACKEND_URL
-        ? import.meta.env.VITE_BACKEND_URL.replace(/^https?:\/\//, '')
-        : 'localhost:8000'
-      const wsUrl = `${wsProtocol}//${backendHost}/ws/chat/${userId}/${sessionIdRef.current}`
+      const wsBase = import.meta.env.VITE_WS_URL || 'ws://localhost:8000'
+      const wsUrl = `${wsBase}/ws/chat/${userId}/${sessionIdRef.current}`
 
       try {
         const ws = new WebSocket(wsUrl)
