@@ -18,7 +18,7 @@ SYSTEM_PROMPT = """You are a friendly shopping assistant for an e-commerce platf
 
 CRITICAL RULES:
 1. ALWAYS use the search_products or browse_category tool when the user asks about any product, category, or shopping need. NEVER answer product questions from memory — you MUST call a tool first.
-2. For greetings, small talk, or messages with no shopping intent (e.g. "hi", "what's up", "thanks"), respond naturally and conversationally WITHOUT calling any tools. Do NOT search for products unless the user is clearly asking about something they want to buy or browse.
+2. Only use tools when the user is clearly shopping. For conversation, small talk, or questions unrelated to finding products, respond naturally with NO tool calls.
 3. Never invent prices, discounts, or promo codes. Use ONLY data returned by tools.
 4. Never claim a product is in stock without verifying via tools.
 5. When presenting products, always mention the merchant name (who sells it) and price.
@@ -31,23 +31,36 @@ User context:
 - Cart: {cart_info}
 - Preferences: {preferences}"""
 
-# Patterns that are clearly conversational — no product search needed
-_CONVERSATIONAL_RE = re.compile(
+# Pure greeting / social phrases (full-message match)
+_GREETING_RE = re.compile(
     r"^\s*(hi+|hey+|hello+|howdy|hiya|yo+|greetings|"
     r"what'?s\s*up|sup|what'?s\s*good|what'?s\s*new|"
     r"how\s*are\s*(you|u)\??|how'?s\s*it\s*going\??|"
     r"good\s*(morning|afternoon|evening|day)|"
     r"thanks|thank\s*you|thx|ty|"
     r"bye|goodbye|see\s*ya|later|"
-    r"ok|okay|cool|nice|great|awesome|sounds\s*good|got\s*it|"
-    r"sure|yep|yeah|nope|lol|lmao|haha)\s*[!.?]*\s*$",
+    r"ok(ay)?|cool|nice|great|awesome|sounds\s*good|got\s*it|"
+    r"sure|yep|yeah|nope|lol|lmao|haha)\s*[!.?,]*\s*$",
     re.IGNORECASE,
+)
+
+# Phrases that explicitly tell the assistant not to search / show products
+_NO_SEARCH_PHRASES = (
+    "don't show", "dont show", "do not show",
+    "no products", "don't search", "dont search", "do not search",
+    "just chat", "just talk", "just saying", "just hi", "just hello",
+    "not shopping", "not looking to buy", "not looking for",
+    "just browsing", "don't recommend", "dont recommend",
+    "stop showing", "without products", "no recommendations",
 )
 
 
 def _is_conversational(message: str) -> bool:
-    """True if the message is casual/social with no shopping intent."""
-    return bool(_CONVERSATIONAL_RE.match(message.strip()))
+    """True when the message has no shopping intent OR explicitly asks to skip product search."""
+    lowered = message.strip().lower()
+    if any(phrase in lowered for phrase in _NO_SEARCH_PHRASES):
+        return True
+    return bool(_GREETING_RE.match(message.strip()))
 
 
 class OrchestrationEngine:
@@ -92,7 +105,38 @@ class OrchestrationEngine:
         for m in ctx.messages[-8:]:
             messages.append({"role": m["role"], "content": m["content"]})
 
-        # --- ReAct loop: let the LLM decide which tools to call ---
+        # ----------------------------------------------------------------
+        # FAST PATH — conversational messages skip the ReAct loop entirely.
+        # No tools are offered, so no products can leak through.
+        # One LLM call → stream → done. Roughly 2× faster than shopping path.
+        # ----------------------------------------------------------------
+        if _is_conversational(message):
+            log.info("Conversational message — skipping ReAct loop")
+            full_response = ""
+            try:
+                stream = await self._client.chat.completions.create(
+                    model=settings.LLM_MODEL,
+                    messages=messages,
+                    stream=True,
+                )
+                async for chunk in stream:
+                    delta = chunk.choices[0].delta
+                    if delta.content:
+                        full_response += delta.content
+                        yield {"type": "text", "content": delta.content}
+            except Exception as exc:
+                log.error("LLM streaming failed (conversational): %s", exc)
+                full_response = "Hey! How can I help you today?"
+                yield {"type": "text", "content": full_response}
+
+            full_response = self.guardrails.check_output(full_response)
+            await self.memory.add_message(ctx, "assistant", full_response)
+            yield {"type": "done"}
+            return
+
+        # ----------------------------------------------------------------
+        # SHOPPING PATH — full ReAct loop with tools
+        # ----------------------------------------------------------------
         products_collected = []
         tool_was_called = False
 
@@ -106,7 +150,6 @@ class OrchestrationEngine:
                 )
             except Exception as exc:
                 log.error("LLM call failed: %s", exc)
-                # Fall back to a keyword search if the LLM is unreachable
                 break
 
             assistant_msg = resp.choices[0].message
@@ -114,7 +157,6 @@ class OrchestrationEngine:
             if not assistant_msg.tool_calls:
                 break  # LLM is done reasoning, ready to give final answer
 
-            # Execute each tool call
             messages.append(assistant_msg.model_dump(exclude_none=True))
 
             for tc in assistant_msg.tool_calls:
@@ -134,7 +176,6 @@ class OrchestrationEngine:
                     "content": result_str,
                 })
 
-                # Collect products for frontend cards
                 try:
                     result_data = json.loads(result_str)
                     if "products" in result_data:
@@ -142,9 +183,8 @@ class OrchestrationEngine:
                 except (json.JSONDecodeError, TypeError):
                     pass
 
-        # --- Fallback: if no tools were called and message is shopping-related, search ---
-        # Skip for conversational messages so greetings don't trigger product searches.
-        if not tool_was_called and not products_collected and not _is_conversational(message):
+        # Fallback search if LLM didn't call any tools (e.g. LLM error)
+        if not tool_was_called and not products_collected:
             log.info("No tools called — running fallback search for: %s", message[:80])
             try:
                 fallback_result = await self.executor.run(
@@ -153,19 +193,14 @@ class OrchestrationEngine:
                 fallback_data = json.loads(fallback_result)
                 if "products" in fallback_data:
                     products_collected.extend(fallback_data["products"])
-                    # Add the search results to context so the LLM can reference them
                     messages.append({
                         "role": "system",
-                        "content": f"[System: automatic product search returned {len(fallback_data['products'])} results. Present these to the user.]"
-                    })
-                    messages.append({
-                        "role": "assistant",
-                        "content": f"I found some products for you. Here are the top matches based on your request."
+                        "content": f"[System: search returned {len(fallback_data['products'])} results. Present these to the user.]"
                     })
             except Exception as exc:
                 log.warning("Fallback search failed: %s", exc)
 
-        # --- Stream the final response (no tools, just text) ---
+        # Stream final response
         full_response = ""
         try:
             stream = await self._client.chat.completions.create(
@@ -180,20 +215,16 @@ class OrchestrationEngine:
                     yield {"type": "text", "content": delta.content}
         except Exception as exc:
             log.error("LLM streaming failed: %s", exc)
-            # Provide a helpful fallback message
-            if products_collected:
-                full_response = f"Here are {len(products_collected)} products I found for you. Take a look at the cards below!"
-            else:
-                full_response = (
-                    "I'm having trouble connecting to my AI service right now. "
-                    "You can browse products by category using the links above, "
-                    "or try again in a moment."
-                )
+            full_response = (
+                f"Here are {len(products_collected)} products I found for you!"
+                if products_collected
+                else "I'm having trouble connecting right now. Please try again in a moment."
+            )
             yield {"type": "text", "content": full_response}
 
-        # --- Send product cards if we found any (deduplicated) ---
+        # Send deduplicated product cards
         if products_collected:
-            seen_ids = set()
+            seen_ids: set = set()
             unique_products = []
             for p in products_collected:
                 pid = p.get("id")
@@ -202,10 +233,6 @@ class OrchestrationEngine:
                     unique_products.append(p)
             yield {"type": "products", "products": unique_products}
 
-        # --- Post-process guardrails ---
         full_response = self.guardrails.check_output(full_response)
-
-        # --- Save to memory ---
         await self.memory.add_message(ctx, "assistant", full_response)
-
         yield {"type": "done"}
