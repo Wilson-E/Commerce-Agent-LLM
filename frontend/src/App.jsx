@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/layout/Header'
 import CartDrawer from './components/layout/CartDrawer'
@@ -14,6 +15,15 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+
+  useEffect(() => {
+    const API_URL = import.meta.env.VITE_BACKEND_URL || ''
+    if (!API_URL) return
+    const ping = () => fetch(`${API_URL}/health`).catch(() => {})
+    ping()
+    const id = setInterval(ping, 10 * 60 * 1000)
+    return () => clearInterval(id)
+  }, [])
 
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-b from-indigo-50 via-slate-50 to-white dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 transition-colors">
