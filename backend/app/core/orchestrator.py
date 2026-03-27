@@ -1,6 +1,7 @@
 """Orchestration engine using real ReAct pattern with OpenAI function calling."""
 import json
 import logging
+import re
 from typing import Dict, Any, AsyncIterator
 
 from openai import AsyncOpenAI
@@ -13,11 +14,11 @@ from app.utils.config import settings
 
 log = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """You are a shopping assistant for an e-commerce platform with products from multiple merchants.
+SYSTEM_PROMPT = """You are a friendly shopping assistant for an e-commerce platform with products from multiple merchants.
 
 CRITICAL RULES:
 1. ALWAYS use the search_products or browse_category tool when the user asks about any product, category, or shopping need. NEVER answer product questions from memory — you MUST call a tool first.
-2. Even for greetings like "hi" or "hello", call search_products with a general query to show some featured products. Every response should ideally include products.
+2. For greetings, small talk, or messages with no shopping intent (e.g. "hi", "what's up", "thanks"), respond naturally and conversationally WITHOUT calling any tools. Do NOT search for products unless the user is clearly asking about something they want to buy or browse.
 3. Never invent prices, discounts, or promo codes. Use ONLY data returned by tools.
 4. Never claim a product is in stock without verifying via tools.
 5. When presenting products, always mention the merchant name (who sells it) and price.
@@ -29,6 +30,24 @@ User context:
 - Recent products: {recent_products}
 - Cart: {cart_info}
 - Preferences: {preferences}"""
+
+# Patterns that are clearly conversational — no product search needed
+_CONVERSATIONAL_RE = re.compile(
+    r"^\s*(hi+|hey+|hello+|howdy|hiya|yo+|greetings|"
+    r"what'?s\s*up|sup|what'?s\s*good|what'?s\s*new|"
+    r"how\s*are\s*(you|u)\??|how'?s\s*it\s*going\??|"
+    r"good\s*(morning|afternoon|evening|day)|"
+    r"thanks|thank\s*you|thx|ty|"
+    r"bye|goodbye|see\s*ya|later|"
+    r"ok|okay|cool|nice|great|awesome|sounds\s*good|got\s*it|"
+    r"sure|yep|yeah|nope|lol|lmao|haha)\s*[!.?]*\s*$",
+    re.IGNORECASE,
+)
+
+
+def _is_conversational(message: str) -> bool:
+    """True if the message is casual/social with no shopping intent."""
+    return bool(_CONVERSATIONAL_RE.match(message.strip()))
 
 
 class OrchestrationEngine:
@@ -123,9 +142,9 @@ class OrchestrationEngine:
                 except (json.JSONDecodeError, TypeError):
                     pass
 
-        # --- Fallback: if no tools were called, proactively search ---
-        # This catches cases where the LLM is down or didn't use tools
-        if not tool_was_called and not products_collected:
+        # --- Fallback: if no tools were called and message is shopping-related, search ---
+        # Skip for conversational messages so greetings don't trigger product searches.
+        if not tool_was_called and not products_collected and not _is_conversational(message):
             log.info("No tools called — running fallback search for: %s", message[:80])
             try:
                 fallback_result = await self.executor.run(
