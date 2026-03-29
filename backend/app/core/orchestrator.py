@@ -62,12 +62,22 @@ _GREETING_START_RE = re.compile(
 
 # General non-shopping questions that should never trigger a product search
 _NON_SHOPPING_RE = re.compile(
-    r"^\s*(what\s*(time|day|date|year|month|is\s*(it|the\s*(time|date|day)))|"
+    r"^\s*(what'?s?\s*(the\s*)?(time|day|date|year|month)|"
+    r"what\s*(time|day|date|year|month|is\s*(it|the\s*(time|date|day)))|"
     r"who\s*(are\s*you|made\s*you|created\s*you|built\s*you|is\s*your\s*creator)|"
     r"what\s*are\s*you|tell\s*me\s*about\s*yourself|"
     r"how\s*does\s*(this|the\s*app)\s*work|what\s*can\s*you\s*(do|help)|"
-    r"what'?s\s*the\s*weather|are\s*you\s*(a\s*)?(bot|ai|robot|human|real)|"
+    r"what'?s?\s*the\s*weather|are\s*you\s*(a\s*)?(bot|ai|robot|human|real)|"
     r"do\s*you\s*(have\s*feelings|feel|think|know\s*everything))\b",
+    re.IGNORECASE,
+)
+
+# Time/date/meta questions that can appear anywhere in a short message
+_TIME_QUESTION_RE = re.compile(
+    r"(what'?s?\s*(the\s*)?(time|day|date|year)|"
+    r"what\s+time\s+is\s+it|"
+    r"do\s+you\s+know\s+the\s+time|"
+    r"current\s+(time|date|day|year))",
     re.IGNORECASE,
 )
 
@@ -102,6 +112,10 @@ def _is_conversational(message: str) -> bool:
 
     # General knowledge / meta questions — answer naturally, never search
     if _NON_SHOPPING_RE.match(stripped):
+        return True
+
+    # Short messages (≤10 words) that contain a time/date question anywhere
+    if len(stripped.split()) <= 10 and _TIME_QUESTION_RE.search(stripped):
         return True
 
     return False

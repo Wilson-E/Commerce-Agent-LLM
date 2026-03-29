@@ -273,7 +273,7 @@ export default function ChatInterface() {
       {/* Right: Results — always visible */}
       <div className="lg:col-span-6 xl:col-span-5 h-full">
           <div className="h-full bg-white dark:bg-gray-900 flex flex-col overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+            <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-9 w-9 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center border border-gray-200 dark:border-gray-700">
                   <Search size={18} className="text-gray-700 dark:text-gray-200" />
