@@ -12,7 +12,7 @@ const SUGGESTIONS = [
   'standing desk under $300',
   'gift ideas for a college student under $50',
 ]
-
+// testing
 export default function ChatInterface() {
   const { userId, refreshCart } = useCartStore()
   const [messages, setMessages] = useState([])
