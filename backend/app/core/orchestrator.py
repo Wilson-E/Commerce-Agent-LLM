@@ -14,17 +14,27 @@ from app.utils.config import settings
 
 log = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """You are a friendly shopping assistant for an e-commerce platform with products from multiple merchants.
+SYSTEM_PROMPT = """You are ShopAssist — a warm, natural AI shopping companion. Think of yourself as a knowledgeable friend who loves helping people find great products, but also just enjoys a good conversation.
 
-CRITICAL RULES:
-1. ALWAYS use the search_products or browse_category tool when the user asks about any product, category, or shopping need. NEVER answer product questions from memory — you MUST call a tool first.
-2. Only use tools when the user is clearly shopping. For conversation, small talk, or questions unrelated to finding products, respond naturally with NO tool calls.
+YOUR PERSONALITY:
+- Talk like a real person, not a product catalog. Be warm, casual, and genuinely helpful.
+- When someone greets you, greet them back naturally and ask what brings them in today.
+- If someone asks a general question (time, weather, trivia), answer it briefly and naturally pivot: e.g. "I can't check the time, but if you're looking for a great watch I can help with that 😄"
+- Gently nudge conversations toward shopping, but never force it. Let curiosity lead.
+- If the user is vague ("I need something nice"), ask a friendly clarifying question — budget? occasion? who's it for?
+
+TOOL RULES (non-negotiable):
+1. ALWAYS use search_products or browse_category when the user asks about any product, category, or shopping need. NEVER answer product questions from memory.
+2. ONLY call tools when the user has clear shopping intent. Greetings, small talk, and general questions get a natural response with NO tool calls.
 3. Never invent prices, discounts, or promo codes. Use ONLY data returned by tools.
 4. Never claim a product is in stock without verifying via tools.
-5. When presenting products, always mention the merchant name (who sells it) and price.
-6. Only decline completely non-commerce topics (weather, politics, recipes). Shopping-adjacent questions are fine.
-7. Be concise, friendly, and helpful. Format responses with brief descriptions, not walls of text.
-8. If the user asks to add something to cart, use the add_to_cart tool.
+5. When presenting products, always mention merchant name and price.
+6. If the user asks to add something to cart, use the add_to_cart tool.
+
+RESPONSE STYLE:
+- Keep it concise and conversational — no walls of text.
+- For product results, give a short friendly intro before listing items.
+- End shopping responses with a natural follow-up question ("Want me to narrow it down by budget or color?").
 
 User context:
 - Recent products: {recent_products}
@@ -44,6 +54,23 @@ _GREETING_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Message STARTS with a greeting word (catches "hi whatsuo", "hey there", "hello friend" etc.)
+_GREETING_START_RE = re.compile(
+    r"^\s*(hi+|hey+|hello+|howdy|hiya|yo+|sup|greetings|good\s*(morning|afternoon|evening|day))\b",
+    re.IGNORECASE,
+)
+
+# General non-shopping questions that should never trigger a product search
+_NON_SHOPPING_RE = re.compile(
+    r"^\s*(what\s*(time|day|date|year|month|is\s*(it|the\s*(time|date|day)))|"
+    r"who\s*(are\s*you|made\s*you|created\s*you|built\s*you|is\s*your\s*creator)|"
+    r"what\s*are\s*you|tell\s*me\s*about\s*yourself|"
+    r"how\s*does\s*(this|the\s*app)\s*work|what\s*can\s*you\s*(do|help)|"
+    r"what'?s\s*the\s*weather|are\s*you\s*(a\s*)?(bot|ai|robot|human|real)|"
+    r"do\s*you\s*(have\s*feelings|feel|think|know\s*everything))\b",
+    re.IGNORECASE,
+)
+
 # Phrases that explicitly tell the assistant not to search / show products
 _NO_SEARCH_PHRASES = (
     "don't show", "dont show", "do not show",
@@ -57,10 +84,27 @@ _NO_SEARCH_PHRASES = (
 
 def _is_conversational(message: str) -> bool:
     """True when the message has no shopping intent OR explicitly asks to skip product search."""
-    lowered = message.strip().lower()
+    stripped = message.strip()
+    lowered = stripped.lower()
+
+    # Explicit opt-out phrases
     if any(phrase in lowered for phrase in _NO_SEARCH_PHRASES):
         return True
-    return bool(_GREETING_RE.match(message.strip()))
+
+    # Exact full-message greeting match
+    if _GREETING_RE.match(stripped):
+        return True
+
+    # Short message (≤8 words) that starts with a greeting word
+    # Catches "hi whatsuo", "hey there how are you", "hello friend" etc.
+    if len(stripped.split()) <= 8 and _GREETING_START_RE.match(stripped):
+        return True
+
+    # General knowledge / meta questions — answer naturally, never search
+    if _NON_SHOPPING_RE.match(stripped):
+        return True
+
+    return False
 
 
 class OrchestrationEngine:
