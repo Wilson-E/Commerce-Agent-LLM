@@ -259,11 +259,10 @@ class OrchestrationEngine:
                     yield {"type": "text", "content": delta.content}
         except Exception as exc:
             log.error("LLM streaming failed: %s", exc)
-            full_response = (
-                f"Here are {len(products_collected)} products I found for you!"
-                if products_collected
-                else "I'm having trouble connecting right now. Please try again in a moment."
-            )
+            if products_collected:
+                full_response = f"I found {len(products_collected)} product{'s' if len(products_collected) != 1 else ''} for you — check them out in the results panel! Want me to filter by budget or anything else?"
+            else:
+                full_response = "I didn't quite catch that — could you tell me what you're looking for? I can help with clothing, tech, home goods, and more!"
             yield {"type": "text", "content": full_response}
 
         # Send deduplicated product cards

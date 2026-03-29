@@ -173,12 +173,12 @@ export default function ChatInterface() {
   }
 
   return (
-    <div className="h-full grid grid-rows-[1fr] lg:grid-cols-12 gap-6">
+    <div className="h-full grid grid-rows-[1fr] lg:grid-cols-12 lg:divide-x divide-gray-200 dark:divide-gray-800">
       {/* Left: Chat */}
       <div className="lg:col-span-6 xl:col-span-7 h-full">
-        <div className="h-full rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden">
+        <div className="h-full bg-white dark:bg-gray-900 flex flex-col overflow-hidden">
           {/* Panel Header */}
-          <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+          <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="h-9 w-9 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-600 text-white flex items-center justify-center shadow-sm">
                 <Sparkles size={18} />
@@ -272,7 +272,7 @@ export default function ChatInterface() {
 
       {/* Right: Results — always visible */}
       <div className="lg:col-span-6 xl:col-span-5 h-full">
-          <div className="h-full rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden">
+          <div className="h-full bg-white dark:bg-gray-900 flex flex-col overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-9 w-9 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center border border-gray-200 dark:border-gray-700">
