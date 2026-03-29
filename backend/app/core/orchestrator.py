@@ -8,6 +8,7 @@ No regex-based intent detection. The LLM classifies all messages.
 """
 import json
 import logging
+from datetime import datetime
 from typing import Dict, Any, AsyncIterator
 
 from openai import AsyncOpenAI
@@ -44,7 +45,7 @@ WHEN TO RESPOND NATURALLY (everything else):
 - "what can you do" → "I can help you find products, compare options, manage your cart, and just chat!"
 - "thanks" → "Anytime! Let me know if you need anything else."
 
-User's cart: {cart_info} | Recent products viewed: {recent_products}"""
+Current date/time: {current_datetime} | User's cart: {cart_info} | Recent products viewed: {recent_products}"""
 
 # ── Shopping system prompt (used only in ReAct tool loop) ────────────────────
 SHOPPING_PROMPT = """You are ShopAssist — helping a user find products to buy.
@@ -97,7 +98,9 @@ class OrchestrationEngine:
         # ── Call 1: Router — no tools, classifies intent ─────────────────────
         router_messages = [
             {"role": "system", "content": ROUTER_PROMPT.format(
-                cart_info=cart_info, recent_products=recent
+                cart_info=cart_info,
+                recent_products=recent,
+                current_datetime=datetime.now().strftime("%A, %B %d %Y, %I:%M %p"),
             )}
         ] + history
 
