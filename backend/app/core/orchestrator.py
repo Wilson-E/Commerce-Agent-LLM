@@ -196,7 +196,7 @@ class OrchestrationEngine:
         # SHOPPING PATH — full ReAct loop with tools
         # ----------------------------------------------------------------
         products_collected = []
-        tool_was_called = False
+        llm_error = False  # True only when the LLM API call itself fails
 
         for iteration in range(settings.MAX_REACT_ITERATIONS):
             try:
@@ -208,12 +208,16 @@ class OrchestrationEngine:
                 )
             except Exception as exc:
                 log.error("LLM call failed: %s", exc)
+                llm_error = True
                 break
 
             assistant_msg = resp.choices[0].message
 
             if not assistant_msg.tool_calls:
-                break  # LLM is done reasoning, ready to give final answer
+                # LLM deliberately chose not to call tools — trust that decision.
+                # This is the correct path for non-shopping queries that slipped
+                # past _is_conversational (e.g. "time", "I am asking for the time").
+                break
 
             messages.append(assistant_msg.model_dump(exclude_none=True))
 
@@ -226,7 +230,6 @@ class OrchestrationEngine:
 
                 log.info("ReAct iter %d: %s(%s)", iteration, tool_name, args)
                 result_str = await self.executor.run(tool_name, args, user_id)
-                tool_was_called = True
 
                 messages.append({
                     "role": "tool",
@@ -241,9 +244,10 @@ class OrchestrationEngine:
                 except (json.JSONDecodeError, TypeError):
                     pass
 
-        # Fallback search if LLM didn't call any tools (e.g. LLM error)
-        if not tool_was_called and not products_collected:
-            log.info("No tools called — running fallback search for: %s", message[:80])
+        # Fallback search ONLY when the LLM API itself failed — not when the LLM
+        # consciously decided to skip tools (that would override correct behaviour).
+        if llm_error and not products_collected:
+            log.info("LLM error — running fallback search for: %s", message[:80])
             try:
                 fallback_result = await self.executor.run(
                     "search_products", {"query": message}, user_id
