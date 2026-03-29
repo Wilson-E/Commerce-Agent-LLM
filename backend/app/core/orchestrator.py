@@ -91,6 +91,20 @@ _NO_SEARCH_PHRASES = (
     "stop showing", "without products", "no recommendations",
 )
 
+# Short conversational follow-ups that are never shopping queries
+_CONVERSATIONAL_FOLLOWUPS = re.compile(
+    r"^\s*(answer\s*(my|the)\s*question|"
+    r"(can\s*you\s*)?answer\s*(me|that|it)|"
+    r"(just\s*)?(tell|explain)\s*(me\s*)?(more|that|it|please)?|"
+    r"(what\s*did\s*you\s*(say|mean))|"
+    r"(i\s*didn'?t?\s*(get|understand|follow)\s*(that|you))|"
+    r"(repeat\s*that|say\s*that\s*again|pardon|huh\??|what\??|come\s*again)|"
+    r"(are\s*you\s*there|you\s*still\s*there|hello\??|anyone\s*there)|"
+    r"(never\s*mind|forget\s*it|nvm|nm)|"
+    r"(that'?s?\s*(it|all|fine|good|ok(ay)?|great|perfect|cool)))\s*[!.?,]*\s*$",
+    re.IGNORECASE,
+)
+
 
 def _is_conversational(message: str) -> bool:
     """True when the message has no shopping intent OR explicitly asks to skip product search."""
@@ -116,6 +130,10 @@ def _is_conversational(message: str) -> bool:
 
     # Short messages (≤10 words) that contain a time/date question anywhere
     if len(stripped.split()) <= 10 and _TIME_QUESTION_RE.search(stripped):
+        return True
+
+    # Common conversational follow-ups that are never shopping queries
+    if _CONVERSATIONAL_FOLLOWUPS.match(stripped):
         return True
 
     return False
