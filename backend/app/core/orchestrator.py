@@ -26,10 +26,11 @@ YOUR PERSONALITY:
 TOOL RULES (non-negotiable):
 1. ALWAYS use search_products or browse_category when the user asks about any product, category, or shopping need. NEVER answer product questions from memory.
 2. ONLY call tools when the user has clear shopping intent. Greetings, small talk, and general questions get a natural response with NO tool calls.
-3. Never invent prices, discounts, or promo codes. Use ONLY data returned by tools.
-4. Never claim a product is in stock without verifying via tools.
-5. When presenting products, always mention merchant name and price.
-6. If the user asks to add something to cart, use the add_to_cart tool.
+3. NEVER call any tool for: questions about the time, date, day, weather, or any non-shopping topic. Answer these directly and naturally in words — do NOT search for products.
+4. Never invent prices, discounts, or promo codes. Use ONLY data returned by tools.
+5. Never claim a product is in stock without verifying via tools.
+6. When presenting products, always mention merchant name and price.
+7. If the user asks to add something to cart, use the add_to_cart tool.
 
 RESPONSE STYLE:
 - Keep it concise and conversational — no walls of text.
@@ -76,6 +77,8 @@ _NON_SHOPPING_RE = re.compile(
 _TIME_QUESTION_RE = re.compile(
     r"(what'?s?\s*(the\s*)?(time|day|date|year)|"
     r"what\s+time\s+is\s+it|"
+    r"(tell|give|show)\s+(me\s+)?(the\s+)?(current\s+)?time\b|"
+    r"(what|tell\s+me)\s+(is\s+)?(the\s+)?(current\s+)?(time|date|day)\b|"
     r"do\s+you\s+know\s+the\s+time|"
     r"current\s+(time|date|day|year))",
     re.IGNORECASE,
