@@ -1,5 +1,5 @@
 # AI-Native E-Commerce Shopping Assistant
-# test
+# testing
 
 A production-ready AI shopping assistant built with GPT-4, RAG (Retrieval-Augmented Generation), and ReAct (Reasoning + Acting) architecture.
 
