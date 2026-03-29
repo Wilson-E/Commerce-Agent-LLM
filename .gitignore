@@ -42,3 +42,5 @@ frontend/vite.config.js.timestamp-*
 
 # Docker volumes / local data
 *.log
+.vercel
+.env*.local

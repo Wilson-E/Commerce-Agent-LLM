@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^5.5.0",
-    "@azure/msal-react": "^5.0.7",
+    "@azure/msal-react": "^2.1.0",
     "@react-oauth/google": "^0.13.4",
     "@stripe/stripe-js": "^1.46.0",
     "lucide-react": "^0.263.1",
