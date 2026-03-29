@@ -137,8 +137,6 @@ export default function ChatInterface() {
     return ''
   }, [messages])
 
-  const showResultsPanel = useMemo(() => messages.length > 0, [messages.length])
-
   const sendMessage = () => {
     if (!input.trim() || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return
 
@@ -175,20 +173,10 @@ export default function ChatInterface() {
   }
 
   return (
-    <div
-      className={
-        showResultsPanel
-          ? 'h-full grid grid-rows-[1fr] lg:grid-cols-12 gap-6'
-          : 'h-full flex items-center justify-center'
-      }
-    >
-      {/* Left: Assistant */}
-      <div className={showResultsPanel ? 'lg:col-span-6 xl:col-span-7 h-full' : 'w-full max-w-4xl'}>
-        <div
-          className={`rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden ${
-            showResultsPanel ? 'h-full' : 'min-h-[70vh]'
-          }`}
-        >
+    <div className="h-full grid grid-rows-[1fr] lg:grid-cols-12 gap-6">
+      {/* Left: Chat */}
+      <div className="lg:col-span-6 xl:col-span-7 h-full">
+        <div className="h-full rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden">
           {/* Panel Header */}
           <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -282,9 +270,8 @@ export default function ChatInterface() {
         </div>
       </div>
 
-      {/* Right: Results (hidden until first query) */}
-      {showResultsPanel && (
-        <div className="lg:col-span-6 xl:col-span-5 h-full">
+      {/* Right: Results — always visible */}
+      <div className="lg:col-span-6 xl:col-span-5 h-full">
           <div className="h-full rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -332,8 +319,7 @@ export default function ChatInterface() {
               )}
             </div>
           </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }

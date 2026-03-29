@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useCartStore from '../../stores/cartStore'
+import useSavedStore from '../../stores/savedStore'
 
 const BRAND_URLS = {
   'nike':           q => `https://www.nike.com/search?q=${q}`,
@@ -103,6 +104,8 @@ export default function ProductCard({ product, variant = 'carousel' }) {
   const [selectedColor, setSelectedColor] = useState(null)
   const [imgError, setImgError] = useState(false)
   const { addItem } = useCartStore()
+  const { saveItem, unsaveItem, isSaved } = useSavedStore()
+  const saved = isSaved(product.id)
 
   const inStock = product.stock > 0
   const hasSizes = product.attributes?.sizes && product.attributes.sizes.length > 0
@@ -158,6 +161,19 @@ export default function ProductCard({ product, variant = 'carousel' }) {
       {product.merchant_name}
     </span>
   </div>
+  <button
+    onClick={() => saved ? unsaveItem(product.id) : saveItem(product)}
+    title={saved ? 'Remove from saved' : 'Save for later'}
+    className={`shrink-0 p-1.5 rounded-lg transition-colors ${
+      saved
+        ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100'
+        : 'text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20'
+    }`}
+  >
+    <svg viewBox="0 0 24 24" width="15" height="15" fill={saved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+    </svg>
+  </button>
 </div>
 
       {/* Product Info */}
