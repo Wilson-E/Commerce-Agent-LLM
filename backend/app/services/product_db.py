@@ -426,15 +426,27 @@ class ProductDBService:
         return products
 
     async def warmup(self):
-        """Pre-populate the cache by searching common categories on startup."""
+        """Pre-populate the cache by searching common categories on startup.
+        
+        Note: Warmup is disabled by default for all APIs (quota protection).
+        Set WARMUP_CACHE=true environment variable to enable.
+        """
         if not self._use_rapidapi and not self._use_serpapi and not self._use_ebay:
             return
+        
+        # Skip warmup by default to avoid wasting API quota
+        warmup_enabled = getattr(settings, "WARMUP_CACHE", "false").lower() == "true"
+        if not warmup_enabled:
+            log.info("Cache warmup skipped (quota protection — set WARMUP_CACHE=true to enable)")
+            return
+        
         if self._use_rapidapi:
             source = "RapidAPI"
         elif self._use_serpapi:
             source = "SerpAPI"
         else:
             source = "eBay"
+        
         log.info("Warming up %s product cache...", source)
         for query in _WARMUP_QUERIES:
             try:
