@@ -1,5 +1,6 @@
 """Configuration management."""
 from pathlib import Path
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings
 
 # Walk up from this file to find the .env at project root
@@ -23,7 +24,10 @@ class Settings(BaseSettings):
     RAPIDAPI_KEY: str = ""
 
     # SerpAPI — Google Shopping
-    SERPAPI_KEY: str = ""
+    SERPAPI_KEY: str = Field(
+        default="",
+        validation_alias=AliasChoices("SERPAPI_KEY", "SERP_API_KEY", "SERPAPI_API_KEY"),
+    )
 
     # eBay Browse API
     EBAY_CLIENT_ID: str = ""
@@ -46,6 +50,7 @@ class Settings(BaseSettings):
     MAX_REACT_ITERATIONS: int = 5
     TAX_RATE: float = 0.08
     ENVIRONMENT: str = "development"
+    WARMUP_CACHE: bool = False
 
     class Config:
         env_file = str(_ENV_FILE)

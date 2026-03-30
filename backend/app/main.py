@@ -101,8 +101,8 @@ async def search_test(q: str = "Nike shoes"):
     """Test endpoint — runs a live search through whichever API is active and
     returns the raw results so you can confirm the integration is working."""
     sources = {
-        "rapidapi": bool(getattr(settings, "RAPIDAPI_KEY", "")),
         "serpapi": bool(getattr(settings, "SERPAPI_KEY", "")),
+        "rapidapi": bool(getattr(settings, "RAPIDAPI_KEY", "")),
         "ebay": bool(getattr(settings, "EBAY_CLIENT_ID", "") and getattr(settings, "EBAY_CLIENT_SECRET", "")),
     }
     active_source = next((k for k, v in sources.items() if v), "sample_data")

@@ -436,15 +436,15 @@ class ProductDBService:
             return
         
         # Skip warmup by default to avoid wasting API quota
-        warmup_enabled = getattr(settings, "WARMUP_CACHE", "false").lower() == "true"
+        warmup_enabled = bool(getattr(settings, "WARMUP_CACHE", False))
         if not warmup_enabled:
             log.info("Cache warmup skipped (quota protection — set WARMUP_CACHE=true to enable)")
             return
         
-        if self._use_rapidapi:
-            source = "RapidAPI"
-        elif self._use_serpapi:
+        if self._use_serpapi:
             source = "SerpAPI"
+        elif self._use_rapidapi:
+            source = "RapidAPI"
         else:
             source = "eBay"
         
