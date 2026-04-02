@@ -48,7 +48,6 @@ async def lifespan(app: FastAPI):
     set_auth_db(auth_db)
     vector_db = VectorDBService()
 
-    await product_db.warmup()
     products = product_db.get_all_products()
     await vector_db.build_index([p.dict() for p in products])
 
@@ -103,13 +102,16 @@ async def search_test(q: str = "Nike shoes"):
     sources = {
         "serpapi": bool(product_db and product_db._use_serpapi),
         "rapidapi": bool(product_db and product_db._use_rapidapi),
-        "ebay": bool(product_db and product_db._use_ebay),
+        "bestbuy": bool(product_db and product_db._use_bestbuy),
+        "walmart": bool(product_db and product_db._use_walmart),
+        "etsy": bool(product_db and product_db._use_etsy),
+        "openfoodfacts": bool(product_db and product_db._use_openfoodfacts),
     }
-    active_source = next((k for k, v in sources.items() if v), "sample_data")
+    active_sources = [k for k, v in sources.items() if v] or ["sample_data"]
 
     results = await product_db.search(q)
     return {
-        "active_source": active_source,
+        "active_sources": active_sources,
         "sources_configured": sources,
         "query": q,
         "result_count": len(results),

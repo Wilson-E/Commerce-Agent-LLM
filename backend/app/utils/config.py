@@ -29,9 +29,17 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("SERPAPI_KEY", "SERP_API_KEY", "SERPAPI_API_KEY"),
     )
 
-    # eBay Browse API
-    EBAY_CLIENT_ID: str = ""
-    EBAY_CLIENT_SECRET: str = ""
+    # Best Buy Products API (https://developer.bestbuy.com)
+    BEST_BUY_API_KEY: str = ""
+
+    # Walmart Affiliate API (https://walmart.io)
+    WALMART_API_KEY: str = ""
+
+    # Etsy Open API v3 (https://www.etsy.com/developers)
+    ETSY_API_KEY: str = ""
+
+    # Open Food Facts — no key required, opt-in via this flag
+    OPENFOODFACTS_ENABLED: bool = False
 
     # Stripe (sandbox)
     STRIPE_SECRET_KEY: str = ""
@@ -50,8 +58,8 @@ class Settings(BaseSettings):
     MAX_REACT_ITERATIONS: int = 5
     TAX_RATE: float = 0.08
     ENVIRONMENT: str = "development"
-    WARMUP_CACHE: bool = False
-    ALLOW_RAPIDAPI_FALLBACK: bool = False
+    ALLOW_RAPIDAPI_FALLBACK: bool = False  # deprecated — kept for backward compat
+    PARALLEL_SEARCH_LIMIT: int = 10
 
     class Config:
         env_file = str(_ENV_FILE)
