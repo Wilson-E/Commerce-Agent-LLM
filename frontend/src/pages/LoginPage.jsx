@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google'
 import { useMsal } from '@azure/msal-react'
 import useAuthStore from '../stores/authStore'
+import ShopAssistLogo from '../components/ShopAssistLogo'
 
 // ── Icons ─────────────────────────────────────────────────────────
 
@@ -319,6 +320,206 @@ function SignInModal({ onClose }) {
   )
 }
 
+// ── Shared glass modal wrapper ────────────────────────────────────
+
+function GlassModal({ onClose, children, maxWidth = 'max-w-sm' }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className={`relative w-full ${maxWidth} overflow-hidden`}
+        style={{
+          background: 'rgba(10, 10, 20, 0.92)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(0, 210, 230, 0.25)',
+          boxShadow: '0 0 40px rgba(0, 200, 230, 0.2), 0 25px 60px rgba(0,0,0,0.6)',
+          borderRadius: '20px',
+        }}
+      >
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(0,210,230,0.6), transparent)' }} />
+        <div className="p-7">{children}</div>
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/25 hover:text-white/55 transition"
+          aria-label="Close"
+        >
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ── Features modal ────────────────────────────────────────────────
+
+const FEATURES = [
+  { icon: '🔍', title: 'Natural Language Search', desc: 'Describe what you want in plain English — brand, budget, size, color. No filters or menus.' },
+  { icon: '⚡', title: 'Instant Live Results', desc: 'Real-time product data pulled from multiple sources and ranked by relevance to your query.' },
+  { icon: '🧠', title: 'AI Recommendations', desc: 'The assistant understands context mid-session — "show me something cheaper" just works.' },
+  { icon: '🛒', title: 'Smart Cart', desc: 'Add items conversationally: "add the blue one in size M". No clicking through product pages.' },
+  { icon: '💬', title: 'Conversational Memory', desc: 'Follow-up questions, comparisons, and refinements — the AI remembers what you asked.' },
+  { icon: '🔒', title: 'Secure Checkout', desc: 'Stripe-powered checkout with per-merchant order dispatching and real-time confirmation.' },
+]
+
+function FeaturesModal({ onClose }) {
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-2xl">
+      <h2 className="text-lg font-bold text-white mb-1">What ShopAssist can do</h2>
+      <p className="text-xs text-white/40 mb-5">AI-powered shopping, built for how people actually think</p>
+      <div className="grid grid-cols-2 gap-3">
+        {FEATURES.map(({ icon, title, desc }) => (
+          <div
+            key={title}
+            className="p-4 rounded-xl"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+          >
+            <div className="text-2xl mb-2">{icon}</div>
+            <h3 className="text-sm font-semibold text-white mb-1">{title}</h3>
+            <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+    </GlassModal>
+  )
+}
+
+// ── Pricing modal ─────────────────────────────────────────────────
+
+const PLANS = [
+  {
+    name: 'Guest',
+    price: 'Free',
+    sub: 'No account needed',
+    highlight: false,
+    features: ['AI product search', 'Live results', 'Basic cart', 'Guest session only'],
+    cta: 'Start searching',
+  },
+  {
+    name: 'Pro',
+    price: '$9',
+    sub: 'per month',
+    highlight: true,
+    features: ['Everything in Guest', 'Saved items & history', 'Multi-device sync', 'Priority AI results', 'Early feature access'],
+    cta: 'Get Pro',
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    sub: 'contact us',
+    highlight: false,
+    features: ['Everything in Pro', 'REST API access', 'Custom integrations', 'White-label option', 'Dedicated support'],
+    cta: 'Contact us',
+  },
+]
+
+function Check() {
+  return (
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="rgba(0,210,235,0.85)" strokeWidth="2.5" strokeLinecap="round" className="mt-0.5 shrink-0">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function PricingModal({ onClose }) {
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-3xl">
+      <h2 className="text-lg font-bold text-white mb-1">Simple pricing</h2>
+      <p className="text-xs text-white/40 mb-6">Start free. Upgrade when you're ready.</p>
+      <div className="grid grid-cols-3 gap-3">
+        {PLANS.map((plan) => (
+          <div
+            key={plan.name}
+            className="p-5 rounded-xl flex flex-col relative"
+            style={{
+              background: plan.highlight ? 'rgba(0,200,230,0.07)' : 'rgba(255,255,255,0.04)',
+              border: `1px solid ${plan.highlight ? 'rgba(0,210,230,0.35)' : 'rgba(255,255,255,0.09)'}`,
+              boxShadow: plan.highlight ? '0 0 24px rgba(0,200,230,0.12)' : 'none',
+            }}
+          >
+            {plan.highlight && (
+              <div
+                className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
+                style={{ background: 'linear-gradient(135deg, rgba(0,200,230,0.85), rgba(0,150,210,0.95))', color: 'white' }}
+              >
+                Most Popular
+              </div>
+            )}
+            <p className="text-sm font-bold text-white mb-1">{plan.name}</p>
+            <div className="flex items-baseline gap-1 mb-0.5">
+              <span className="text-2xl font-bold text-white">{plan.price}</span>
+              {plan.price !== 'Free' && plan.price !== 'Custom' && (
+                <span className="text-xs text-white/40">{plan.sub}</span>
+              )}
+            </div>
+            <p className="text-xs text-white/30 mb-4">{plan.price === 'Free' || plan.price === 'Custom' ? plan.sub : ''}</p>
+            <ul className="space-y-2 flex-1 mb-5">
+              {plan.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.58)' }}>
+                  <Check />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              className="w-full py-2 rounded-xl text-xs font-semibold transition-all"
+              style={{
+                background: plan.highlight ? 'linear-gradient(135deg, rgba(0,200,230,0.28), rgba(0,150,210,0.38))' : 'rgba(255,255,255,0.06)',
+                border: `1px solid ${plan.highlight ? 'rgba(0,210,230,0.4)' : 'rgba(255,255,255,0.1)'}`,
+                color: 'white',
+              }}
+            >
+              {plan.cta}
+            </button>
+          </div>
+        ))}
+      </div>
+    </GlassModal>
+  )
+}
+
+// ── About modal ───────────────────────────────────────────────────
+
+const TECH = ['React', 'FastAPI', 'OpenAI GPT-4o', 'WebSockets', 'SerpAPI', 'Stripe', 'Tailwind CSS', 'Python']
+
+function AboutModal({ onClose }) {
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-md">
+      <div className="text-center mb-6">
+        <div className="text-4xl mb-3">🛍️</div>
+        <h2 className="text-lg font-bold text-white">About ShopAssist</h2>
+        <p className="text-xs text-white/40 mt-1">Built at the intersection of AI and e-commerce</p>
+      </div>
+      <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.58)' }}>
+        ShopAssist is an AI-native shopping assistant that understands how people actually shop.
+        Instead of filters and dropdowns, just describe what you're looking for — and the AI pulls
+        live results, compares options, and guides you to checkout conversationally.
+      </p>
+      <div className="mb-5">
+        <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgba(255,255,255,0.35)' }}>Built with</p>
+        <div className="flex flex-wrap gap-2">
+          {TECH.map((t) => (
+            <span
+              key={t}
+              className="px-2.5 py-1 rounded-full text-xs font-medium"
+              style={{ background: 'rgba(0,200,230,0.08)', border: '1px solid rgba(0,210,230,0.2)', color: 'rgba(255,255,255,0.65)' }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div
+        className="p-4 rounded-xl text-xs leading-relaxed"
+        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)' }}
+      >
+        🎓 Built as a capstone project exploring agentic AI systems, RAG architecture, real-time WebSocket streaming, and conversational product intelligence.
+      </div>
+    </GlassModal>
+  )
+}
+
 // ── Landing Page ──────────────────────────────────────────────────
 
 const CATEGORIES = [
@@ -329,7 +530,18 @@ const CATEGORIES = [
 
 export default function LoginPage() {
   const [showSignIn, setShowSignIn] = useState(false)
+  const [activeModal, setActiveModal] = useState(null) // 'features' | 'pricing' | 'about'
   const [activeTab, setActiveTab] = useState('Tech')
+  const [searchQuery, setSearchQuery] = useState('')
+  const { continueAsGuest } = useAuthStore()
+  const navigate = useNavigate()
+
+  function handleSearchSubmit() {
+    if (!searchQuery.trim()) return
+    sessionStorage.setItem('pendingQuery', searchQuery.trim())
+    continueAsGuest()
+    navigate('/', { replace: true })
+  }
 
   return (
     <div
@@ -355,25 +567,28 @@ export default function LoginPage() {
 
       {/* ── Navigation ── */}
       <nav className="flex items-center justify-between px-8 py-5 relative z-10">
-        <span
-          className="text-xl font-bold tracking-tight"
-          style={{ color: 'white', letterSpacing: '-0.02em' }}
-        >
-          ShopAssist
-        </span>
+        <div className="flex items-center gap-2.5">
+          <ShopAssistLogo />
+          <span
+            className="text-xl font-bold tracking-tight"
+            style={{ color: 'white', letterSpacing: '-0.02em' }}
+          >
+            ShopAssist
+          </span>
+        </div>
 
         <div className="flex items-center gap-8">
           {['Features', 'Pricing', 'About'].map((link) => (
-            <a
+            <button
               key={link}
-              href="#"
+              onClick={() => setActiveModal(link.toLowerCase())}
               className="text-sm font-medium transition-colors"
               style={{ color: 'rgba(255,255,255,0.5)' }}
-              onMouseEnter={(e) => (e.target.style.color = 'rgba(255,255,255,0.9)')}
-              onMouseLeave={(e) => (e.target.style.color = 'rgba(255,255,255,0.5)')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.9)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
             >
               {link}
-            </a>
+            </button>
           ))}
           <button
             onClick={() => setShowSignIn(true)}
@@ -460,11 +675,23 @@ export default function LoginPage() {
             <input
               type="text"
               placeholder="Search for anything..."
-              onClick={() => setShowSignIn(true)}
-              readOnly
-              className="flex-1 bg-transparent border-none outline-none text-base cursor-pointer"
-              style={{ color: 'rgba(255,255,255,0.4)', caretColor: 'transparent' }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSearchSubmit() }}
+              className="flex-1 bg-transparent border-none outline-none text-base"
+              style={{ color: 'rgba(255,255,255,0.85)', caretColor: 'rgba(0,210,235,0.9)' }}
             />
+            {searchQuery.trim() && (
+              <button
+                onClick={handleSearchSubmit}
+                className="shrink-0 p-2 rounded-xl transition-colors"
+                style={{ background: 'rgba(0,200,230,0.15)', border: '1px solid rgba(0,200,230,0.3)' }}
+              >
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(0,210,235,0.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
 
@@ -508,6 +735,11 @@ export default function LoginPage() {
 
       {/* Sign-in modal */}
       {showSignIn && <SignInModal onClose={() => setShowSignIn(false)} />}
+
+      {/* Nav modals */}
+      {activeModal === 'features' && <FeaturesModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'pricing'  && <PricingModal  onClose={() => setActiveModal(null)} />}
+      {activeModal === 'about'    && <AboutModal    onClose={() => setActiveModal(null)} />}
     </div>
   )
 }
