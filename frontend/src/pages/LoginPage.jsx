@@ -520,6 +520,172 @@ function AboutModal({ onClose }) {
   )
 }
 
+// ── Privacy modal ────────────────────────────────────────────────
+
+function PrivacyModal({ onClose }) {
+  const sections = [
+    {
+      title: '📦 What we collect',
+      body: 'Search queries and filters you enter, session preferences (brand, size, budget), OAuth profile info (name and email) if you sign in, and cart activity for the duration of your session.',
+    },
+    {
+      title: '🔍 How we use it',
+      body: 'To personalise search results, re-rank products by your stated preferences, maintain your cart across the session, and improve the quality of AI recommendations.',
+    },
+    {
+      title: '🔗 Third-party services',
+      body: 'Google / Microsoft OAuth for sign-in, SerpAPI for live product data, and Stripe for checkout. Each operates under their own privacy policy. We never sell your data.',
+    },
+    {
+      title: '🗂 Data retention',
+      body: 'Guest sessions are entirely in-memory and discarded when the session ends. Signed-in accounts retain preferences across sessions. You can delete your account at any time.',
+    },
+    {
+      title: '✅ Your rights',
+      body: 'You can use ShopAssist as a guest with zero data stored. If signed in, you may request access, correction, or deletion of your data by contacting us.',
+    },
+  ]
+
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-lg">
+      <h2 className="text-lg font-bold text-white mb-1">Privacy Policy</h2>
+      <p className="text-xs text-white/40 mb-5">Last updated April 2026 · We keep it simple.</p>
+      <div className="space-y-4">
+        {sections.map(({ title, body }) => (
+          <div key={title} className="p-3.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <p className="text-xs font-semibold text-white mb-1">{title}</p>
+            <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>{body}</p>
+          </div>
+        ))}
+      </div>
+    </GlassModal>
+  )
+}
+
+// ── Terms modal ───────────────────────────────────────────────────
+
+function TermsModal({ onClose }) {
+  const sections = [
+    {
+      title: '1. Acceptance',
+      body: 'By accessing or using ShopAssist you agree to these terms. If you disagree, please discontinue use. Guest access requires no account but is still subject to these terms.',
+    },
+    {
+      title: '2. What ShopAssist does',
+      body: 'ShopAssist is an AI-powered shopping assistant. It searches live product databases, provides recommendations, and facilitates checkout. It does not itself sell products — transactions are fulfilled by third-party merchants.',
+    },
+    {
+      title: '3. Permitted use',
+      body: 'You may use ShopAssist for personal, non-commercial shopping purposes. You agree not to scrape, reverse-engineer, or abuse the platform, its APIs, or the AI system in any way.',
+    },
+    {
+      title: '4. AI limitations',
+      body: 'Product information (prices, stock, descriptions) is sourced live from third-party APIs and may change. ShopAssist AI responses are not guaranteed to be accurate. Always verify details before purchasing.',
+    },
+    {
+      title: '5. Limitation of liability',
+      body: 'ShopAssist is provided "as is" without warranties of any kind. We are not liable for purchase decisions made based on AI recommendations, third-party merchant fulfilment, or data inaccuracies.',
+    },
+    {
+      title: '6. Changes',
+      body: 'We may update these terms at any time. Continued use after changes constitutes acceptance. Check this page periodically for updates.',
+    },
+  ]
+
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-lg">
+      <h2 className="text-lg font-bold text-white mb-1">Terms of Service</h2>
+      <p className="text-xs text-white/40 mb-5">Last updated April 2026 · Please read carefully.</p>
+      <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
+        {sections.map(({ title, body }) => (
+          <div key={title} className="p-3.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <p className="text-xs font-semibold text-white mb-1">{title}</p>
+            <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>{body}</p>
+          </div>
+        ))}
+      </div>
+    </GlassModal>
+  )
+}
+
+// ── Contact modal ─────────────────────────────────────────────────
+
+function ContactModal({ onClose }) {
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [sent, setSent] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    setSent(true)
+  }
+
+  return (
+    <GlassModal onClose={onClose} maxWidth="max-w-md">
+      {sent ? (
+        <div className="text-center py-6">
+          <div className="text-4xl mb-4">✅</div>
+          <h2 className="text-lg font-bold text-white mb-2">Message received!</h2>
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.48)' }}>
+            We'll get back to you at <span className="text-white/70">{form.email}</span> within 24–48 hours.
+          </p>
+          <button
+            onClick={onClose}
+            className="mt-6 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all"
+            style={{ background: 'linear-gradient(135deg, rgba(0,200,230,0.25), rgba(0,150,210,0.35))', border: '1px solid rgba(0,210,230,0.4)', color: 'white' }}
+          >
+            Close
+          </button>
+        </div>
+      ) : (
+        <>
+          <h2 className="text-lg font-bold text-white mb-1">Contact us</h2>
+          <p className="text-xs text-white/40 mb-5">We read every message — usually reply within 24 hours.</p>
+
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div>
+              <label className="block text-xs font-medium text-white/50 mb-1.5">Name</label>
+              <input
+                type="text" required value={form.name}
+                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                placeholder="Your name"
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-white/25 focus:outline-none"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-white/50 mb-1.5">Email</label>
+              <input
+                type="email" required value={form.email}
+                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                placeholder="you@example.com"
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-white/25 focus:outline-none"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-white/50 mb-1.5">Message</label>
+              <textarea
+                required rows={4} value={form.message}
+                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                placeholder="What can we help you with?"
+                className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-white/25 focus:outline-none resize-none"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl font-semibold text-sm transition-all active:scale-[0.98] mt-1"
+              style={{ background: 'linear-gradient(135deg, rgba(0,200,230,0.3), rgba(0,150,210,0.4))', border: '1px solid rgba(0,210,230,0.4)', color: 'white' }}
+            >
+              Send message
+            </button>
+          </form>
+        </>
+      )}
+    </GlassModal>
+  )
+}
+
 // ── Landing Page ──────────────────────────────────────────────────
 
 const CATEGORIES = [
@@ -716,16 +882,16 @@ export default function LoginPage() {
       <footer className="py-6 text-center relative z-10">
         <div className="flex justify-center gap-6 mb-2">
           {['Privacy', 'Terms', 'Contact'].map((link) => (
-            <a
+            <button
               key={link}
-              href="#"
+              onClick={() => setActiveModal(link.toLowerCase())}
               className="text-xs transition-colors"
               style={{ color: 'rgba(255,255,255,0.25)' }}
-              onMouseEnter={(e) => (e.target.style.color = 'rgba(255,255,255,0.5)')}
-              onMouseLeave={(e) => (e.target.style.color = 'rgba(255,255,255,0.25)')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.25)')}
             >
               {link}
-            </a>
+            </button>
           ))}
         </div>
         <p className="text-xs" style={{ color: 'rgba(255,255,255,0.18)' }}>
@@ -740,6 +906,11 @@ export default function LoginPage() {
       {activeModal === 'features' && <FeaturesModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'pricing'  && <PricingModal  onClose={() => setActiveModal(null)} />}
       {activeModal === 'about'    && <AboutModal    onClose={() => setActiveModal(null)} />}
+
+      {/* Footer modals */}
+      {activeModal === 'privacy' && <PrivacyModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'terms'   && <TermsModal   onClose={() => setActiveModal(null)} />}
+      {activeModal === 'contact' && <ContactModal onClose={() => setActiveModal(null)} />}
     </div>
   )
 }
