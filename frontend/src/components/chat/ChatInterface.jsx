@@ -21,6 +21,11 @@ export default function ChatInterface() {
   const [isLoading, setIsLoading] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
 
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const saved = sessionStorage.getItem('pendingCategory')
+    return saved || 'tech'
+  })
+
   const messagesEndRef = useRef(null)
   const wsRef = useRef(null)
   const sessionIdRef = useRef(null)
@@ -123,7 +128,10 @@ export default function ChatInterface() {
     if (!isConnected || pendingQuerySentRef.current) return
     const pending = sessionStorage.getItem('pendingQuery')
     if (!pending) return
+    const pendingCat = sessionStorage.getItem('pendingCategory') || 'tech'
     sessionStorage.removeItem('pendingQuery')
+    sessionStorage.removeItem('pendingCategory')
+    setActiveCategory(pendingCat)
     pendingQuerySentRef.current = true
     const userMessage = {
       id: `msg_${Date.now()}`,
@@ -134,7 +142,7 @@ export default function ChatInterface() {
     }
     setMessages([userMessage])
     setIsLoading(true)
-    wsRef.current.send(JSON.stringify({ type: 'message', content: pending }))
+    wsRef.current.send(JSON.stringify({ type: 'message', content: pending, category: pendingCat }))
   }, [isConnected])
 
   // Auto-scroll to bottom
@@ -177,6 +185,7 @@ export default function ChatInterface() {
       JSON.stringify({
         type: 'message',
         content: input,
+        category: activeCategory,
       })
     )
   }

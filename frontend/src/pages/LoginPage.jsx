@@ -705,6 +705,7 @@ export default function LoginPage() {
   function handleSearchSubmit() {
     if (!searchQuery.trim()) return
     sessionStorage.setItem('pendingQuery', searchQuery.trim())
+    sessionStorage.setItem('pendingCategory', activeTab.toLowerCase())
     continueAsGuest()
     navigate('/', { replace: true })
   }

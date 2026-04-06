@@ -9,7 +9,7 @@ No regex-based intent detection. The LLM classifies all messages.
 import json
 import logging
 from datetime import datetime
-from typing import Dict, Any, AsyncIterator
+from typing import Dict, Any, AsyncIterator, Optional
 
 from openai import AsyncOpenAI
 
@@ -76,7 +76,8 @@ class OrchestrationEngine:
         self._resolver = CoreferenceResolver(self._client)
 
     async def process_message(
-        self, user_id: str, session_id: str, message: str
+        self, user_id: str, session_id: str, message: str,
+        category: Optional[str] = None,
     ) -> AsyncIterator[Dict[str, Any]]:
 
         # ── Guardrails ──────────────────────────────────────────────────────
@@ -174,7 +175,7 @@ class OrchestrationEngine:
                     args = {}
 
                 log.info("ReAct iter %d: %s(%s)", iteration, tool_name, args)
-                result_str = await self.executor.run(tool_name, args, user_id)
+                result_str = await self.executor.run(tool_name, args, user_id, category=category)
                 shopping_messages.append({
                     "role": "tool",
                     "tool_call_id": tc.id,
@@ -190,7 +191,7 @@ class OrchestrationEngine:
         # Fallback only on actual LLM API error
         if llm_error and not products_collected:
             try:
-                fb = await self.executor.run("search_products", {"query": message}, user_id)
+                fb = await self.executor.run("search_products", {"query": message}, user_id, category=category)
                 fb_data = json.loads(fb)
                 if "products" in fb_data:
                     products_collected.extend(fb_data["products"])

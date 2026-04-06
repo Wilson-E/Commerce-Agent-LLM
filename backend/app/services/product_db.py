@@ -1,19 +1,15 @@
 """Product database service with parallel multi-source product fetching.
 
-All configured APIs are queried simultaneously.  A keyword-based intent
-classifier selects which specialist (Tier-2) API to pair with the always-on
-general (Tier-1) APIs for each query.  Results are deduplicated and ranked
-before being returned.
+APIs are queried based on category routing.  A keyword-based intent
+classifier (or an explicit category hint from the frontend) selects
+which APIs to call for each query, conserving free-tier quotas.
 
-Tier-1 (general — always active when key is present):
-  - SerpAPI Google Shopping   (SERPAPI_KEY)
-  - RapidAPI Product Search   (RAPIDAPI_KEY)
+Category routing:
+  - Tech:    SerpAPI + ScraperAPI + Rainforest (Amazon)
+  - Fashion: SerpAPI + ASOS (via RapidAPI)
+  - Home:    SerpAPI + Home Depot (via RapidAPI)
 
-Tier-2 (specialist — activated by query intent):
-  - Best Buy Products API     (BEST_BUY_API_KEY)   ← electronics queries
-  - Walmart Affiliate API     (WALMART_API_KEY)    ← general retail (default)
-  - Etsy Open API v3          (ETSY_API_KEY)       ← handmade/craft queries
-  - Open Food Facts           (OPENFOODFACTS_ENABLED=true) ← food queries
+Food queries are sub-routed to Open Food Facts within the Home category.
 
 Fallback: local sample_products.json (when no external API is configured)
 """
@@ -37,7 +33,6 @@ _DEFAULT_DATA_FILE = str(
     Path(__file__).resolve().parent.parent.parent / "data" / "sample_products.json"
 )
 
-
 _SEARCH_CACHE_TTL = 1800   # 30 minutes
 _PRODUCT_CACHE_TTL = 3600  # 1 hour
 
@@ -50,18 +45,15 @@ def _map_rapidapi_product(item: Dict[str, Any]) -> Product:
     title = item.get("product_title", "Unknown Product")
     description = item.get("product_description") or title
 
-    # Images
     photos = item.get("product_photos", [])
     image_url = photos[0] if photos else None
 
-    # Rating & reviews
     try:
         rating = float(item.get("product_rating") or 0)
     except (TypeError, ValueError):
         rating = 0.0
     review_count = int(item.get("product_num_reviews") or 0)
 
-    # Price — prefer the first offer, fall back to typical_price_range
     offer = item.get("offer") or {}
     price_str = offer.get("price_without_symbol") or offer.get("price", "0")
     try:
@@ -78,17 +70,14 @@ def _map_rapidapi_product(item: Dict[str, Any]) -> Product:
             except (TypeError, ValueError):
                 continue
 
-    # Merchant
     merchant_name = offer.get("store_name", "Online Retailer")
 
-    # Attributes (brand, color, size, etc.)
     raw_attrs: Dict[str, Any] = item.get("product_attributes") or {}
     attrs_lower = {k.lower(): v for k, v in raw_attrs.items()}
     brand = attrs_lower.get("brand", "")
     sizes = [v for k, v in attrs_lower.items() if "size" in k and v]
     colors = [v for k, v in attrs_lower.items() if "color" in k and v]
 
-    # Category — not provided by the API; use first breadcrumb or default
     categories = item.get("product_breadcrumbs", [])
     category = categories[-1] if categories else "General"
 
@@ -102,7 +91,7 @@ def _map_rapidapi_product(item: Dict[str, Any]) -> Product:
         category=category,
         category_path=categories,
         price=price,
-        stock=10,  # RapidAPI doesn't expose stock counts
+        stock=10,
         rating=round(min(rating, 5.0), 1),
         review_count=review_count,
         image_url=image_url,
@@ -126,16 +115,13 @@ def _map_serpapi_product(item: Dict[str, Any]) -> Product:
     title = item.get("title", "Unknown Product")
     description = item.get("snippet") or title
 
-    # Price
     try:
         price = float(item.get("extracted_price") or 0)
     except (TypeError, ValueError):
         price = 0.0
 
-    # Merchant / source
     merchant_name = item.get("source", "Google Shopping")
 
-    # Rating & reviews
     try:
         rating = float(item.get("rating") or 0)
     except (TypeError, ValueError):
@@ -147,8 +133,6 @@ def _map_serpapi_product(item: Dict[str, Any]) -> Product:
 
     image_url = item.get("thumbnail")
     product_url = item.get("link")
-
-    # Category — not in search results; may appear in product detail
     category = item.get("type") or "General"
 
     return Product(
@@ -159,7 +143,7 @@ def _map_serpapi_product(item: Dict[str, Any]) -> Product:
         category=category,
         category_path=[category],
         price=price,
-        stock=10,  # SerpAPI does not expose stock counts
+        stock=10,
         rating=round(min(rating, 5.0), 1),
         review_count=review_count,
         image_url=image_url,
@@ -177,174 +161,220 @@ def _map_serpapi_product(item: Dict[str, Any]) -> Product:
     )
 
 
-def _map_bestbuy_product(item: Dict[str, Any]) -> Product:
-    """Convert a Best Buy API product dict to our Product schema."""
-    sku = str(item.get("sku", ""))
-    name = item.get("name", "Unknown Product")
-    description = item.get("shortDescription") or item.get("description") or name
+def _map_rainforest_product(item: Dict[str, Any]) -> Product:
+    """Convert a Rainforest API (Amazon) search result to our Product schema."""
+    asin = item.get("asin", "")
+    title = item.get("title", "Unknown Product")
+    description = item.get("description") or title
 
-    price = float(item.get("salePrice") or item.get("regularPrice") or 0)
-    image_url = item.get("image")
-    product_url = item.get("url")
+    # Price
+    price_data = item.get("price") or {}
+    try:
+        price = float(price_data.get("value") or 0)
+    except (TypeError, ValueError):
+        price = 0.0
+
+    # Rating & reviews
+    try:
+        rating = float(item.get("rating") or 0)
+    except (TypeError, ValueError):
+        rating = 0.0
+    try:
+        review_count = int(item.get("ratings_total") or 0)
+    except (TypeError, ValueError):
+        review_count = 0
+
+    # Image
+    image = item.get("image") or ""
+    image_url = image if image else None
+
+    # URL
+    link = item.get("link") or ""
+    product_url = link if link else f"https://www.amazon.com/dp/{asin}"
+
+    # Category / bestseller rank
+    categories_raw = item.get("categories", [])
+    if isinstance(categories_raw, list) and categories_raw:
+        category_path = [c.get("name", "") for c in categories_raw if isinstance(c, dict)]
+    else:
+        category_path = ["General"]
+    category = category_path[-1] if category_path else "General"
+
+    brand = item.get("brand") or ""
+
+    return Product(
+        id=asin,
+        sku=asin,
+        name=title,
+        description=description,
+        category=category,
+        category_path=category_path,
+        price=price,
+        stock=10,
+        rating=round(min(rating, 5.0), 1),
+        review_count=review_count,
+        image_url=image_url,
+        merchant_id="Amazon",
+        merchant_name="Amazon",
+        product_url=product_url,
+        attributes={
+            "brand": brand,
+            "sizes": [],
+            "colors": [],
+            "condition": "New",
+            "source": "rainforest",
+        },
+        key_features=["Sold by Amazon"],
+    )
+
+
+def _map_scraperapi_product(item: Dict[str, Any]) -> Product:
+    """Convert a ScraperAPI Amazon structured search result to our Product schema."""
+    asin = item.get("asin", "")
+    name = item.get("name", "Unknown Product")
+    description = name
+
+    # Price — ScraperAPI returns price as a string like "$29.99"
+    price_raw = item.get("price", "0")
+    try:
+        price = float(str(price_raw).replace(",", "").replace("$", "").strip())
+    except (TypeError, ValueError):
+        price = 0.0
+
+    try:
+        rating = float(item.get("stars") or 0)
+    except (TypeError, ValueError):
+        rating = 0.0
+    try:
+        review_count = int(item.get("total_reviews") or 0)
+    except (TypeError, ValueError):
+        review_count = 0
+
+    image_url = item.get("image") or None
+    product_url = item.get("url") or (f"https://www.amazon.com/dp/{asin}" if asin else None)
+
+    return Product(
+        id=asin,
+        sku=asin,
+        name=name,
+        description=description,
+        category="General",
+        category_path=["General"],
+        price=price,
+        stock=10,
+        rating=round(min(rating, 5.0), 1),
+        review_count=review_count,
+        image_url=image_url,
+        merchant_id="Amazon",
+        merchant_name="Amazon",
+        product_url=product_url,
+        attributes={
+            "brand": "",
+            "sizes": [],
+            "colors": [],
+            "condition": "New",
+            "source": "scraperapi",
+        },
+        key_features=["Sold by Amazon"],
+    )
+
+
+def _map_asos_product(item: Dict[str, Any]) -> Product:
+    """Convert an ASOS product dict to our Product schema."""
+    product_id = str(item.get("id", ""))
+    name = item.get("name", "Unknown Product")
+
+    price_data = item.get("price", {})
+    current = price_data.get("current", {})
+    try:
+        price = float(current.get("value") or 0)
+    except (TypeError, ValueError):
+        price = 0.0
+
+    image_url = None
+    if item.get("imageUrl"):
+        image_url = "https://" + item["imageUrl"].lstrip("/")
+
+    brand = item.get("brandName", "")
+    colour = item.get("colour", "")
+    product_url = f"https://www.asos.com/us/prd/{product_id}" if product_id else None
+
+    return Product(
+        id=product_id,
+        sku=product_id,
+        name=name,
+        description=name,
+        category="Fashion",
+        category_path=["Fashion"],
+        price=price,
+        stock=10,
+        rating=0.0,
+        review_count=0,
+        image_url=image_url,
+        merchant_id="ASOS",
+        merchant_name="ASOS",
+        product_url=product_url,
+        attributes={
+            "brand": brand,
+            "sizes": [],
+            "colors": [colour] if colour else [],
+            "condition": "New",
+            "source": "asos",
+        },
+        key_features=[f"Brand: {brand}"] if brand else ["Sold by ASOS"],
+    )
+
+
+def _map_homedepot_product(item: Dict[str, Any]) -> Product:
+    """Convert a Home Depot product dict to our Product schema."""
+    item_id = str(item.get("itemId") or item.get("id", ""))
+    name = item.get("label") or item.get("title") or "Unknown Product"
+    description = item.get("description") or name
+
+    try:
+        price = float(item.get("price") or 0)
+    except (TypeError, ValueError):
+        price = 0.0
 
     try:
         rating = float(item.get("rating") or 0)
     except (TypeError, ValueError):
         rating = 0.0
     try:
-        review_count = int(item.get("reviewCount") or 0)
+        review_count = int(item.get("reviewCount") or item.get("totalReviews") or 0)
     except (TypeError, ValueError):
         review_count = 0
 
-    # categoryPath is a list of dicts with "id" and "name"
-    category_path_raw = item.get("categoryPath", [])
-    if isinstance(category_path_raw, list):
-        category_path = [c.get("name", "") for c in category_path_raw if isinstance(c, dict)]
-    else:
-        category_path = ["General"]
-    category = category_path[-1] if category_path else "General"
+    image_url = item.get("imageUrl") or item.get("image") or None
+    product_url = item.get("url") or item.get("productUrl")
+    if product_url and not product_url.startswith("http"):
+        product_url = f"https://www.homedepot.com{product_url}"
 
-    brand = item.get("manufacturer", "")
-    stock = 10 if item.get("onlineAvailability", False) else 0
-
-    return Product(
-        id=sku,
-        sku=sku,
-        name=name,
-        description=description,
-        category=category,
-        category_path=category_path,
-        price=price,
-        stock=stock,
-        rating=round(min(rating, 5.0), 1),
-        review_count=review_count,
-        image_url=image_url,
-        merchant_id="Best Buy",
-        merchant_name="Best Buy",
-        product_url=product_url,
-        attributes={"brand": brand, "sizes": [], "colors": [], "condition": "New", "source": "bestbuy"},
-        key_features=["Sold by Best Buy"],
-    )
-
-
-def _map_walmart_product(item: Dict[str, Any]) -> Product:
-    """Convert a Walmart Affiliate API item dict to our Product schema."""
-    item_id = str(item.get("itemId", ""))
-    name = item.get("name", "Unknown Product")
-    description = item.get("shortDescription") or name
-
-    price = float(item.get("salePrice") or item.get("msrp") or 0)
-    image_url = item.get("thumbnailImage") or item.get("largeImage")
-    product_url = item.get("productUrl")
-
-    try:
-        rating = float(item.get("customerRating") or 0)
-    except (TypeError, ValueError):
-        rating = 0.0
-    try:
-        review_count = int(item.get("numReviews") or 0)
-    except (TypeError, ValueError):
-        review_count = 0
-
-    category_path_str = item.get("categoryPath", "General")
-    category_path = [c.strip() for c in category_path_str.split("/") if c.strip()]
-    if not category_path:
-        category_path = ["General"]
-    category = category_path[-1]
-
-    brand = item.get("brandName", "")
-    stock_status = item.get("stock", "")
-    stock = 10 if stock_status and "available" in stock_status.lower() else 0
+    brand = item.get("brand") or item.get("brandName") or ""
 
     return Product(
         id=item_id,
         sku=item_id,
         name=name,
         description=description,
-        category=category,
-        category_path=category_path,
+        category="Home",
+        category_path=["Home"],
         price=price,
-        stock=stock,
+        stock=10,
         rating=round(min(rating, 5.0), 1),
         review_count=review_count,
         image_url=image_url,
-        merchant_id="Walmart",
-        merchant_name="Walmart",
-        product_url=product_url,
-        attributes={"brand": brand, "sizes": [], "colors": [], "condition": "New", "source": "walmart"},
-        key_features=["Sold by Walmart"],
-    )
-
-
-def _map_etsy_listing(item: Dict[str, Any]) -> Product:
-    """Convert an Etsy API listing dict to our Product schema."""
-    listing_id = str(item.get("listing_id", ""))
-    name = item.get("title", "Unknown Product")
-    description = item.get("description") or name
-    if len(description) > 500:
-        description = description[:497] + "..."
-
-    # Price: amount / divisor
-    price_data = item.get("price", {})
-    try:
-        price = float(price_data.get("amount", 0)) / float(price_data.get("divisor", 100))
-    except (TypeError, ValueError, ZeroDivisionError):
-        price = 0.0
-
-    # Image
-    images = item.get("images", [])
-    image_url = images[0].get("url_570xN") if images else None
-
-    product_url = item.get("url")
-
-    # Shop / merchant
-    shop = item.get("shop") or {}
-    merchant_name = shop.get("shop_name", "Etsy Seller")
-
-    try:
-        rating = float(item.get("avg_score") or 0)
-    except (TypeError, ValueError):
-        rating = 0.0
-    try:
-        review_count = int(item.get("num_favorers") or 0)
-    except (TypeError, ValueError):
-        review_count = 0
-
-    # Taxonomy path may be a list of strings or dicts
-    taxonomy_path = item.get("taxonomy_path", [])
-    if isinstance(taxonomy_path, list) and taxonomy_path:
-        category_path = [
-            t if isinstance(t, str) else t.get("name", "") for t in taxonomy_path
-        ]
-    else:
-        category_path = ["Handmade"]
-    category = category_path[-1] if category_path else "Handmade"
-
-    tags = item.get("tags", [])
-
-    return Product(
-        id=listing_id,
-        sku=listing_id,
-        name=name,
-        description=description,
-        category=category,
-        category_path=category_path,
-        price=price,
-        stock=int(item.get("quantity", 1)),
-        rating=round(min(rating, 5.0), 1),
-        review_count=review_count,
-        image_url=image_url,
-        merchant_id=merchant_name,
-        merchant_name=merchant_name,
+        merchant_id="Home Depot",
+        merchant_name="Home Depot",
         product_url=product_url,
         attributes={
-            "brand": merchant_name,
+            "brand": brand,
             "sizes": [],
             "colors": [],
-            "condition": "Handmade",
-            "source": "etsy",
+            "condition": "New",
+            "source": "homedepot",
         },
-        key_features=tags[:3] if tags else [f"Sold by {merchant_name}"],
+        key_features=[f"Brand: {brand}"] if brand else ["Sold by Home Depot"],
     )
 
 
@@ -366,7 +396,6 @@ def _map_openfoodfacts_product(item: Dict[str, Any]) -> Product:
     image_url = item.get("image_url") or item.get("image_front_url")
     product_url = f"https://world.openfoodfacts.org/product/{barcode}"
 
-    # Convert nutriscore (lower is better, roughly -15 to 40) to a 1–5 star rating
     try:
         ns = float(item.get("nutriscore_score") or 0)
         rating = round(max(1.0, min(5.0, 5.0 - (ns + 15) / 55 * 4)), 1)
@@ -380,7 +409,7 @@ def _map_openfoodfacts_product(item: Dict[str, Any]) -> Product:
         description=description,
         category=category,
         category_path=category_list[:3],
-        price=0.0,  # Open Food Facts does not carry pricing data
+        price=0.0,
         stock=10,
         rating=rating,
         review_count=0,
@@ -393,29 +422,28 @@ def _map_openfoodfacts_product(item: Dict[str, Any]) -> Product:
     )
 
 
-# ── Source → mapper lookup (used by _fetch_from_source) ──────────────────────
+# ── Source → mapper lookup ────────────────────────────────────────────────────
 
 _MAPPERS = {
     "serpapi": _map_serpapi_product,
     "rapidapi": _map_rapidapi_product,
-    "bestbuy": _map_bestbuy_product,
-    "walmart": _map_walmart_product,
-    "etsy": _map_etsy_listing,
+    "scraperapi": _map_scraperapi_product,
+    "rainforest": _map_rainforest_product,
+    "asos": _map_asos_product,
+    "homedepot": _map_homedepot_product,
     "openfoodfacts": _map_openfoodfacts_product,
 }
 
 
 class ProductDBService:
-    """Fetches products from multiple APIs in parallel with in-memory caching.
+    """Fetches products from category-specific APIs in parallel with caching.
 
-    Tier-1 APIs (SerpAPI, RapidAPI) are always queried when their keys are
-    present.  A single Tier-2 specialist API is selected per query by
-    classify_search_intent().  Results from all active sources are merged,
-    deduplicated, and ranked by result_aggregator.aggregate().
+    The intent classifier determines which category a query belongs to
+    (Tech, Fashion, Home) and only the APIs mapped to that category are
+    called, conserving free-tier API quotas.
     """
 
     def __init__(self, data_file: str = _DEFAULT_DATA_FILE):
-        # ── Enable flags — each is independent (no mutual exclusion) ──────────
         serp_key_names = {"serpapi_key", "serp_api_key", "serpapi_api_key"}
         serp_env_key_present = any(
             k.lower() in serp_key_names and bool(v)
@@ -423,12 +451,12 @@ class ProductDBService:
         )
         self._use_serpapi = bool(getattr(settings, "SERPAPI_KEY", "")) or serp_env_key_present
         self._use_rapidapi = bool(getattr(settings, "RAPIDAPI_KEY", ""))
-        self._use_bestbuy = bool(getattr(settings, "BEST_BUY_API_KEY", ""))
-        self._use_walmart = bool(getattr(settings, "WALMART_API_KEY", ""))
-        self._use_etsy = bool(getattr(settings, "ETSY_API_KEY", ""))
+        self._use_scraperapi = bool(getattr(settings, "SCRAPERAPI_KEY", ""))
+        self._use_rainforest = bool(getattr(settings, "RAINFOREST_API_KEY", ""))
         self._use_openfoodfacts = bool(getattr(settings, "OPENFOODFACTS_ENABLED", False))
+        self._use_asos = bool(getattr(settings, "ASOS_ENABLED", False)) and bool(getattr(settings, "RAPIDAPI_KEY", ""))
+        self._use_homedepot = bool(getattr(settings, "HOMEDEPOT_ENABLED", False)) and bool(getattr(settings, "RAPIDAPI_KEY", ""))
 
-        # Deprecation notice — ALLOW_RAPIDAPI_FALLBACK no longer gates RapidAPI
         if bool(getattr(settings, "ALLOW_RAPIDAPI_FALLBACK", False)):
             log.warning(
                 "ALLOW_RAPIDAPI_FALLBACK is deprecated and no longer used. "
@@ -439,31 +467,38 @@ class ProductDBService:
             name for name, flag in {
                 "serpapi": self._use_serpapi,
                 "rapidapi": self._use_rapidapi,
-                "bestbuy": self._use_bestbuy,
-                "walmart": self._use_walmart,
-                "etsy": self._use_etsy,
+                "scraperapi": self._use_scraperapi,
+                "rainforest": self._use_rainforest,
+                "asos": self._use_asos,
+                "homedepot": self._use_homedepot,
                 "openfoodfacts": self._use_openfoodfacts,
             }.items() if flag
         ]
         log.info("ProductDB active sources: %s", active if active else ["sample_data"])
 
-        # ── Per-product cache: id/sku → (Product, expires_at) ─────────────────
-        self._product_cache: Dict[str, tuple] = {}
+        # Source availability lookup — used to filter routing table at search time
+        self._source_available: Dict[str, bool] = {
+            "serpapi": self._use_serpapi,
+            "rapidapi": self._use_rapidapi,
+            "scraperapi": self._use_scraperapi,
+            "rainforest": self._use_rainforest,
+            "asos": self._use_asos,
+            "homedepot": self._use_homedepot,
+            "openfoodfacts": self._use_openfoodfacts,
+        }
 
-        # ── Per-source search cache: source → cache_key → (List[Product], exp) ─
+        self._product_cache: Dict[str, tuple] = {}
         self._source_search_cache: Dict[str, Dict[str, tuple]] = {
             "serpapi": {},
             "rapidapi": {},
-            "bestbuy": {},
-            "walmart": {},
-            "etsy": {},
+            "scraperapi": {},
+            "rainforest": {},
+            "asos": {},
+            "homedepot": {},
             "openfoodfacts": {},
         }
-
-        # ── Merged search cache: cache_key → (List[Dict], expires_at) ─────────
         self._merged_search_cache: Dict[str, tuple] = {}
 
-        # ── Instantiate clients ────────────────────────────────────────────────
         if self._use_serpapi:
             from app.services.serpapi_client import SerpAPIClient
             self._serpapi = SerpAPIClient()
@@ -476,23 +511,29 @@ class ProductDBService:
         else:
             self._rapidapi = None
 
-        if self._use_bestbuy:
-            from app.services.bestbuy_client import BestBuyClient
-            self._bestbuy = BestBuyClient()
+        if self._use_scraperapi:
+            from app.services.scraperapi_client import ScraperAPIClient
+            self._scraperapi = ScraperAPIClient()
         else:
-            self._bestbuy = None
+            self._scraperapi = None
 
-        if self._use_walmart:
-            from app.services.walmart_client import WalmartClient
-            self._walmart = WalmartClient()
+        if self._use_rainforest:
+            from app.services.rainforest_client import RainforestClient
+            self._rainforest = RainforestClient()
         else:
-            self._walmart = None
+            self._rainforest = None
 
-        if self._use_etsy:
-            from app.services.etsy_client import EtsyClient
-            self._etsy = EtsyClient()
+        if self._use_asos:
+            from app.services.asos_client import AsosClient
+            self._asos = AsosClient()
         else:
-            self._etsy = None
+            self._asos = None
+
+        if self._use_homedepot:
+            from app.services.homedepot_client import HomeDepotClient
+            self._homedepot = HomeDepotClient()
+        else:
+            self._homedepot = None
 
         if self._use_openfoodfacts:
             from app.services.openfoodfacts_client import OpenFoodFactsClient
@@ -508,14 +549,7 @@ class ProductDBService:
             self._load_sample_products(data_file)
 
     def _any_api_active(self) -> bool:
-        return (
-            self._use_serpapi
-            or self._use_rapidapi
-            or self._use_bestbuy
-            or self._use_walmart
-            or self._use_etsy
-            or self._use_openfoodfacts
-        )
+        return any(self._source_available.values())
 
     # ── Fallback: local sample data ──────────────────────────────────────────
 
@@ -550,11 +584,7 @@ class ProductDBService:
         limit: int,
         filters: Optional[Dict[str, Any]],
     ) -> List[Product]:
-        """Fetch and map products from a single source with per-source caching.
-
-        Returns an empty list on any error so a failing source never blocks
-        the rest of the parallel gather.
-        """
+        """Fetch and map products from a single source with per-source caching."""
         cache_key = f"{query}|{filters}"
         source_cache = self._source_search_cache.get(source_name, {})
         entry = source_cache.get(cache_key)
@@ -565,9 +595,10 @@ class ProductDBService:
         client_map = {
             "serpapi": self._serpapi,
             "rapidapi": self._rapidapi,
-            "bestbuy": self._bestbuy,
-            "walmart": self._walmart,
-            "etsy": self._etsy,
+            "scraperapi": self._scraperapi,
+            "rainforest": self._rainforest,
+            "asos": self._asos,
+            "homedepot": self._homedepot,
             "openfoodfacts": self._openfoodfacts,
         }
         client = client_map[source_name]
@@ -607,24 +638,31 @@ class ProductDBService:
                 self._cache_product(product)
                 return product
 
-        if self._use_bestbuy:
-            item = await self._bestbuy.get_product(product_id)
+        if self._use_scraperapi:
+            item = await self._scraperapi.get_product(product_id)
             if item:
-                product = _map_bestbuy_product(item)
+                product = _map_scraperapi_product(item)
                 self._cache_product(product)
                 return product
 
-        if self._use_walmart:
-            item = await self._walmart.get_product(product_id)
+        if self._use_rainforest:
+            item = await self._rainforest.get_product(product_id)
             if item:
-                product = _map_walmart_product(item)
+                product = _map_rainforest_product(item)
                 self._cache_product(product)
                 return product
 
-        if self._use_etsy:
-            item = await self._etsy.get_product(product_id)
+        if self._use_asos:
+            item = await self._asos.get_product(product_id)
             if item:
-                product = _map_etsy_listing(item)
+                product = _map_asos_product(item)
+                self._cache_product(product)
+                return product
+
+        if self._use_homedepot:
+            item = await self._homedepot.get_product(product_id)
+            if item:
+                product = _map_homedepot_product(item)
                 self._cache_product(product)
                 return product
 
@@ -641,59 +679,41 @@ class ProductDBService:
         self,
         query: str,
         filters: Optional[Dict[str, Any]] = None,
+        category_hint: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
-        # ── 1. Merged cache check ─────────────────────────────────────────────
-        cache_key = f"{query}|{filters}"
+        cache_key = f"{query}|{filters}|{category_hint}"
         entry = self._merged_search_cache.get(cache_key)
         if entry and time.time() < entry[1]:
             return entry[0]
 
-        # ── 2. Sample-data fast path ──────────────────────────────────────────
         if not self._any_api_active():
             return self._keyword_search_sample(query, filters)
 
-        # ── 3. Build active source list ───────────────────────────────────────
-        intent = classify_search_intent(query)
-        tier2_source: str = intent["tier2"]
+        intent = classify_search_intent(query, category_hint=category_hint)
+        routed_sources: List[str] = intent["sources"]
+        log.info(
+            "Category routing: category=%s, routed_sources=%s",
+            intent["category"], routed_sources,
+        )
 
-        # Tier-1: general APIs, always included when configured
-        active_sources: List[str] = []
-        if self._use_serpapi:
-            active_sources.append("serpapi")
-        if self._use_rapidapi:
-            active_sources.append("rapidapi")
-
-        # Tier-2: specialist API selected by intent, added if configured
-        tier2_flags = {
-            "bestbuy": self._use_bestbuy,
-            "walmart": self._use_walmart,
-            "etsy": self._use_etsy,
-            "openfoodfacts": self._use_openfoodfacts,
-        }
-        if tier2_flags.get(tier2_source) and tier2_source not in active_sources:
-            active_sources.append(tier2_source)
-
-        # If no Tier-1 keys are set, fall back to whichever sources are active
-        if not active_sources:
-            for src, flag in tier2_flags.items():
-                if flag:
-                    active_sources.append(src)
+        # Filter to only sources that are actually configured
+        active_sources: List[str] = [
+            src for src in routed_sources
+            if self._source_available.get(src, False)
+        ]
 
         if not active_sources:
             return self._keyword_search_sample(query, filters)
 
-        # ── 4. Per-source fetch limit ─────────────────────────────────────────
         total_limit = getattr(settings, "PARALLEL_SEARCH_LIMIT", 10)
         per_source_limit = max(10, ceil(total_limit / max(len(active_sources), 1)))
 
-        # ── 5. Parallel fetch ─────────────────────────────────────────────────
         coroutines = [
             self._fetch_from_source(src, query, per_source_limit, filters)
             for src in active_sources
         ]
         raw_results = await asyncio.gather(*coroutines, return_exceptions=True)
 
-        # ── 6. Collect successful results ─────────────────────────────────────
         raw_lists: Dict[str, List[Product]] = {}
         for src, result in zip(active_sources, raw_results):
             if isinstance(result, BaseException):
@@ -701,16 +721,13 @@ class ProductDBService:
             else:
                 raw_lists[src] = result
 
-        # ── 7. Aggregate, deduplicate, rank ───────────────────────────────────
         if raw_lists:
             merged_products = aggregate(raw_lists)
             results = [p.dict() for p in merged_products]
         else:
-            # All sources failed — fall back to sample data
             log.warning("All API sources failed for query '%s'; falling back to sample data", query)
             return self._keyword_search_sample(query, filters)
 
-        # ── 8. Store in merged cache and return ───────────────────────────────
         self._merged_search_cache[cache_key] = (results, time.time() + _SEARCH_CACHE_TTL)
         return results
 
@@ -723,16 +740,12 @@ class ProductDBService:
         if entry and time.time() < entry[1]:
             return [Product(**d) for d in entry[0]]
 
-        # Activate all configured sources for category browsing (no intent routing)
+        # Use category name as a hint for routing
+        intent = classify_search_intent(category, category_hint=category)
+        routed_sources: List[str] = intent["sources"]
         active_sources: List[str] = [
-            src for src, flag in {
-                "serpapi": self._use_serpapi,
-                "rapidapi": self._use_rapidapi,
-                "bestbuy": self._use_bestbuy,
-                "walmart": self._use_walmart,
-                "etsy": self._use_etsy,
-                "openfoodfacts": self._use_openfoodfacts,
-            }.items() if flag
+            src for src in routed_sources
+            if self._source_available.get(src, False)
         ]
 
         per_source_limit = max(limit, ceil(limit / max(len(active_sources), 1)))
@@ -754,7 +767,6 @@ class ProductDBService:
             return self._sample_by_category(category, limit)
 
         products = aggregate(raw_lists)
-
         self._merged_search_cache[cache_key] = (
             [p.dict() for p in products],
             time.time() + _SEARCH_CACHE_TTL,

@@ -113,6 +113,7 @@ class ChatRequest(BaseModel):
     user_id: str
     session_id: str
     message: str
+    category: Optional[str] = None
 
 
 class ChatResponse(BaseModel):

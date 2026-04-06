@@ -29,17 +29,18 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("SERPAPI_KEY", "SERP_API_KEY", "SERPAPI_API_KEY"),
     )
 
-    # Best Buy Products API (https://developer.bestbuy.com)
-    BEST_BUY_API_KEY: str = ""
+    # Rainforest API — Amazon product data (https://www.rainforestapi.com)
+    RAINFOREST_API_KEY: str = ""
 
-    # Walmart Affiliate API (https://walmart.io)
-    WALMART_API_KEY: str = ""
-
-    # Etsy Open API v3 (https://www.etsy.com/developers)
-    ETSY_API_KEY: str = ""
+    # ScraperAPI — Amazon structured data (https://www.scraperapi.com)
+    SCRAPERAPI_KEY: str = ""
 
     # Open Food Facts — no key required, opt-in via this flag
     OPENFOODFACTS_ENABLED: bool = False
+
+    # Category-specific APIs (both use RAPIDAPI_KEY — no new keys needed)
+    ASOS_ENABLED: bool = False          # Fashion: ASOS via RapidAPI
+    HOMEDEPOT_ENABLED: bool = False     # Home: Home Depot via RapidAPI
 
     # Stripe (sandbox)
     STRIPE_SECRET_KEY: str = ""

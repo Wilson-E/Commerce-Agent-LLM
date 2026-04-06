@@ -96,22 +96,25 @@ async def health():
 
 
 @app.get("/api/search-test")
-async def search_test(q: str = "Nike shoes"):
+async def search_test(q: str = "Nike shoes", category: str = None):
     """Test endpoint — runs a live search through whichever API is active and
     returns the raw results so you can confirm the integration is working."""
+    from app.services.search_intent import classify_search_intent
+    intent = classify_search_intent(q, category_hint=category)
+
     sources = {
         "serpapi": bool(product_db and product_db._use_serpapi),
         "rapidapi": bool(product_db and product_db._use_rapidapi),
-        "bestbuy": bool(product_db and product_db._use_bestbuy),
-        "walmart": bool(product_db and product_db._use_walmart),
-        "etsy": bool(product_db and product_db._use_etsy),
+        "scraperapi": bool(product_db and product_db._use_scraperapi),
+        "rainforest": bool(product_db and product_db._use_rainforest),
+        "asos": bool(product_db and product_db._use_asos),
+        "homedepot": bool(product_db and product_db._use_homedepot),
         "openfoodfacts": bool(product_db and product_db._use_openfoodfacts),
     }
-    active_sources = [k for k, v in sources.items() if v] or ["sample_data"]
 
-    results = await product_db.search(q)
+    results = await product_db.search(q, category_hint=category)
     return {
-        "active_sources": active_sources,
+        "category_routing": intent,
         "sources_configured": sources,
         "query": q,
         "result_count": len(results),
@@ -132,6 +135,7 @@ async def chat(request: ChatRequest):
         user_id=request.user_id,
         session_id=request.session_id,
         message=request.message,
+        category=request.category,
     ):
         if chunk["type"] == "text":
             text += chunk["content"]
@@ -152,18 +156,21 @@ async def websocket_chat(websocket: WebSocket, user_id: str, session_id: str):
         while True:
             raw = await websocket.receive_text()
 
-            # The frontend may send JSON like {"type":"message","content":"..."}
+            # The frontend may send JSON like {"type":"message","content":"...","category":"tech"}
             # or plain text.  Extract the actual user message either way.
+            category = None
             try:
                 payload = json.loads(raw)
                 message = payload.get("content", payload.get("message", raw))
+                category = payload.get("category")
             except (json.JSONDecodeError, TypeError):
                 message = raw
 
-            log.info("WS message from %s: %s", user_id, message[:120])
+            log.info("WS message from %s (cat=%s): %s", user_id, category, message[:120])
 
             async for chunk in orchestrator.process_message(
-                user_id=user_id, session_id=session_id, message=message
+                user_id=user_id, session_id=session_id, message=message,
+                category=category,
             ):
                 await websocket.send_json(chunk)
     except WebSocketDisconnect:

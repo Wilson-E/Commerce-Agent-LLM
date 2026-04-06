@@ -26,13 +26,16 @@ class ToolExecutor:
             "browse_category": self._browse_category,
         }
 
-    async def run(self, tool_name: str, args: Dict[str, Any], user_id: str = "default") -> str:
+    async def run(
+        self, tool_name: str, args: Dict[str, Any],
+        user_id: str = "default", category: Optional[str] = None,
+    ) -> str:
         """Execute a tool call and return JSON string result."""
         handler = self._dispatch.get(tool_name)
         if not handler:
             return json.dumps({"error": f"Unknown tool: {tool_name}"})
         try:
-            result = await handler(args, user_id)
+            result = await handler(args, user_id, category=category)
             serialized = json.dumps(result, default=str)
             if len(serialized) > 6000:
                 # Truncate product lists to fit context window
@@ -45,7 +48,7 @@ class ToolExecutor:
             log.error("Tool %s failed: %s", tool_name, exc)
             return json.dumps({"error": str(exc)})
 
-    async def _search_products(self, args: Dict, user_id: str) -> Any:
+    async def _search_products(self, args: Dict, user_id: str, category: Optional[str] = None, **kwargs) -> Any:
         """
         Hybrid search: semantic (vector) + keyword via RRF, then preference re-rank.
 
@@ -72,9 +75,10 @@ class ToolExecutor:
             query=query, top_k=12, filters=filters if filters else None
         )
 
-        # Keyword search
+        # Keyword search (category-aware routing)
         keyword_results = await self.product_db.search(
-            query=query, filters=filters if filters else None
+            query=query, filters=filters if filters else None,
+            category_hint=category,
         )
 
         # Reciprocal Rank Fusion
@@ -101,13 +105,13 @@ class ToolExecutor:
 
         return {"products": enriched, "count": len(enriched)}
 
-    async def _get_product_details(self, args: Dict, user_id: str) -> Any:
+    async def _get_product_details(self, args: Dict, user_id: str, **kwargs) -> Any:
         product = await self.product_db.get_product(args.get("product_id", ""))
         if not product:
             return {"error": "Product not found"}
         return product.dict()
 
-    async def _add_to_cart(self, args: Dict, user_id: str) -> Any:
+    async def _add_to_cart(self, args: Dict, user_id: str, **kwargs) -> Any:
         product_id = args.get("product_id", "")
         quantity = args.get("quantity", 1)
 
@@ -129,7 +133,7 @@ class ToolExecutor:
             "cart_total": total,
         }
 
-    async def _get_cart(self, args: Dict, user_id: str) -> Any:
+    async def _get_cart(self, args: Dict, user_id: str, **kwargs) -> Any:
         cart = await self.user_db.get_cart(user_id)
         if not cart:
             return {"items": [], "total": 0, "message": "Cart is empty"}
@@ -149,16 +153,16 @@ class ToolExecutor:
         total = sum(i["line_total"] for i in items)
         return {"items": items, "total": round(total, 2)}
 
-    async def _get_order_status(self, args: Dict, user_id: str) -> Any:
+    async def _get_order_status(self, args: Dict, user_id: str, **kwargs) -> Any:
         order = await self.user_db.get_order_status(args.get("order_id", ""))
         if not order:
             return {"error": "Order not found"}
         return order.dict()
 
-    async def _browse_category(self, args: Dict, user_id: str) -> Any:
-        category = args.get("category", "")
+    async def _browse_category(self, args: Dict, user_id: str, category: Optional[str] = None, **kwargs) -> Any:
+        browse_cat = args.get("category", "")
         limit = args.get("limit", 6)
-        products = await self.product_db.get_by_category(category, limit)
+        products = await self.product_db.get_by_category(browse_cat, limit)
         return {"products": [p.dict() for p in products], "count": len(products)}
 
     async def get_cart_summary(self, user_id: str) -> CartSummary:
