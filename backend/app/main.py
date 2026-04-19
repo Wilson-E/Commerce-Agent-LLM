@@ -4,9 +4,9 @@ import json
 import logging
 import time
 import uuid
-from collections import defaultdict
+from collections import defaultdict, deque
 from contextlib import asynccontextmanager
-from typing import Dict, Set
+from typing import Any, Deque, Dict, Set, Tuple
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -157,6 +157,36 @@ def _idem_check_and_set(key: str) -> bool:
         return False
     _idem_seen[key] = now
     return True
+
+
+# ── Rate limit for /api/checkout/create-session (per sub) ────────
+# Session creation hits the Stripe API — cap it so an abusive client
+# can't exhaust our API budget or spam Stripe on our behalf.
+_CHECKOUT_MAX = 5
+_CHECKOUT_WINDOW = 60
+_checkout_buckets: Dict[str, Deque[float]] = {}
+
+
+def _checkout_rate_limit(sub: str) -> Tuple[bool, int]:
+    now = time.monotonic()
+    bucket = _checkout_buckets.setdefault(sub, deque())
+    while bucket and now - bucket[0] > _CHECKOUT_WINDOW:
+        bucket.popleft()
+    if len(bucket) >= _CHECKOUT_MAX:
+        retry = int(_CHECKOUT_WINDOW - (now - bucket[0])) + 1
+        return False, max(1, retry)
+    bucket.append(now)
+    return True, 0
+
+
+# ── Webhook concurrency guard ────────────────────────────────────
+# Stripe can send the same event_id to multiple webhook attempts. The
+# user_db.is_stripe_event_processed check + mark_stripe_event_processed
+# set is the persistent gate; this in-flight set closes the small window
+# where two concurrent deliveries both pass the persistent check before
+# either finishes writing the "processed" marker.
+_webhook_inflight: Set[str] = set()
+_webhook_lock = asyncio.Lock()
 
 
 # ──────────────────────────── Health ────────────────────────────
@@ -534,29 +564,85 @@ async def merge_guest_cart(req: CartMergeRequest, payload: dict = Depends(curren
 
 @app.post("/api/checkout/create-session", response_model=CheckoutResponse)
 async def create_checkout_session(req: CheckoutRequest, payload: dict = Depends(current_user)):
-    """Create a Stripe Checkout Session for the user's cart."""
+    """Create a Stripe Checkout Session for the user's cart.
+
+    Security contract:
+      * Prices are read from our product DB via get_cart_summary — never from
+        the client payload, so the user cannot rewrite amounts.
+      * The cart is *frozen* into a persisted order BEFORE the Stripe call.
+        The webhook fulfills from that snapshot, so mutations to the live
+        cart between redirect and payment can't alter what we ship.
+      * A per-order Stripe idempotency key prevents duplicate Sessions if
+        the client retries.
+      * Rate-limited per authenticated user.
+    """
     if not executor:
         raise HTTPException(503, "Service not ready")
 
     uid = payload["sub"]
+
+    allowed, retry_after = _checkout_rate_limit(uid)
+    if not allowed:
+        log.warning("checkout_rate_limited user=%s retry_after=%ds", uid, retry_after)
+        raise HTTPException(
+            status_code=429,
+            detail=f"Too many checkout attempts. Retry in {retry_after}s.",
+            headers={"Retry-After": str(retry_after)},
+        )
+
     summary = await executor.get_cart_summary(uid)
     if not summary.items:
         raise HTTPException(400, "Cart is empty")
 
     if not settings.STRIPE_SECRET_KEY:
-        # Return the summary without a Stripe URL for demo purposes
         return CheckoutResponse(
             order_summary=summary,
             error="Stripe not configured — set STRIPE_SECRET_KEY in .env",
         )
 
+    order_id = f"ord_{uuid.uuid4().hex}"
+    merchant_snapshot: Dict[str, Dict[str, Any]] = {}
+    for item in summary.items:
+        mid = item.merchant_id
+        bucket = merchant_snapshot.setdefault(mid, {
+            "merchant_id": mid,
+            "merchant_name": item.merchant_name,
+            "items": [],
+            "subtotal": 0.0,
+        })
+        bucket["items"].append({
+            "product_id": item.product_id,
+            "name": item.name,
+            "quantity": item.quantity,
+            "price": item.price,
+            "size": item.selected_size,
+            "color": item.selected_color,
+            "line_total": item.line_total,
+        })
+        bucket["subtotal"] += item.line_total
+
+    await user_db.create_checkout_order(order_id, uid, {
+        "items": [item.dict() for item in summary.items],
+        "merchants": merchant_snapshot,
+        "shipping": {
+            "name": req.shipping_name,
+            "address": req.shipping_address,
+            "city": req.shipping_city,
+            "state": req.shipping_state,
+            "zip": req.shipping_zip,
+        },
+        "subtotal": summary.subtotal,
+        "tax": summary.tax,
+        "total": summary.total,
+        "currency": "usd",
+    })
+
     try:
         import stripe
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
-        line_items = []
-        for item in summary.items:
-            line_items.append({
+        line_items = [
+            {
                 "price_data": {
                     "currency": "usd",
                     "product_data": {
@@ -566,35 +652,21 @@ async def create_checkout_session(req: CheckoutRequest, payload: dict = Depends(
                             "product_id": item.product_id,
                         },
                     },
-                    "unit_amount": int(item.price * 100),
+                    "unit_amount": int(round(item.price * 100)),
                 },
                 "quantity": item.quantity,
-            })
+            }
+            for item in summary.items
+        ]
 
-        # Add tax as a line item
         if summary.tax > 0:
             line_items.append({
                 "price_data": {
                     "currency": "usd",
                     "product_data": {"name": "Sales Tax"},
-                    "unit_amount": int(summary.tax * 100),
+                    "unit_amount": int(round(summary.tax * 100)),
                 },
                 "quantity": 1,
-            })
-
-        # Build per-merchant order payload (to be dispatched after payment)
-        merchant_orders = {}
-        for item in summary.items:
-            mid = item.merchant_id
-            if mid not in merchant_orders:
-                merchant_orders[mid] = {"merchant": item.merchant_name, "items": []}
-            merchant_orders[mid]["items"].append({
-                "product_id": item.product_id,
-                "name": item.name,
-                "quantity": item.quantity,
-                "price": item.price,
-                "size": item.selected_size,
-                "color": item.selected_color,
             })
 
         session = stripe.checkout.Session.create(
@@ -603,15 +675,18 @@ async def create_checkout_session(req: CheckoutRequest, payload: dict = Depends(
             mode="payment",
             success_url=f"{settings.canonical_frontend_url}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{settings.canonical_frontend_url}/checkout/cancel",
-            metadata={
-                "user_id": uid,
-                "shipping_name": req.shipping_name,
-                "shipping_address": req.shipping_address,
-                "shipping_city": req.shipping_city,
-                "shipping_state": req.shipping_state,
-                "shipping_zip": req.shipping_zip,
-                "merchants": ",".join(merchant_orders.keys()),
-            },
+            metadata={"order_id": order_id, "user_id": uid},
+            idempotency_key=f"checkout-session:{order_id}",
+        )
+
+        await user_db.update_checkout_order(
+            order_id, "awaiting_payment",
+            stripe_session_id=session.id,
+        )
+
+        log.info(
+            "checkout_session_created order=%s user=%s session=%s total=$%.2f items=%d",
+            order_id, uid, session.id, summary.total, summary.item_count,
         )
 
         return CheckoutResponse(
@@ -621,16 +696,100 @@ async def create_checkout_session(req: CheckoutRequest, payload: dict = Depends(
         )
 
     except Exception as exc:
-        log.error("Stripe session creation failed: %s", exc)
+        await user_db.update_checkout_order(
+            order_id, "session_failed", error=str(exc)[:200],
+        )
+        log.error("checkout_session_failed order=%s user=%s error=%s", order_id, uid, exc)
         return CheckoutResponse(
             order_summary=summary,
             error="Checkout temporarily unavailable. Please try again.",
         )
 
 
+async def _claim_webhook_event(event_id: str) -> bool:
+    """Atomic check-and-reserve of an event_id. Returns True only for the
+    caller that should actually process the event."""
+    async with _webhook_lock:
+        if user_db.is_stripe_event_processed(event_id):
+            return False
+        if event_id in _webhook_inflight:
+            return False
+        _webhook_inflight.add(event_id)
+        return True
+
+
+async def _handle_checkout_completed(session: dict) -> None:
+    meta = session.get("metadata") or {}
+    order_id = meta.get("order_id")
+    uid = meta.get("user_id")
+    session_id = session.get("id")
+
+    if not order_id or not uid:
+        log.error(
+            "checkout_completed_missing_metadata session=%s order=%s user=%s",
+            session_id, order_id, uid,
+        )
+        return
+
+    order = await user_db.get_checkout_order(order_id)
+    if not order:
+        log.error("checkout_completed_unknown_order order=%s session=%s", order_id, session_id)
+        return
+
+    if order.get("user_id") != uid:
+        log.error(
+            "checkout_completed_user_mismatch order=%s order_user=%s meta_user=%s",
+            order_id, order.get("user_id"), uid,
+        )
+        return
+
+    transitioned = await user_db.mark_checkout_paid_if_pending(
+        order_id,
+        stripe_payment_intent=session.get("payment_intent"),
+        amount_paid_cents=session.get("amount_total"),
+    )
+    if not transitioned:
+        log.info("checkout_completed_already_finalized order=%s", order_id)
+        return
+
+    merchants = order.get("merchants") or {}
+    for mo in merchants.values():
+        log.info(
+            "order_dispatched order=%s merchant=%s items=%d subtotal=$%.2f",
+            order_id, mo.get("merchant_name"),
+            len(mo.get("items", [])), mo.get("subtotal", 0.0),
+        )
+
+    await user_db.clear_cart(uid)
+    log.info(
+        "payment_complete order=%s user=%s merchants=%d total=$%.2f",
+        order_id, uid, len(merchants), order.get("total", 0.0),
+    )
+
+
+async def _handle_checkout_failed(session: dict, event_type: str) -> None:
+    meta = session.get("metadata") or {}
+    order_id = meta.get("order_id")
+    if not order_id:
+        return
+    await user_db.update_checkout_order(
+        order_id, "failed", failure_reason=event_type,
+    )
+    log.warning("checkout_failed order=%s reason=%s", order_id, event_type)
+
+
 @app.post("/api/checkout/webhook")
 async def stripe_webhook(request: Request):
-    """Handle Stripe webhook events."""
+    """Handle Stripe webhook events.
+
+    Fulfillment happens ONLY in response to a verified webhook — never from
+    the success-redirect URL, which an attacker can forge.
+
+    Idempotency: every event is claimed once (in-flight lock + persistent
+    processed set). Retries with the same event_id are acknowledged but
+    not re-run. Handler exceptions leave the event unmarked so Stripe can
+    retry it on its normal schedule.
+    """
     if not settings.STRIPE_SECRET_KEY or not settings.STRIPE_WEBHOOK_SECRET:
         raise HTTPException(400, "Stripe not configured")
 
@@ -644,57 +803,53 @@ async def stripe_webhook(request: Request):
             payload, sig, settings.STRIPE_WEBHOOK_SECRET
         )
     except Exception:
+        log.warning("webhook_invalid_signature sig_present=%s", bool(sig))
         raise HTTPException(400, "Invalid webhook signature")
 
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        meta = session.get("metadata", {})
-        uid = meta.get("user_id")
-        if uid:
-            # Capture full order with merchant breakdown
-            cart_summary = await executor.get_cart_summary(uid)
-            merchant_dispatch = {}
-            for item in cart_summary.items:
-                mid = item.merchant_id
-                if mid not in merchant_dispatch:
-                    merchant_dispatch[mid] = {
-                        "merchant_name": item.merchant_name,
-                        "shipping": {
-                            "name": meta.get("shipping_name", ""),
-                            "address": meta.get("shipping_address", ""),
-                            "city": meta.get("shipping_city", ""),
-                            "state": meta.get("shipping_state", ""),
-                            "zip": meta.get("shipping_zip", ""),
-                        },
-                        "items": [],
-                        "subtotal": 0.0,
-                    }
-                merchant_dispatch[mid]["items"].append({
-                    "product_id": item.product_id,
-                    "name": item.name,
-                    "quantity": item.quantity,
-                    "price": item.price,
-                    "size": item.selected_size,
-                    "color": item.selected_color,
-                    "line_total": item.line_total,
-                })
-                merchant_dispatch[mid]["subtotal"] += item.line_total
+    event_id = event.get("id", "")
+    event_type = event.get("type", "")
 
-            # Log each merchant's order (in production, POST to merchant webhook/API)
-            for mid, order in merchant_dispatch.items():
-                log.info(
-                    "ORDER DISPATCH → merchant=%s customer=%s items=%d subtotal=$%.2f",
-                    order["merchant_name"],
-                    order["shipping"].get("name", "unknown"),
-                    len(order["items"]),
-                    order["subtotal"],
-                )
+    if not await _claim_webhook_event(event_id):
+        log.info("webhook_duplicate event=%s type=%s", event_id, event_type)
+        return {"received": True, "duplicate": True}
 
-            await user_db.clear_cart(uid)
-            log.info("Payment complete for user %s — %d merchant order(s) dispatched, cart cleared",
-                     uid, len(merchant_dispatch))
+    try:
+        if event_type == "checkout.session.completed":
+            await _handle_checkout_completed(event["data"]["object"])
+        elif event_type in ("checkout.session.expired",
+                            "checkout.session.async_payment_failed"):
+            await _handle_checkout_failed(event["data"]["object"], event_type)
+        elif event_type == "payment_intent.payment_failed":
+            intent = event["data"]["object"]
+            reason = (intent.get("last_payment_error") or {}).get("message", "unknown")
+            log.warning(
+                "payment_failed intent=%s reason=%s",
+                intent.get("id"), reason,
+            )
+        elif event_type == "charge.refunded":
+            charge = event["data"]["object"]
+            log.info(
+                "charge_refunded charge=%s amount_cents=%s",
+                charge.get("id"), charge.get("amount_refunded"),
+            )
+        elif event_type == "charge.dispute.created":
+            dispute = event["data"]["object"]
+            log.warning(
+                "dispute_created dispute=%s amount_cents=%s reason=%s",
+                dispute.get("id"), dispute.get("amount"), dispute.get("reason"),
+            )
+        else:
+            log.debug("webhook_unhandled event=%s type=%s", event_id, event_type)
 
-    return {"received": True}
+        user_db.mark_stripe_event_processed(event_id)
+        return {"received": True}
+
+    except Exception:
+        # Leave the event unmarked so Stripe retries on its normal schedule.
+        log.exception("webhook_handler_error event=%s type=%s", event_id, event_type)
+        raise HTTPException(500, "Webhook handler failed")
+    finally:
+        _webhook_inflight.discard(event_id)
 
 
 if __name__ == "__main__":
